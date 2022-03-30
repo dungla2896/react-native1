@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, StyleSheet, Text, TextInput, Alert, TouchableOpacity, Modal } from 'react-native';
-import IconPage from '../../../components/IconPage';
-import Icons from 'react-native-vector-icons/FontAwesome5';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { View, StyleSheet, Text, TextInput, TouchableOpacity, Modal } from 'react-native';
+import IconsFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const Birthday = () => {
     const [day, onChangeDay] = useState('');
@@ -112,10 +111,14 @@ const Birthday = () => {
                 </View>
             }
             <View style={{ height: '100%'}}>
-                <IconPage />
+                <TouchableOpacity>
+                    <View>
+                        <IconFontAwesome name='chevron-left' size={15} color='white' style={styles.iconPage} />
+                    </View>
+                </TouchableOpacity>
                 <View style={styles.header}>
                     <View style={styles.logo}>
-                        <Icons name='birthday-cake' size={28} color='#fff' />
+                        <IconsFontAwesome5 name='birthday-cake' size={20} color='#fff' />
                     </View>
                 </View>
                 <Text style={styles.title}>Quelle est votre date de naissance ?</Text>
@@ -162,7 +165,7 @@ const Birthday = () => {
                         onPress={onClickBirthday}
                     >
                         <View style={styles.btncheck}>
-                            <Icon name='check' size={18} color='#fff' />
+                            <IconFontAwesome name='check' size={18} color='#fff' />
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -170,7 +173,7 @@ const Birthday = () => {
             <Modal transparent visible={showModal} >
                 <View style={styles.modalBackground}>
                     <View style={styles.modalContainer}>
-                        <Icons name='birthday-cake' size={28} color='black' style={styles.icon} />
+                        <IconsFontAwesome5 name='birthday-cake' size={28} color='black' style={styles.icon} />
                         <Text style={styles.old}>{oldModal}</Text>
                         <Text style={styles.def}>Vous ne pourrez pas le modifier par la suite</Text>
                         <View style={styles.rowBtn}>
@@ -193,6 +196,11 @@ const Birthday = () => {
 }
 
 const styles = StyleSheet.create({
+    iconPage: {
+        width: '15%',
+        position: 'relative',
+        top: 15,
+    },
     message: {
         backgroundColor: 'red',
         width: '100%',
@@ -209,11 +217,14 @@ const styles = StyleSheet.create({
     header: {
         marginBottom: 50,
         alignItems: 'center',
+        zIndex: -1,
     },
     content: {
         marginTop: 30,
         height: '96%',
-        position: 'relative'
+        position: 'relative',
+        paddingLeft: 30,
+        paddingRight: 30,
     },
     logo: {
         backgroundColor: '#f97aec',

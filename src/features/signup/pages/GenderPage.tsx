@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import RadioButton from '../../../components/RadioButton';
 import IconPage from '../../../components/IconPage';
-import Icons from 'react-native-vector-icons/FontAwesome';
+import IconsFontAwesome from 'react-native-vector-icons/FontAwesome';
 import ButtonCheck from '../../../components/ButtonCheck';
 
 const GenderPage = () => {
@@ -10,10 +10,14 @@ const GenderPage = () => {
 
     return (
         <View style={styles.content}>
-            <IconPage />
+            <TouchableOpacity onPress={() => console.log('checkG')}>
+                <View>
+                    <IconsFontAwesome name='chevron-left' size={15} color='white' style={styles.iconPage} />
+                </View>
+            </TouchableOpacity>
             <View style={styles.header}>
                 <View style={styles.logo}>
-                    <Icons name='venus-mars' size={28} color='white' />
+                    <IconsFontAwesome name='venus-mars' size={20} color='white' />
                 </View>
             </View>
             <Text style={styles.title}>Vous êtes :</Text>
@@ -32,14 +36,22 @@ const GenderPage = () => {
 }
 
 const styles = StyleSheet.create({
+    iconPage: {
+        width: '15%',
+        position: 'relative',
+        top: 15,
+    },
     header: {
         marginBottom: 35,
         alignItems: 'center',
+        zIndex: -1,
     },
     content: {
         marginTop: 15,
         height: '96%',
-        position: 'relative'
+        position: 'relative',
+        paddingLeft: 30,
+        paddingRight: 30,
     },
     logo: {
         backgroundColor: '#f97aec',

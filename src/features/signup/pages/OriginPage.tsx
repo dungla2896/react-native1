@@ -1,45 +1,76 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, } from 'react-native';
-import RadioButton from '../../../components/RadioButton';
-import IconPage from '../../../components/IconPage';
-import Icons from 'react-native-vector-icons/Entypo';
-import ButtonCheck from '../../../components/ButtonCheck';
+import { View, StyleSheet, Text, TouchableOpacity, } from 'react-native';
+import IconEntypo from 'react-native-vector-icons/Entypo';
+import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const OriginPage = () => {
     const [select, setSelect] = useState(0);
 
     return (
         <View style={styles.content}>
-            <IconPage />
+            <View >
+                <TouchableOpacity style={styles.leftPage}>
+                    <IconFontAwesome name='chevron-left' size={15} color='white' style={styles.iconPage} />
+                </TouchableOpacity>
+            </View>
             <View style={styles.header}>
                 <View style={styles.logo}>
-                    <Icons name='map' size={28} color='white' />
+                    <IconEntypo name='map' size={20} color='white' />
                 </View>
             </View>
             <Text style={styles.title}>Quel est mon pays d'origine ?</Text>
-            <RadioButton 
-                option={[ 'Homme', 'Femme']} 
-                selected={select}
-                onChangeSelect={((opt: any, i:number) => {
-                    setSelect(i)
-                })}
-            />
+            <View>
+                <TouchableOpacity>
+                    <View style={styles.radios}>
+                        <Text style={styles.text}>Dungasd</Text>
+                        <View style={styles.outline}>
+                            <View style={styles.innerCircle} />
+                        </View>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <View style={styles.radios}>
+                        <Text style={styles.text}>Aungasd</Text>
+                        <View style={styles.outline}>
+                            
+                        </View>
+                    </View>
+                </TouchableOpacity>
+            </View>
             <View style={styles.check}>
-                <ButtonCheck />
+                <TouchableOpacity style={styles.checkView}>
+                    <View style={styles.btncheck}>
+                        <IconFontAwesome name='check' size={18} color='#fff' />
+                    </View>
+                </TouchableOpacity>
             </View>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
+    leftPage: {
+        height: 40,
+        width: '15%',
+        position: 'absolute',
+        top: 0,
+        zIndex: 10,
+    },
+    iconPage: {
+        width: '100%',
+        top: 15,
+    },
     header: {
         marginBottom: 35,
         alignItems: 'center',
+        zIndex: -1,
     },
     content: {
         marginTop: 15,
         height: '96%',
-        position: 'relative'
+        position: 'relative',
+        paddingLeft: 30,
+        paddingRight: 30,
     },
     logo: {
         backgroundColor: '#f97aec',
@@ -58,10 +89,53 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginBottom: 40,
     },
+    radios: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        width: '100%',
+        paddingBottom: 18,
+        marginTop: 15,
+        borderBottomWidth: 0.35,
+        borderBottomColor: '#fff',
+    },
+    outline: {
+        width: 22,
+        height: 22,
+        borderRadius: 15,
+        borderColor: '#fff',
+        borderWidth: 2.5,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    innerCircle: {
+        width: 10,
+        height: 10,
+        borderRadius: 5,
+        backgroundColor: '#fff',
+    },
+    text: {
+        color: '#fff',
+        fontWeight: '700',
+        fontSize: 15
+    },
     check: {
         flex: 1,
         justifyContent: 'flex-end',
         alignItems: 'center',
+    },
+    checkView: {
+        position: 'relative',
+        bottom: 0
+    },
+    btncheck: {
+        borderRadius: 50,
+        borderWidth: 1,
+        borderColor: '#fff',
+        width: 50,
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
     }
 })
 //'linear-gradient(45deg, #FF59F4 0%, #FF5978 100%)', backColor: '#FF5978' }, 

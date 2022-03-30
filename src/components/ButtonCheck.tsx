@@ -10,13 +10,7 @@ interface Props {
 const ButtonCheck: any = (props: Props) => {
     const { showModal, visible } = props;
     return (
-        <TouchableOpacity 
-            style={styles.check} 
-            onPress={() => {
-                showModal()
-                Alert.alert(`${visible}`)
-            }}
-        >
+        <TouchableOpacity style={styles.checkView}>
             <View style={styles.btncheck}>
                 <Icon name='check' size={18} color='#fff' />
             </View>
@@ -25,7 +19,7 @@ const ButtonCheck: any = (props: Props) => {
 }
 
 const styles = StyleSheet.create({
-    check: {
+    checkView: {
         position: 'relative',
         bottom: 0
     },
