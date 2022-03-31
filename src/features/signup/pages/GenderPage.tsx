@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import RadioButton from '../../../components/RadioButton';
-import IconPage from '../../../components/IconPage';
 import IconsFontAwesome from 'react-native-vector-icons/FontAwesome';
+import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import ButtonCheck from '../../../components/ButtonCheck';
 
-const GenderPage = () => {
+const GenderPage = (props: any) => {
     const [select, setSelect] = useState(0);
+
+    const { navigation, route } = props;
+
+    //const { navigate, goBack } = navigation;
 
     return (
         <View style={styles.content}>
@@ -29,6 +33,14 @@ const GenderPage = () => {
                 })}
             />
             <View style={styles.check}>
+                {/* <TouchableOpacity 
+                    style={styles.checkbtn} 
+                    onPress={() => navigate('Birthday')}
+                >
+                    <View style={styles.btncheck}>
+                        <IconFontAwesome name='check' size={18} color='#fff' />
+                    </View>
+                </TouchableOpacity> */}
                 <ButtonCheck />
             </View>
         </View>
@@ -74,7 +86,20 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-end',
         alignItems: 'center',
-    }
+    },
+    checkbtn: {
+        position: 'relative',
+        bottom: 0
+    },
+    btncheck: {
+        borderRadius: 50,
+        borderWidth: 1,
+        borderColor: '#fff',
+        width: 50,
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 })
 //'linear-gradient(45deg, #FF59F4 0%, #FF5978 100%)', backColor: '#FF5978' }, 
 export default GenderPage;

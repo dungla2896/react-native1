@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, TextInput, TouchableOpacity, Modal } from 'reac
 import IconsFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 
-const Birthday = () => {
+const Birthday = (props: any) => {
     const [day, onChangeDay] = useState('');
     const [month, onChangeMonth] = useState('');
     const [year, onChangeYaer] = useState('');
@@ -103,6 +103,10 @@ const Birthday = () => {
         }
     }
 
+    const { navigation, route } = props;
+
+    const { navigate, goBack } = navigation;
+
     return (
         <View style={styles.content}>
             {
@@ -182,7 +186,7 @@ const Birthday = () => {
                                     <Text style={styles.btn1}>ANNULER</Text>
                                 </View>
                             </TouchableOpacity>
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={() => navigate('OriginPage')}>
                                 <View style={styles.btnConfirmer}>
                                     <Text style={styles.btn2}>CONFIRMER</Text>
                                 </View>

@@ -14,10 +14,14 @@ import BgImage from '../../../assets/intro-home.jpeg';
 import Logo from '../../../assets/logo-large.png';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 
-const LoginPage = () => {
+const LoginPage = (props: any) => {
     const [showModal, setShowModal] = useState(false);
     const [showMessage, setShowMessage] = useState(false);
-    const [showPass, setShowPass] = useState(true)
+    const [showPass, setShowPass] = useState(true);
+
+    const { navigation, route } = props;
+
+    const { navigate, goBack } = navigation;
 
     return (
         <View style={styles.body}>
@@ -32,7 +36,7 @@ const LoginPage = () => {
                             <TouchableOpacity style={styles.btnConnecter} onPress={() => setShowModal(!showModal)}>
                                 <Text style={styles.btnText}>SE CONNECTER</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.btnInscription}>
+                            <TouchableOpacity style={styles.btnInscription} onPress={() => navigate('GenderPage')}>
                                 <Text style={styles.btnText}>INSCRIPTION GRATUITE</Text>
                                 <Text style={styles.btnText}>EN 1MIN</Text>
                             </TouchableOpacity>
@@ -78,7 +82,10 @@ const LoginPage = () => {
                                     <Text style={styles.titleHelp}>Nous contacter ou Aide</Text>
                                 </View>
                             </View>
-                            <TouchableOpacity style={styles.btnSubmit}>
+                            <TouchableOpacity style={styles.btnSubmit} onPress={() => {
+                                navigate('Home');
+                                setShowModal(!showModal)
+                            }}>
                                 <Text style={styles.textBtn}>ME CONNECTER</Text>
                             </TouchableOpacity>
                             <View style={styles.signUp}>
