@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, StyleSheet, Text, TextInput, TouchableOpacity, Modal } from 'react-native';
+import { View, StyleSheet, Text, TextInput, TouchableOpacity, Modal, SafeAreaView } from 'react-native';
 import IconsFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
+import LinearGradient from 'react-native-linear-gradient';
 
 const Birthday = (props: any) => {
     const [day, onChangeDay] = useState('');
@@ -14,6 +15,8 @@ const Birthday = (props: any) => {
 
     const monthRef = useRef<any>();
     const yearRef = useRef<any>();
+
+    const backgroundColor = ['#FF59F4', '#FF5978'];
 
     const onChangeValDay = (e: string) => {
         if(Number(e) > 31) {
@@ -103,103 +106,114 @@ const Birthday = (props: any) => {
         }
     }
 
-    const { navigation, route } = props;
-
-    const { navigate, goBack } = navigation;
+    const { navigation } = props;
+    const { push, goBack } = navigation;
 
     return (
-        <View style={styles.content}>
-            {
-                showError && <View style={styles.message}>
-                    <Text style={styles.textMessage}>{messageError}</Text>
-                </View>
-            }
-            <View style={{ height: '100%'}}>
-                <TouchableOpacity>
-                    <View>
-                        <IconFontAwesome name='chevron-left' size={15} color='white' style={styles.iconPage} />
-                    </View>
-                </TouchableOpacity>
-                <View style={styles.header}>
-                    <View style={styles.logo}>
-                        <IconsFontAwesome5 name='birthday-cake' size={20} color='#fff' />
-                    </View>
-                </View>
-                <Text style={styles.title}>Quelle est votre date de naissance ?</Text>
-                <View style={styles.birthday}>
-                    <TextInput 
-                        style={styles.input}
-                        autoFocus={true}
-                        onChangeText={onChangeValDay}
-                        value={day}
-                        placeholder="JJ"
-                        placeholderTextColor={'#ccc'}
-                        maxLength={2}
-                        keyboardType="numeric"
-                    />
-                    <Text style={styles.socj}>/</Text>
-                    <TextInput 
-                        style={styles.input}
-                        ref={monthRef}
-                        onChangeText={onChangeValMonth}
-                        value={month}
-                        placeholder="MM"
-                        placeholderTextColor={'#ccc'}
-                        maxLength={2}
-                        keyboardType="numeric"
-                    />
-                    <Text style={styles.socj}>/</Text>
-                    <TextInput 
-                        style={styles.inputYear}
-                        ref={yearRef}
-                        onChangeText={(val) => onChangeYaer(val)}
-                        value={year}
-                        placeholder="AAAA"
-                        placeholderTextColor={'#ccc'}
-                        maxLength={4}
-                        keyboardType="numeric"
-                    />
-                </View>
+        <LinearGradient colors={backgroundColor} style={styles.body} >
+            <SafeAreaView>
                 {
-                    birthdays.length === 10 ? <Text style={styles.messageOld}>{old}</Text> : <Text></Text> 
+                    showError && <View style={styles.message}>
+                        <Text style={styles.textMessage}>{messageError}</Text>
+                    </View>
                 }
-                <View style={styles.check}>
-                    <TouchableOpacity 
-                        style={styles.checkbtn} 
-                        onPress={onClickBirthday}
-                    >
-                        <View style={styles.btncheck}>
-                            <IconFontAwesome name='check' size={18} color='#fff' />
+                <View style={styles.content}>
+                <View style={{ height: '100%'}}>
+                    <TouchableOpacity onPress={() => goBack()}>
+                        <View>
+                            <IconFontAwesome name='chevron-left' size={15} color='white' style={styles.iconPage} />
                         </View>
                     </TouchableOpacity>
-                </View>
-            </View>
-            <Modal transparent visible={showModal} >
-                <View style={styles.modalBackground}>
-                    <View style={styles.modalContainer}>
-                        <IconsFontAwesome5 name='birthday-cake' size={28} color='black' style={styles.icon} />
-                        <Text style={styles.old}>{oldModal}</Text>
-                        <Text style={styles.def}>Vous ne pourrez pas le modifier par la suite</Text>
-                        <View style={styles.rowBtn}>
-                            <TouchableOpacity onPress={() => setShowModal(false)}>
-                                <View style={styles.btnAnnuler}>
-                                    <Text style={styles.btn1}>ANNULER</Text>
-                                </View>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => navigate('OriginPage')}>
-                                <View style={styles.btnConfirmer}>
-                                    <Text style={styles.btn2}>CONFIRMER</Text>
-                                </View>
-                            </TouchableOpacity>
+                    <View style={styles.header}>
+                        <View style={styles.logo}>
+                            <IconsFontAwesome5 name='birthday-cake' size={20} color='#fff' />
                         </View>
                     </View>
+                    <Text style={styles.title}>Quelle est votre date de naissance ?</Text>
+                    <View style={styles.birthday}>
+                        <TextInput 
+                            style={styles.input}
+                            autoFocus={true}
+                            onChangeText={onChangeValDay}
+                            value={day}
+                            placeholder="JJ"
+                            placeholderTextColor={'#ccc'}
+                            maxLength={2}
+                            keyboardType="numeric"
+                        />
+                        <Text style={styles.socj}>/</Text>
+                        <TextInput 
+                            style={styles.input}
+                            ref={monthRef}
+                            onChangeText={onChangeValMonth}
+                            value={month}
+                            placeholder="MM"
+                            placeholderTextColor={'#ccc'}
+                            maxLength={2}
+                            keyboardType="numeric"
+                        />
+                        <Text style={styles.socj}>/</Text>
+                        <TextInput 
+                            style={styles.inputYear}
+                            ref={yearRef}
+                            onChangeText={(val) => onChangeYaer(val)}
+                            value={year}
+                            placeholder="AAAA"
+                            placeholderTextColor={'#ccc'}
+                            maxLength={4}
+                            keyboardType="numeric"
+                        />
+                    </View>
+                    {
+                        birthdays.length === 10 ? <Text style={styles.messageOld}>{old}</Text> : <Text></Text> 
+                    }
+                    <View style={styles.check}>
+                        <TouchableOpacity 
+                            style={styles.checkbtn} 
+                            onPress={onClickBirthday}
+                        >
+                            <View style={styles.btncheck}>
+                                <IconFontAwesome name='check' size={18} color='#fff' />
+                            </View>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            </Modal>
-        </View>
+                <Modal transparent visible={showModal} >
+                    <View style={styles.modalBackground}>
+                        <View style={styles.modalContainer}>
+                            <IconsFontAwesome5 name='birthday-cake' size={28} color='black' style={styles.icon} />
+                            <Text style={styles.old}>{oldModal}</Text>
+                            <Text style={styles.def}>Vous ne pourrez pas le modifier par la suite</Text>
+                            <View style={styles.rowBtn}>
+                                <TouchableOpacity onPress={() => setShowModal(false)}>
+                                    <View style={styles.btnAnnuler}>
+                                        <Text style={styles.btn1}>ANNULER</Text>
+                                    </View>
+                                </TouchableOpacity>
+                                <TouchableOpacity 
+                                    onPress={() => {
+                                        push('OriginPage');
+                                        setShowModal(false);
+                                    }}
+                                >
+                                    <View style={styles.btnConfirmer}>
+                                        <Text style={styles.btn2}>CONFIRMER</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
+                </View>
+            </SafeAreaView>
+        </LinearGradient>
     )
 }
 
 const styles = StyleSheet.create({
+    body: {
+        flex: 1
+    },
     iconPage: {
         width: '15%',
         position: 'relative',
@@ -208,15 +222,18 @@ const styles = StyleSheet.create({
     message: {
         backgroundColor: 'red',
         width: '100%',
-        height: 50,
-        justifyContent: 'center',
+        height: 100,
+        justifyContent: 'flex-end',
         alignItems: 'center',
         position: 'absolute',
-        top: -20,
+        top: 0,
         zIndex: 99,
     },
     textMessage: {
         color: '#fff',
+        fontSize: 16,
+        fontWeight: '600',
+        marginBottom: 22
     },
     header: {
         marginBottom: 50,

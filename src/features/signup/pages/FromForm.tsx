@@ -1,43 +1,63 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, TextInput, } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, SafeAreaView, } from 'react-native';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconsFeather from 'react-native-vector-icons/Feather';
+import LinearGradient from 'react-native-linear-gradient';
 
-const FromPage = () => {
+const FromPage = (props: any) => {
+    const backgroundColor = ['#FF59F4', '#FF5978'];
+    const { navigation } = props;
+    const { push, goBack } = navigation;
 
     return (
-        <View style={styles.content}>
-            <View >
-                <TouchableOpacity style={styles.leftPage}>
-                    <IconFontAwesome name='chevron-left' size={15} color='white' style={styles.iconPage} />
-                </TouchableOpacity>
-            </View>
-            <View style={styles.header}>
-                <View style={styles.logo}>
-                    <IconsFeather name='map-pin' size={20} color='white' />
-                </View>
-            </View>
-            <Text style={styles.title}>Où habitez-vous ?</Text>
-            <TouchableOpacity style={styles.btnFrom}>
-                <Text style={styles.textBtn}>Ma localisation</Text>
-            </TouchableOpacity>
-            <View style={styles.Geolocation}>
-                <IconsFeather name='map-pin' size={15} color='white' />
-                <Text style={styles.textGeolocation}>Me géolocaliser ?</Text>
-            </View>
-            <View style={styles.check}>
-                <TouchableOpacity style={styles.checkView}>
-                    <View style={styles.btncheck}>
-                        <IconFontAwesome name='check' size={18} color='#fff' />
+        <LinearGradient colors={backgroundColor} style={styles.body} >
+            <SafeAreaView>
+                <View style={styles.content}>
+                    <View >
+                        <TouchableOpacity 
+                            style={styles.leftPage}
+                            onPress={() => goBack()}
+                        >
+                            <IconFontAwesome name='chevron-left' size={15} color='white' style={styles.iconPage} />
+                        </TouchableOpacity>
                     </View>
-                </TouchableOpacity>
-            </View>
-        </View>
+                    <View style={styles.header}>
+                        <View style={styles.logo}>
+                            <IconsFeather name='map-pin' size={20} color='white' />
+                        </View>
+                    </View>
+                    <Text style={styles.title}>Où habitez-vous ?</Text>
+                    <TouchableOpacity 
+                        style={styles.btnFrom}
+                        onPress={() => push('CountryFrom')}
+                    >
+                        <Text style={styles.textBtn}>Ma localisation</Text>
+                    </TouchableOpacity>
+                    <View style={styles.Geolocation}>
+                        <IconsFeather name='map-pin' size={15} color='white' />
+                        <Text style={styles.textGeolocation}>Me géolocaliser ?</Text>
+                    </View>
+                    <View style={styles.check}>
+                        <TouchableOpacity 
+                            style={styles.checkView}
+                            onPress={() => push('CountryFrom')}
+                        >
+                            <View style={styles.btncheck}>
+                                <IconFontAwesome name='check' size={18} color='#fff' />
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </SafeAreaView>
+        </LinearGradient>
     )
 }
 
 const styles = StyleSheet.create({
+    body: {
+        flex: 1
+    },
     leftPage: {
         height: 40,
         width: '15%',

@@ -1,54 +1,89 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, Text, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
+import LinearGradient from 'react-native-linear-gradient';
+import countryApi from '../../../api/getAllApi';
+import { Origin } from '../../../models';
 
-const OriginPage = () => {
+const OriginPage = (props: any) => {
     const [select, setSelect] = useState(0);
+    const backgroundColor = ['#FF59F4', '#FF5978'];
+
+    const { navigation } = props;
+    const { push, goBack } = navigation;
+
+    const [origin, setOrigin] = useState<Origin[]>([]);
+    const [idOrigin, setIdOrigin] = useState<number>(0);
+
+    useEffect(() => {
+        countryApi.getOrigin().then((res: any) => setOrigin(res))
+    },[]);
+
+    // useEffect(() => {
+    //     idOrigins(idOrigin)
+    // }, [idOrigin])
 
     return (
-        <View style={styles.content}>
-            <View >
-                <TouchableOpacity style={styles.leftPage}>
-                    <IconFontAwesome name='chevron-left' size={15} color='white' style={styles.iconPage} />
-                </TouchableOpacity>
-            </View>
-            <View style={styles.header}>
-                <View style={styles.logo}>
-                    <IconEntypo name='map' size={20} color='white' />
+        <LinearGradient colors={backgroundColor} style={styles.body} >
+            <SafeAreaView>
+                <View style={styles.content}>
+                    <View >
+                        <TouchableOpacity 
+                            style={styles.leftPage}
+                            onPress={() => goBack()}
+                        >
+                            <IconFontAwesome name='chevron-left' size={15} color='white' style={styles.iconPage} />
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.header}>
+                        <View style={styles.logo}>
+                            <IconEntypo name='map' size={20} color='white' />
+                        </View>
+                    </View>
+                    <Text style={styles.title}>Quel est mon pays d'origine ?</Text>
+                    <ScrollView>
+                        {
+                            origin.map((item: Origin, index: number) => (
+                                <TouchableOpacity
+                                    key={index}
+                                    onPress={() => {
+                                        setSelect(index);
+                                        setIdOrigin(item.id)
+                                    }}
+                                >
+                                    <View style={styles.radios}>
+                                        <Text style={styles.text}>{item.code}</Text>
+                                        <View style={styles.outline}>
+                                            {
+                                                select === index && <View style={styles.innerCircle} />
+                                            }
+                                        </View>
+                                    </View>
+                                </TouchableOpacity>
+                            ))
+                        }
+                    </ScrollView>
+                    <View style={styles.check}>
+                        <TouchableOpacity 
+                            style={styles.checkView}
+                            onPress={() => push('FromForm')}
+                        >
+                            <View style={styles.btncheck}>
+                                <IconFontAwesome name='check' size={18} color='#fff' />
+                            </View>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
-            <Text style={styles.title}>Quel est mon pays d'origine ?</Text>
-            <View>
-                <TouchableOpacity>
-                    <View style={styles.radios}>
-                        <Text style={styles.text}>Dungasd</Text>
-                        <View style={styles.outline}>
-                            <View style={styles.innerCircle} />
-                        </View>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <View style={styles.radios}>
-                        <Text style={styles.text}>Aungasd</Text>
-                        <View style={styles.outline}>
-                            
-                        </View>
-                    </View>
-                </TouchableOpacity>
-            </View>
-            <View style={styles.check}>
-                <TouchableOpacity style={styles.checkView}>
-                    <View style={styles.btncheck}>
-                        <IconFontAwesome name='check' size={18} color='#fff' />
-                    </View>
-                </TouchableOpacity>
-            </View>
-        </View>
+            </SafeAreaView>
+        </LinearGradient>
     )
 }
 
 const styles = StyleSheet.create({
+    body: {
+        flex: 1
+    },
     leftPage: {
         height: 40,
         width: '15%',
@@ -123,6 +158,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-end',
         alignItems: 'center',
+        marginBottom: 15,
     },
     checkView: {
         position: 'relative',

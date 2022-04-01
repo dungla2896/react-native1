@@ -11,25 +11,20 @@ import RegionFrom from './features/signup/pages/RegionPage';
 import CityFrom from './features/signup/pages/CitysPage';
 import ZipcodeFrom from './features/signup/pages/ZipcodePage';
 import SignUpFrom from './features/signup/pages/SignupPage';
+import UITab from './UITab';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
 
-
-// yarn add react-navigation
-// yarn add @react-navigation/bottom-tabs
-// yarn add @react-navigation/native
-// yarn add @react-navigation/native-stack
-// yarn add react-native-screens
 const App: React.FC = () => {
 
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName='LoginPage' screenOptions={{ headerShown: false }}>
                 <Stack.Screen name='LoginPage' component={LoginPage} />
-                <Stack.Screen name='Home' component={Home} />
+                <Stack.Screen name='UITab' component={UITab} />
                 <Stack.Screen name='Index' component={Index} />
                 <Stack.Screen name='GenderPage' component={GenderPage} />
                 <Stack.Screen name='Birthday' component={Birthday} />

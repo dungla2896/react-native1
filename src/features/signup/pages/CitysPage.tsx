@@ -1,54 +1,72 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, SafeAreaView } from 'react-native';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import LinearGradient from 'react-native-linear-gradient';
 
-const CityFrom = () => {
+const CityFrom = (props: any) => {
     const [select, setSelect] = useState(0);
-
+    const backgroundColor = ['#FF59F4', '#FF5978'];
+    const { navigation } = props;
+    const { push, goBack } = navigation;
+    
     return (
-        <View style={styles.content}>
-            <View >
-                <TouchableOpacity style={styles.leftPage}>
-                    <IconFontAwesome name='chevron-left' size={15} color='white' style={styles.iconPage} />
-                </TouchableOpacity>
-            </View>
-            <View style={styles.header}>
-                <View style={styles.logo}>
-                    <FontAwesome5 name='city' size={20} color='white' />
+        <LinearGradient colors={backgroundColor} style={styles.body} >
+            <SafeAreaView>
+                <View style={styles.content}>
+                    <View >
+                        <TouchableOpacity 
+                            style={styles.leftPage}
+                            onPress={() => goBack()}
+                        >
+                            <IconFontAwesome name='chevron-left' size={15} color='white' style={styles.iconPage} />
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.header}>
+                        <View style={styles.logo}>
+                            <FontAwesome5 name='city' size={20} color='white' />
+                        </View>
+                    </View>
+                    <Text style={styles.title}>Quelle est votre ville ?</Text>
+                    <View>
+                        <TouchableOpacity>
+                            <View style={styles.radios}>
+                                <Text style={styles.text}>Dungasd</Text>
+                                <View style={styles.outline}>
+                                    <View style={styles.innerCircle} />
+                                </View>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <View style={styles.radios}>
+                                <Text style={styles.text}>Aungasd</Text>
+                                <View style={styles.outline}>
+                                    
+                                </View>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.check}>
+                        <TouchableOpacity 
+                            style={styles.checkView}
+                            onPress={() => push('ZipcodeFrom')}
+                        >
+                            <View style={styles.btncheck}>
+                                <IconFontAwesome name='check' size={18} color='#fff' />
+                            </View>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
-            <Text style={styles.title}>Quelle est votre ville ?</Text>
-            <View>
-                <TouchableOpacity>
-                    <View style={styles.radios}>
-                        <Text style={styles.text}>Dungasd</Text>
-                        <View style={styles.outline}>
-                            <View style={styles.innerCircle} />
-                        </View>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <View style={styles.radios}>
-                        <Text style={styles.text}>Aungasd</Text>
-                        <View style={styles.outline}>
-                            
-                        </View>
-                    </View>
-                </TouchableOpacity>
-            </View>
-            <View style={styles.check}>
-                <TouchableOpacity style={styles.checkView}>
-                    <View style={styles.btncheck}>
-                        <IconFontAwesome name='check' size={18} color='#fff' />
-                    </View>
-                </TouchableOpacity>
-            </View>
-        </View>
+            </SafeAreaView>
+        </LinearGradient>
+        
     )
 }
 
 const styles = StyleSheet.create({
+    body: {
+        flex: 1
+    },
     leftPage: {
         height: 40,
         width: '15%',

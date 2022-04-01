@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext, useState } from 'react';
 import {
     View,
     SafeAreaView,
@@ -17,23 +17,15 @@ import SignUpFrom from './SignupPage';
 
 const Index: React.FC = () => {
 
-    const backgroundColor = ['#FF59F4', '#FF5978']
+    const [idOrigins, setIdOrigins] = useState<number>(0);
+    
+    console.log(idOrigins);
 
     return (
-        <LinearGradient colors={backgroundColor} style={styles.body} >
-            <SafeAreaView>
-                <View>
-                    <GenderPage />
-                </View>
-            </SafeAreaView>
-        </LinearGradient>
+        <>
+            
+        </>
     );
 };
-
-const styles = StyleSheet.create({
-    body: {
-        flex: 1
-    },
-})
 
 export default Index;

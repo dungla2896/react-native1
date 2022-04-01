@@ -1,80 +1,98 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, TextInput, } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, TextInput, SafeAreaView } from 'react-native';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconsOcticons from 'react-native-vector-icons/Octicons';
+import LinearGradient from 'react-native-linear-gradient';
 
-const SignUpFrom = () => {
+const SignUpFrom = (props: any) => {
+    const backgroundColor = ['#FF59F4', '#FF5978'];
+    const { navigation } = props;
+    const { push, goBack } = navigation;
 
     return (
-        <View style={styles.content}>
-            <View style={styles.row}>
-                <View style={styles.header}>
-                    <TouchableOpacity style={styles.leftPage}>
-                        <IconFontAwesome name='chevron-left' size={15} color='white' style={styles.iconPage} />
-                    </TouchableOpacity>
-                    <Text style={styles.title}>Inscription</Text>
-                    <View style={styles.textLink}>
-                        <Text style={styles.text}>Déjà un compte ?</Text>
+        <LinearGradient colors={backgroundColor} style={styles.body} >
+            <SafeAreaView>
+                <View style={styles.content}>
+                    <View style={styles.row}>
+                        <View style={styles.header}>
+                            <TouchableOpacity 
+                                style={styles.leftPage}
+                                onPress={() => goBack()}
+                            >
+                                <IconFontAwesome name='chevron-left' size={15} color='white' style={styles.iconPage} />
+                            </TouchableOpacity>
+                            <Text style={styles.title}>Inscription</Text>
+                            <View style={styles.textLink}>
+                                <Text style={styles.text}>Déjà un compte ?</Text>
+                            </View>
+                        </View>
+                        <View>
+                            <TextInput
+                                style={styles.textInput}
+                                placeholder='Email'
+                                placeholderTextColor='#ffffff78'
+                                keyboardType="email-address"
+                            />
+                            <TextInput
+                                style={styles.textInput}
+                                placeholder='Prénom'
+                                placeholderTextColor='#ffffff78'
+                                keyboardType="default"
+                            />
+                            <TextInput
+                                style={styles.textInput}
+                                placeholder='Mot de Passe'
+                                placeholderTextColor='#ffffff78'
+                                keyboardType="default"
+                            />
+                        </View>
+                        <View>
+                            <TouchableOpacity>
+                                <View style={styles.radios}>
+                                    <View style={styles.outline}>
+                                        <IconsOcticons name='check' size={28} color='#fff' />
+                                    </View>
+                                    <Text style={styles.text}>
+                                        Je certifie être majeur(e) et j’accepte les Conditions générales d’utilisations
+                                        {/* <View style={styles.linkBank}>Conditions générales d’utilisations</View> */}
+                                    </Text>
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity>
+                                <View style={styles.radios}>
+                                    <View style={styles.outline}>
+                                        
+                                    </View>
+                                    <Text style={styles.text}>J'accepte que mes données renseignées, 
+                                        y compris celles facultatives relatives à mon origine, à ses prestataires 
+                                        et aux autres membres situés dans et hors l’UE afin de favoriser des rencontres
+                                    </Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                    <View style={styles.btnSubmit}>
+                        <TouchableOpacity 
+                            style={styles.checkView}
+                            onPress={() => push('UITab')}
+                        >
+                            <View style={styles.btncheck}>
+                                <IconsOcticons name='check' size={18} color='#fff' />
+                                <Text style={styles.textBtn}>CRÉER MON COMPTE</Text>
+                            </View>
+                        </TouchableOpacity>
                     </View>
                 </View>
-                <View>
-                    <TextInput
-                        style={styles.textInput}
-                        placeholder='Email'
-                        placeholderTextColor='#ffffff78'
-                        keyboardType="email-address"
-                    />
-                    <TextInput
-                        style={styles.textInput}
-                        placeholder='Prénom'
-                        placeholderTextColor='#ffffff78'
-                        keyboardType="default"
-                    />
-                    <TextInput
-                        style={styles.textInput}
-                        placeholder='Mot de Passe'
-                        placeholderTextColor='#ffffff78'
-                        keyboardType="default"
-                    />
-                </View>
-                <View>
-                    <TouchableOpacity>
-                        <View style={styles.radios}>
-                            <View style={styles.outline}>
-                                <IconsOcticons name='check' size={28} color='#fff' />
-                            </View>
-                            <Text style={styles.text}>
-                                Je certifie être majeur(e) et j’accepte les Conditions générales d’utilisations
-                                {/* <View style={styles.linkBank}>Conditions générales d’utilisations</View> */}
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <View style={styles.radios}>
-                            <View style={styles.outline}>
-                                
-                            </View>
-                            <Text style={styles.text}>J'accepte que mes données renseignées, 
-                                y compris celles facultatives relatives à mon origine, à ses prestataires 
-                                et aux autres membres situés dans et hors l’UE afin de favoriser des rencontres
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
-            </View>
-            <View style={styles.btnSubmit}>
-                <TouchableOpacity style={styles.checkView}>
-                    <View style={styles.btncheck}>
-                        <IconsOcticons name='check' size={18} color='#fff' />
-                        <Text style={styles.textBtn}>CRÉER MON COMPTE</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
-        </View>
+            </SafeAreaView>
+        </LinearGradient>
+        
     )
 }
 
 const styles = StyleSheet.create({
+    body: {
+        flex: 1
+    },
     content: {
         marginTop: 15,
         height: '100%',
@@ -158,11 +176,9 @@ const styles = StyleSheet.create({
         borderBottomColor: '#fff',
     },
     btnSubmit: {
-        width: '100%',
         flex: 1,
         justifyContent: 'flex-end',
         alignItems: 'center',
-        marginBottom: 12,
     },
     checkView: {
         position: 'relative',
@@ -170,6 +186,7 @@ const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: '#ffffff33',
         paddingTop: 10,
+        paddingBottom: 18,
         borderWidth: 1,
         borderColor: 'transparent',
         borderTopColor: '#fff',

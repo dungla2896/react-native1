@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import {
     View,
-    SafeAreaView,
     StyleSheet,
     ImageBackground,
     Text,
     Image,
     TouchableOpacity,
-    Modal,
-    TextInput,
     FlatList,
     ScrollView,
 } from 'react-native';
@@ -20,50 +17,10 @@ import IconsFontAwesome from 'react-native-vector-icons/FontAwesome';
 import Avatar from '../assets/Avatar1.jpeg';
 
 const Home = () => {
-    const [active1, setActive1] = useState(1);
-    const [active2, setActive2] = useState(0);
-    const [active3, setActive3] = useState(0);
-    const [active4, setActive4] = useState(0);
-    const [active5, setActive5] = useState(0);
 
-    const menu1 = () => {
-        setActive1(1);
-        setActive2(0);
-        setActive3(0);
-        setActive4(0);
-        setActive5(0);
-    }
-    const menu2 = () => {
-        setActive1(0);
-        setActive2(1);
-        setActive3(0);
-        setActive4(0);
-        setActive5(0);
-    }
-    const menu3 = () => {
-        setActive1(0);
-        setActive2(0);
-        setActive3(1);
-        setActive4(0);
-        setActive5(0);
-    }
-    const menu4 = () => {
-        setActive1(0);
-        setActive2(0);
-        setActive3(0);
-        setActive4(1);
-        setActive5(0);
-    }
-    const menu5 = () => {
-        setActive1(0);
-        setActive2(0);
-        setActive3(0);
-        setActive4(0);
-        setActive5(1);
-    }
     return (
         <View style={styles.body}>
-            <ScrollView style={{ marginBottom: 110 }}>
+            <ScrollView style={{ marginBottom: 10 }}>
                 <ImageBackground source={ImageHeader} style={styles.header} resizeMode='cover'>
                     <View style={styles.container}>
                         <Text style={styles.titleHeader}>Rencontres</Text>
@@ -291,39 +248,6 @@ const Home = () => {
                     </View>
                 </View>
             </ScrollView>
-            <View style={styles.headerMenu}>
-                <TouchableOpacity 
-                    style={active1 === 1 ? styles.menuActive : styles.menu}
-                    onPress={menu1}
-
-                >
-                    <IconFontisto name='search' size={22} color='#000' />
-                </TouchableOpacity>
-                <TouchableOpacity 
-                    style={active2 === 1 ? styles.menuActive : styles.menu}
-                    onPress={menu2}
-                >
-                    <IconsFontAwesome name='venus-mars' size={22} color='#000' />
-                </TouchableOpacity>
-                <TouchableOpacity 
-                    style={active3 === 1 ? styles.menuActive : styles.menu}
-                    onPress={menu3}
-                >
-                    <IconsIonicons name='chatbubble-ellipses-outline' size={22} color='#000' />
-                </TouchableOpacity>
-                <TouchableOpacity 
-                    style={active4 === 1 ? styles.menuActive : styles.menu}
-                    onPress={menu4}
-                >
-                    <IconFontisto name='bell' size={22} color='#000' />
-                </TouchableOpacity>
-                <TouchableOpacity 
-                    style={active5 === 1 ? styles.menuActive : styles.menu}
-                    onPress={menu5}
-                >
-                    <IconsFeather name='user' size={22} color='#000' />
-                </TouchableOpacity>
-            </View>
         </View>
     )
 }
@@ -478,39 +402,6 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         width: '55%',
         marginLeft: 3,
-    },
-    headerMenu: {
-        position: 'absolute',
-        bottom: 0,
-        width: '100%',
-        flexDirection: 'row',
-        paddingLeft: 25,
-        paddingRight: 25,
-        paddingBottom: 35,
-        backgroundColor: '#fff',
-
-        shadowOpacity: 0.1,
-        shadowRadius: 2,
-        shadowOffset: {
-            width: 0,
-            height: -3,
-        },
-        shadowColor: '#000000',
-        elevation: 4,
-    },
-    menu: {
-        padding: 15,
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    menuActive: {
-        padding: 15,
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderBottomWidth: 2,
-        borderBottomColor: '#24cf5f',
     },
 })
 

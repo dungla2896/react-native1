@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const IconPage = () => {
+const IconPage1 = () => {
     return (
         <View>
             <Icon name='chevron-left' size={15} color='white' style={styles.iconPage} />
@@ -18,4 +18,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default IconPage;
+export default IconPage1;

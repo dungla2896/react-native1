@@ -7,7 +7,10 @@ const RadioButton = (props: any) => {
         <View>
             {
                 option.map((opt: any, index: number) => (
-                    <TouchableOpacity key={index} onPress={() => onChangeSelect(opt, index)}>
+                    <TouchableOpacity key={index} onPress={() => {
+                        onChangeSelect(opt, index)
+                        console.log('Radio', index)
+                    }}>
                         <View style={styles.radios}>
                             <Text style={styles.text}>{opt}</Text>
                             <View style={styles.outline}>

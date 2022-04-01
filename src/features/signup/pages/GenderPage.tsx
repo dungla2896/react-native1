@@ -1,53 +1,88 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import RadioButton from '../../../components/RadioButton';
+import { View, StyleSheet, Text, TouchableOpacity, SafeAreaView } from 'react-native';
 import IconsFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
-import ButtonCheck from '../../../components/ButtonCheck';
+import LinearGradient from 'react-native-linear-gradient';
 
 const GenderPage = (props: any) => {
-    const [select, setSelect] = useState(0);
+    const [homme, setHomme] = useState(1);
+    const [femme, setFemme] = useState(0);
+    const [getGender, setGetGender] = useState<number>(1)
 
-    const { navigation, route } = props;
+    const backgroundColor = ['#FF59F4', '#FF5978']
 
-    //const { navigate, goBack } = navigation;
+    const { navigation } = props;
+    const { push, goBack } = navigation;
 
     return (
-        <View style={styles.content}>
-            <TouchableOpacity onPress={() => console.log('checkG')}>
-                <View>
-                    <IconsFontAwesome name='chevron-left' size={15} color='white' style={styles.iconPage} />
-                </View>
-            </TouchableOpacity>
-            <View style={styles.header}>
-                <View style={styles.logo}>
-                    <IconsFontAwesome name='venus-mars' size={20} color='white' />
-                </View>
-            </View>
-            <Text style={styles.title}>Vous êtes :</Text>
-            <RadioButton 
-                option={[ 'Homme', 'Femme']} 
-                selected={select}
-                onChangeSelect={((opt: any, i:number) => {
-                    setSelect(i)
-                })}
-            />
-            <View style={styles.check}>
-                {/* <TouchableOpacity 
-                    style={styles.checkbtn} 
-                    onPress={() => navigate('Birthday')}
-                >
-                    <View style={styles.btncheck}>
-                        <IconFontAwesome name='check' size={18} color='#fff' />
+        <LinearGradient colors={backgroundColor} style={styles.body} >
+            <SafeAreaView>
+                <View style={styles.content}>
+                    <TouchableOpacity onPress={() => goBack()}>
+                        <View>
+                            <IconsFontAwesome name='chevron-left' size={15} color='white' style={styles.iconPage} />
+                        </View>
+                    </TouchableOpacity>
+                    <View style={styles.header}>
+                        <View style={styles.logo}>
+                            <IconsFontAwesome name='venus-mars' size={20} color='white' />
+                        </View>
                     </View>
-                </TouchableOpacity> */}
-                <ButtonCheck />
-            </View>
-        </View>
+                    <Text style={styles.title}>Vous êtes :</Text>
+                    <View>
+                        <TouchableOpacity
+                            onPress={() => {
+                                setHomme(1);
+                                setFemme(0);
+                                setGetGender(1)
+                            }}
+                        >
+                            <View style={styles.radios}>
+                                <Text style={styles.text}>Homme</Text>
+                                <View style={styles.outline}>
+                                    {
+                                        homme === 1  && <View style={styles.innerCircle} />
+                                    }
+                                </View>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => {
+                                setHomme(0);
+                                setFemme(1);
+                                setGetGender(2);
+                            }}
+                        >
+                            <View style={styles.radios}>
+                                <Text style={styles.text}>Femme</Text>
+                                <View style={styles.outline}>
+                                    {
+                                        femme === 1  && <View style={styles.innerCircle} />
+                                    }
+                                </View>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.check}>
+                        <TouchableOpacity 
+                            style={styles.checkbtn} 
+                            onPress={() => push('Birthday')}
+                        >
+                            <View style={styles.btncheck}>
+                                <IconFontAwesome name='check' size={18} color='#fff' />
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </SafeAreaView>
+        </LinearGradient>
     )
 }
 
 const styles = StyleSheet.create({
+    body: {
+        flex: 1
+    },
     iconPage: {
         width: '15%',
         position: 'relative',
@@ -81,6 +116,36 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         textAlign: 'center',
         marginBottom: 40,
+    },
+    radios: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        width: '100%',
+        paddingBottom: 18,
+        marginTop: 15,
+        borderBottomWidth: 0.35,
+        borderBottomColor: '#fff',
+    },
+    outline: {
+        width: 22,
+        height: 22,
+        borderRadius: 15,
+        borderColor: '#fff',
+        borderWidth: 2.5,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    innerCircle: {
+        width: 10,
+        height: 10,
+        borderRadius: 5,
+        backgroundColor: '#fff',
+    },
+    text: {
+        color: '#fff',
+        fontWeight: '700',
+        fontSize: 15
     },
     check: {
         flex: 1,

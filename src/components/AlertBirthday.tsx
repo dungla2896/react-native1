@@ -7,7 +7,7 @@ interface Props {
     year: string;
 }
 
-const AlertBirthday: any = (props: Props) => {
+const AlertBirthdays: any = (props: Props) => {
     const { visible, year } = props;
     const [showModal, setShowModal] = useState(visible);
     let yearday = new Date().getFullYear();
@@ -110,4 +110,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default AlertBirthday;
+export default AlertBirthdays;

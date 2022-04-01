@@ -19,9 +19,8 @@ const LoginPage = (props: any) => {
     const [showMessage, setShowMessage] = useState(false);
     const [showPass, setShowPass] = useState(true);
 
-    const { navigation, route } = props;
-
-    const { navigate, goBack } = navigation;
+    const { navigation } = props;
+    const { push } = navigation;
 
     return (
         <View style={styles.body}>
@@ -36,7 +35,7 @@ const LoginPage = (props: any) => {
                             <TouchableOpacity style={styles.btnConnecter} onPress={() => setShowModal(!showModal)}>
                                 <Text style={styles.btnText}>SE CONNECTER</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.btnInscription} onPress={() => navigate('GenderPage')}>
+                            <TouchableOpacity style={styles.btnInscription} onPress={() => push('GenderPage')}>
                                 <Text style={styles.btnText}>INSCRIPTION GRATUITE</Text>
                                 <Text style={styles.btnText}>EN 1MIN</Text>
                             </TouchableOpacity>
@@ -83,14 +82,17 @@ const LoginPage = (props: any) => {
                                 </View>
                             </View>
                             <TouchableOpacity style={styles.btnSubmit} onPress={() => {
-                                navigate('Home');
+                                push('UITab');
                                 setShowModal(!showModal)
                             }}>
                                 <Text style={styles.textBtn}>ME CONNECTER</Text>
                             </TouchableOpacity>
                             <View style={styles.signUp}>
                                 <Text style={styles.textSignUp}>Vous n'avez pas de compte?</Text>
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={() => {
+                                    setShowModal(!showModal)
+                                    push('GenderPage');
+                                }}>
                                     <Text style={styles.linkSignUp}>Inscrivez-vous gratuitement</Text>
                                 </TouchableOpacity>
                             </View>
