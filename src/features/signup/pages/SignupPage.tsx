@@ -1,13 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, TextInput, SafeAreaView } from 'react-native';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconsOcticons from 'react-native-vector-icons/Octicons';
 import LinearGradient from 'react-native-linear-gradient';
 
+import { UserContext } from '../../../../UserContext';
+
 const SignUpFrom = (props: any) => {
     const backgroundColor = ['#FF59F4', '#FF5978'];
     const { navigation } = props;
     const { push, goBack } = navigation;
+
+    // const [email, setEmail] = useState('');
+    // const [firstname, setFirstname] = useState('');
+    // const [password, setPassword] = useState('');
+
+    const [data, setData] = useState({
+        email: '',
+        firstname: '',
+        password: '',
+        check_InputChange: false,
+        isValidEmail: true,
+        isValidFirstName: true,
+        isValidPassword: true,
+    });
+
+    const textInputChange = () => {}
+
+    const context = useContext(UserContext);
 
     return (
         <LinearGradient colors={backgroundColor} style={styles.body} >

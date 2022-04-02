@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import LinearGradient from 'react-native-linear-gradient';
 import countryApi from '../../../api/getAllApi';
 import { Origin } from '../../../models';
+import { UserContext } from '../../../../UserContext';
 
 const OriginPage = (props: any) => {
     const [select, setSelect] = useState(0);
@@ -20,9 +21,7 @@ const OriginPage = (props: any) => {
         countryApi.getOrigin().then((res: any) => setOrigin(res))
     },[]);
 
-    // useEffect(() => {
-    //     idOrigins(idOrigin)
-    // }, [idOrigin])
+    const context = useContext(UserContext);
 
     return (
         <LinearGradient colors={backgroundColor} style={styles.body} >
@@ -42,14 +41,17 @@ const OriginPage = (props: any) => {
                         </View>
                     </View>
                     <Text style={styles.title}>Quel est mon pays d'origine ?</Text>
-                    <ScrollView>
+                    <ScrollView
+                        showsVerticalScrollIndicator={false}
+                        showsHorizontalScrollIndicator={false}
+                    >
                         {
                             origin.map((item: Origin, index: number) => (
                                 <TouchableOpacity
                                     key={index}
                                     onPress={() => {
                                         setSelect(index);
-                                        setIdOrigin(item.id)
+                                        context.setOrigin(item.id)
                                     }}
                                 >
                                     <View style={styles.radios}>

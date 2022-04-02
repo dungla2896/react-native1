@@ -1,18 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, SafeAreaView } from 'react-native';
 import IconsFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import LinearGradient from 'react-native-linear-gradient';
 
+import { UserContext } from '../../../../UserContext';
+
 const GenderPage = (props: any) => {
     const [homme, setHomme] = useState(1);
     const [femme, setFemme] = useState(0);
-    const [getGender, setGetGender] = useState<number>(1)
 
     const backgroundColor = ['#FF59F4', '#FF5978']
 
     const { navigation } = props;
     const { push, goBack } = navigation;
+
+    const context = useContext(UserContext);
 
     return (
         <LinearGradient colors={backgroundColor} style={styles.body} >
@@ -34,7 +37,7 @@ const GenderPage = (props: any) => {
                             onPress={() => {
                                 setHomme(1);
                                 setFemme(0);
-                                setGetGender(1)
+                                context.setGender(1);
                             }}
                         >
                             <View style={styles.radios}>
@@ -50,7 +53,7 @@ const GenderPage = (props: any) => {
                             onPress={() => {
                                 setHomme(0);
                                 setFemme(1);
-                                setGetGender(2);
+                                context.setGender(2);
                             }}
                         >
                             <View style={styles.radios}>

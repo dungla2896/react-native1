@@ -11,11 +11,11 @@ const countryApi = {
         return axiosClient.get(url);
     },
     getRegions(id: string): Promise<ListCountries>{
-        const url = `/api/v4/atlas/${id}/regions`;
+        const url = `/atlas/${id}/regions`;
         return axiosClient.get(url);
     },
     getCity(idCountry: string, idRegion: string): Promise<ListCountries>{
-        const url = `/api/v4/atlas/${idCountry}/${idRegion}/cities`;
+        const url = `/atlas/${idCountry}/${idRegion}/cities`;
         return axiosClient.get(url);
     },
     getUser() {

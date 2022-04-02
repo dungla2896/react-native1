@@ -1,15 +1,30 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, SafeAreaView } from 'react-native';
+import React, { useEffect, useState, useContext } from 'react';
+import { View, StyleSheet, Text, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import LinearGradient from 'react-native-linear-gradient';
 
+import { UserContext } from '../../../../UserContext';
+import countryApi from '../../../api/getAllApi';
+import { City } from '../../../models';
+
 const CityFrom = (props: any) => {
     const [select, setSelect] = useState(0);
+    const [city, setCity] = useState<City[]>([]);
+
     const backgroundColor = ['#FF59F4', '#FF5978'];
+
     const { navigation } = props;
     const { push, goBack } = navigation;
-    
+
+    const context = useContext(UserContext);
+    const idCountry = context.idCountry;
+    const idRegion = context.idRegion;
+
+    useEffect(() => {
+        countryApi.getCity(idCountry, idRegion).then((res) => setCity(res.CONTENT.ALL.cities))
+    }, [idCountry, idRegion]);
+
     return (
         <LinearGradient colors={backgroundColor} style={styles.body} >
             <SafeAreaView>
@@ -28,24 +43,31 @@ const CityFrom = (props: any) => {
                         </View>
                     </View>
                     <Text style={styles.title}>Quelle est votre ville ?</Text>
-                    <View>
-                        <TouchableOpacity>
-                            <View style={styles.radios}>
-                                <Text style={styles.text}>Dungasd</Text>
-                                <View style={styles.outline}>
-                                    <View style={styles.innerCircle} />
-                                </View>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <View style={styles.radios}>
-                                <Text style={styles.text}>Aungasd</Text>
-                                <View style={styles.outline}>
-                                    
-                                </View>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
+                    <ScrollView
+                        showsVerticalScrollIndicator={false}
+                        showsHorizontalScrollIndicator={false}
+                    >
+                        {
+                            city.map((item: City, index: number) => (
+                                <TouchableOpacity
+                                    key={index}
+                                    onPress={() => {
+                                        setSelect(index);
+                                        context.setIdCity(item.id)
+                                    }}
+                                >
+                                    <View style={styles.radios}>
+                                        <Text style={styles.text}>{item.name}</Text>
+                                        <View style={styles.outline}>
+                                            {
+                                                select === index && <View style={styles.innerCircle} />
+                                            }
+                                        </View>
+                                    </View>
+                                </TouchableOpacity>
+                            ))
+                        }
+                    </ScrollView>
                     <View style={styles.check}>
                         <TouchableOpacity 
                             style={styles.checkView}

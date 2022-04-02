@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import LinearGradient from 'react-native-linear-gradient';
 import countryApi from '../../../api/getAllApi';
 import { Countries } from '../../../models';
+
+import { UserContext } from '../../../../UserContext';
 
 const CountryFrom = (props: any) => {
     const [select, setSelect] = useState(0);
@@ -14,12 +16,12 @@ const CountryFrom = (props: any) => {
     const { push, goBack } = navigation;
 
     const [coutries, setCoutries] = useState<Countries[]>([]);
-    const [idcoutries, setIdCoutries] = useState<string>('');
 
     useEffect(() => {
         countryApi.getCoutries().then((res) => setCoutries(res.CONTENT.ALL.countries))
-    },[])
-    
+    },[]);
+    const context = useContext(UserContext);
+
     return (
         <LinearGradient colors={backgroundColor} style={styles.body} >
             <SafeAreaView>
@@ -39,14 +41,17 @@ const CountryFrom = (props: any) => {
                     </View>
                     <Text style={styles.title}>Quel est votre pays ?</Text>
                     <Text style={styles.textPay}>Un seul choix possible</Text>
-                    <ScrollView>
+                    <ScrollView
+                        showsVerticalScrollIndicator={false}
+                        showsHorizontalScrollIndicator={false}
+                    >
                         {
                             coutries.map((item: Countries, index: number) => (
                                 <TouchableOpacity
                                     key={index}
                                     onPress={() => {
                                         setSelect(index);
-                                        setIdCoutries(item.id)
+                                        context.setIdCountry(item.id)
                                     }}
                                 >
                                     <View style={styles.radios}>

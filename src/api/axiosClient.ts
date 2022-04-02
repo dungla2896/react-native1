@@ -9,7 +9,11 @@ const getToken = () => {
     catch { return null }
 }
 
-// Api login :      http://apiv2.ltservices.ovh/gate/{{login}}.json (Fai)
+// Api login :      https://apiv2.ltservices.ovh/gate/{{login}}.json (Fai)
+//       Web :      https://responsive-staging.ltservices2.ovh/api/gate/{{login}}.json
+//                  https://apiv2.ltservices2.ovh/gate/{{login}}.json (Suss)
+
+
 // Api signUp:      https://apiv2.ltservices2.ovh/pool/.json?new_key_signup=true
 
 // Api Oringin:     https://api.ltservices2.ovh/v4/geonames/origins

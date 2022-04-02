@@ -1,8 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useContext } from 'react';
 import { View, StyleSheet, Text, TextInput, TouchableOpacity, Modal, SafeAreaView } from 'react-native';
 import IconsFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import LinearGradient from 'react-native-linear-gradient';
+
+import { UserContext } from '../../../../UserContext';
 
 const Birthday = (props: any) => {
     const [day, onChangeDay] = useState('');
@@ -79,7 +81,7 @@ const Birthday = (props: any) => {
         }
     },[day, month]);
 
-    const birthdays = `${year}/${month}/${day}`;
+    const birthdays = `${year}-${month}-${day}`;
     let yearday = new Date().getFullYear();
     const old = `Votre âge est ${yearday - Number(year)} ans. Vous ne pourrez pas modifier votre âge par la suite.`;
 
@@ -105,6 +107,14 @@ const Birthday = (props: any) => {
             setShowModal(!showModal)
         }
     }
+
+    const context = useContext(UserContext);
+
+    useEffect(() => {
+        if(birthdays.length === 10){
+            context.setBirthday(birthdays);
+        }
+    },[birthdays]);
 
     const { navigation } = props;
     const { push, goBack } = navigation;
