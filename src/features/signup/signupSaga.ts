@@ -1,6 +1,6 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { call, fork, take, put } from "redux-saga/effects";
-import { userActions } from "./signUpSlice";
+import { userActions } from "./signupSlice";
 import { Username } from "../../models/username";
 import userApi from "../../api/postApi";
 
@@ -13,10 +13,11 @@ function* handleSignUp(padload: Username) {
         puk: '',
     }
     try {
-        const data: Username = yield userApi.signUp(padload).catch(e => {
-            errorMessage = e.response.statusText;
-        })
-        yield put(userActions.signupSuccess(data));
+        console.log('padload: ',padload)
+        // const data: Username = yield userApi.signUp(padload).catch(e => {
+        //     errorMessage = e.response.statusText;
+        // })
+        yield put(userActions.signupSuccess(padload));
         // dataToken.token = data.CONTENT.AUTH.token;
         // dataToken.puk = data.CONTENT.AUTH.puk;
         //localStorage.setItem('access_token', JSON.stringify(dataToken));

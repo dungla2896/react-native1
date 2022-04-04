@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Username } from "../../models/username";
 
-
 export interface SignUpState {
     isSignUp: boolean;
     logging?: boolean;
@@ -34,6 +33,7 @@ const userSlice = createSlice({
             state.logging = false;
             state.currentUser = action.payload;
             state.signupFailed = true;
+            console.log(action.payload)
         },
         signupFailed(state, action: PayloadAction<string>) {
             state.logging = false;

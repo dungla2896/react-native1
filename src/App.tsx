@@ -1,16 +1,24 @@
 import React, { useState } from 'react';
-import Home from './components/Home';
 import LoginPage from './features/signin/pages/LoginPage';
-import Index from './features/signup/pages/Index';
-import GenderPage from './features/signup/pages/GenderPage';
-import Birthday from './features/signup/pages/BirthdayPage';
-import OriginPage from './features/signup/pages/OriginPage';
-import FromForm from './features/signup/pages/FromForm';
-import CountryFrom from './features/signup/pages/CountryPage';
-import RegionFrom from './features/signup/pages/RegionPage';
-import CityFrom from './features/signup/pages/CitysPage';
-import ZipcodeFrom from './features/signup/pages/ZipcodePage';
-import SignUpFrom from './features/signup/pages/SignupPage';
+// import GenderPage from './features/signup/pages/GenderPage';
+// import Birthday from './features/signup/pages/BirthdayPage';
+// import OriginPage from './features/signup/pages/OriginPage';
+// import FromForm from './features/signup/pages/FromForm';
+// import CountryFrom from './features/signup/pages/CountryPage';
+// import RegionFrom from './features/signup/pages/RegionPage';
+// import CityFrom from './features/signup/pages/CitysPage';
+// import ZipcodeFrom from './features/signup/pages/ZipcodePage';
+// import SignUpFrom from './components/SignUp';
+import GenderPage from './components/GenderPage';
+import Birthday from './components/BirthdayPage';
+import OriginPage from './components/OriginPage';
+import FromPage from './components/FromForm';
+import CountryFrom from './components/CountryPage';
+import RegionFrom from './components/RegionPage';
+import CityFrom from './components/CitysPage';
+import ZipcodeFrom from './components/ZipcodePage';
+import SignUpFrom from './components/Signup';
+
 import UITab from './UITab';
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -25,11 +33,10 @@ const App: React.FC = () => {
             <Stack.Navigator initialRouteName='LoginPage' screenOptions={{ headerShown: false }}>
                 <Stack.Screen name='LoginPage' component={LoginPage} />
                 <Stack.Screen name='UITab' component={UITab} />
-                <Stack.Screen name='Index' component={Index} />
                 <Stack.Screen name='GenderPage' component={GenderPage} />
                 <Stack.Screen name='Birthday' component={Birthday} />
                 <Stack.Screen name='OriginPage' component={OriginPage} />
-                <Stack.Screen name='FromForm' component={FromForm} />
+                <Stack.Screen name='FromForm' component={FromPage} />
                 <Stack.Screen name='CountryFrom' component={CountryFrom} />
                 <Stack.Screen name='RegionFrom' component={RegionFrom} />
                 <Stack.Screen name='CityFrom' component={CityFrom} />

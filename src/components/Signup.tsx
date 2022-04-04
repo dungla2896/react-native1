@@ -6,10 +6,10 @@ import LinearGradient from 'react-native-linear-gradient';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-import { UserContext } from '../../../../UserContext';
-import { useAppDispatch } from '../../../app/hook';
-//import { userActions } from '../signUpSlice';
-import { Username } from '../../../models/username';
+import { UserContext } from '../../UserContext';
+import { useAppDispatch } from '../app/hook';
+import { userActions } from '../features/signup/signupSlice';
+import { Username } from '../models/username';
 
 interface User {
     email: string;
@@ -33,48 +33,43 @@ const SignUpFrom = (props: any) => {
 
     const [messageCheck, setMessageCheck] = useState(true);
 
-    const [data, setData] = useState<Username>({
-        gender: 1,
-        birthday: '',
-        origin: 0,
-        geoname_id: 0,
-        affiliate: 1,
-        mailing: 1,
-        firstname: '',
-        email: '',
-        password: '',
-    })
-
     const context = useContext(UserContext);
     
     const dispatch = useAppDispatch();
 
     const onSubmit = (values: User) => {
-
-        if(checkInput1 === false || checkInput2 === false){
-            setMessageCheck(false)
-        }else {
-            setMessageCheck(true)
-            setData({
-                gender: context.gender,
-                birthday: context.birthday,
-                origin: context.origin,
-                geoname_id: context.idCity,
-                affiliate: 1,
-                mailing: 1,
-                firstname: values.firstname,
-                email: values.email,
-                password: values.password,
-            })
-            //dispatch(userActions.signup(data))
-            //push('UITab')
+        const data: Username = {
+            gender: context.gender,
+            birthday: context.birthday,
+            origin: context.origin,
+            geoname_id: context.idCity,
+            affiliate: 1,
+            mailing: 1,
+            firstname: values.firstname,
+            email: values.email,
+            password: values.password,
         }
-        //dispatch(userActions1.signup())
+        // const data: Username = {
+        //     gender: 1,
+        //     birthday: '1999-06-19',
+        //     origin: 8,
+        //     geoname_id: 28194,
+        //     affiliate: 1,
+        //     mailing: 1,
+        //     firstname: 'fasfasfgg',
+        //     email: 'asfas@fadsge.vn',
+        //     password: 'fsafasgasg',
+        // }
+        dispatch(userActions.signup(data))
+        // if(checkInput1 === false || checkInput2 === false){
+        //     setMessageCheck(false)
+        // }else {
+        //     setMessageCheck(true)
+        //     //dispatch(userActions.signup(data))
+        //     //push('UITab')
+        // }
+        //console.log('COm: ', data)
     }
-
-    console.log('Data: ',data)
-
-    //const handleSubmitSignUp = () => {}
 
     return (
         <LinearGradient colors={backgroundColor} style={styles.body} >
