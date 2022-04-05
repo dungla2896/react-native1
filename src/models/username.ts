@@ -1,5 +1,6 @@
 
 export interface Username {
+    CONTENT?: any;
     firstname: string,
 	email: string,
 	password: string,
@@ -9,5 +10,4 @@ export interface Username {
 	gender: number,
 	origin: number,
 	geoname_id: number,
-
 }

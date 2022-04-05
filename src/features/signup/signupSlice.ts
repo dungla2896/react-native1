@@ -25,23 +25,17 @@ const userSlice = createSlice({
     reducers: {
         signup(state, action: PayloadAction<Username>) {
             state.logging = true;
-            state.message = '';
-            state.signupFailed = true;
         },
         signupSuccess(state, action: PayloadAction<Username>) {
             state.isSignUp = true;
             state.logging = false;
             state.currentUser = action.payload;
-            state.signupFailed = true;
             console.log(action.payload)
         },
         signupFailed(state, action: PayloadAction<string>) {
             state.logging = false;
-            state.signupFailed = false;
-            state.message = action.payload;
         },
         logout(state) {
-            state.isLoggedIn = false;
             state.currentUser = undefined;
         },
     },

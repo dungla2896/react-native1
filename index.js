@@ -8,14 +8,14 @@ import { Provider } from 'react-redux';
 import { store } from './src/app/store';
 
 export default function Main() {
-  
-  return (
-    <UserProvider>
+
+    return (
         <Provider store={store}>
-          <App />
-      </Provider>
-    </UserProvider>
-  );
+            <UserProvider>
+                <App />
+            </UserProvider>
+        </Provider>
+    );
 }
 
 AppRegistry.registerComponent(appName, () => Main);

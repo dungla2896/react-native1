@@ -2,6 +2,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 const axiosClient = axios.create({
   baseURL: 'https://apiv2.ltservices2.ovh',
+  //baseURL: process.env.API_URL,
   headers: {
     'Content-Type': 'application/json',
   },

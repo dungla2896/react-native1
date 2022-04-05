@@ -6,10 +6,15 @@ import LinearGradient from 'react-native-linear-gradient';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
+import PasswordStrength from './PasswordStrength';
+
 import { UserContext } from '../../UserContext';
 import { useAppDispatch } from '../app/hook';
 import { userActions } from '../features/signup/signupSlice';
 import { Username } from '../models/username';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { singUpUser } from '../api/signUpApi';
+import userApi from '../api/postApi';
 
 interface User {
     email: string;
@@ -24,6 +29,7 @@ const SignupSchema = Yup.object().shape({
 });
 
 const SignUpFrom = (props: any) => {
+    
     const backgroundColor = ['#FF59F4', '#FF5978'];
     const { navigation } = props;
     const { push, goBack } = navigation;
@@ -49,27 +55,20 @@ const SignUpFrom = (props: any) => {
             email: values.email,
             password: values.password,
         }
-        // const data: Username = {
-        //     gender: 1,
-        //     birthday: '1999-06-19',
-        //     origin: 8,
-        //     geoname_id: 28194,
-        //     affiliate: 1,
-        //     mailing: 1,
-        //     firstname: 'fasfasfgg',
-        //     email: 'asfas@fadsge.vn',
-        //     password: 'fsafasgasg',
-        // }
-        dispatch(userActions.signup(data))
-        // if(checkInput1 === false || checkInput2 === false){
-        //     setMessageCheck(false)
-        // }else {
-        //     setMessageCheck(true)
-        //     //dispatch(userActions.signup(data))
-        //     //push('UITab')
-        // }
-        //console.log('COm: ', data)
+        //dispatch(userActions.signup(data));
+
+        if(checkInput1 === false || checkInput2 === false){
+            setMessageCheck(false)
+        }else {
+            setMessageCheck(true)
+            dispatch(userActions.signup(data))
+            //push('UITab')
+        }
     }
+
+    console.log(AsyncStorage.getItem('access_token').then((val) => val))
+
+    // AsyncStorage.getItem('User').then((value) => value)
 
     return (
         <LinearGradient colors={backgroundColor} style={styles.body} >
@@ -129,6 +128,7 @@ const SignUpFrom = (props: any) => {
                                         onBlur={handleBlur('password')}
                                         value={values.password}
                                     />
+                                    
                                     {errors.password && touched.password ? (
                                         <Text style={{color: 'red'}}>{errors.password}</Text>
                                     ) : null}
@@ -197,6 +197,12 @@ const SignUpFrom = (props: any) => {
 }
 
 const styles = StyleSheet.create({
+
+    streng: {
+        width: '14%', 
+        backgroundColor: 'red', 
+        height: 5,
+    },
     body: {
         flex: 1
     },
