@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+
 import { View, StyleSheet, Text, TouchableOpacity, TextInput, SafeAreaView, Alert, } from 'react-native';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconsOcticons from 'react-native-vector-icons/Octicons';
@@ -9,11 +10,10 @@ import * as Yup from 'yup';
 import PasswordStrength from './PasswordStrength';
 
 import { UserContext } from '../../UserContext';
-import { useAppDispatch } from '../app/hook';
+import { useAppDispatch, useAppSelector } from '../app/hook';
 import { userActions } from '../features/signup/signupSlice';
 import { Username } from '../models/username';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { singUpUser } from '../api/signUpApi';
 import userApi from '../api/postApi';
 
 interface User {
@@ -43,7 +43,8 @@ const SignUpFrom = (props: any) => {
     
     const dispatch = useAppDispatch();
 
-    const onSubmit = (values: User) => {
+    const onSubmit = async (values: User) => {
+        const token: any = await AsyncStorage.getItem('access_token');
         const data: Username = {
             gender: context.gender,
             birthday: context.birthday,
@@ -55,20 +56,16 @@ const SignUpFrom = (props: any) => {
             email: values.email,
             password: values.password,
         }
-        //dispatch(userActions.signup(data));
-
         if(checkInput1 === false || checkInput2 === false){
             setMessageCheck(false)
         }else {
             setMessageCheck(true)
             dispatch(userActions.signup(data))
-            //push('UITab')
+            if(Boolean(token) === true) {
+                push('UITab')
+            }
         }
     }
-
-    console.log(AsyncStorage.getItem('access_token').then((val) => val))
-
-    // AsyncStorage.getItem('User').then((value) => value)
 
     return (
         <LinearGradient colors={backgroundColor} style={styles.body} >
@@ -128,7 +125,6 @@ const SignUpFrom = (props: any) => {
                                         onBlur={handleBlur('password')}
                                         value={values.password}
                                     />
-                                    
                                     {errors.password && touched.password ? (
                                         <Text style={{color: 'red'}}>{errors.password}</Text>
                                     ) : null}

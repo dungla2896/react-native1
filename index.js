@@ -10,11 +10,9 @@ import { store } from './src/app/store';
 export default function Main() {
 
     return (
-        <Provider store={store}>
-            <UserProvider>
-                <App />
-            </UserProvider>
-        </Provider>
+        <UserProvider>
+            <App />
+        </UserProvider>
     );
 }
 

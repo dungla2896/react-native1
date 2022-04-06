@@ -9,6 +9,8 @@ import RegionFrom from './features/signup/pages/RegionPage';
 import CityFrom from './features/signup/pages/CitysPage';
 import ZipcodeFrom from './features/signup/pages/ZipcodePage';
 import SignUpFrom from './components/Signup';
+import { Provider } from 'react-redux';
+import { store } from './app/store';
 
 import UITab from './UITab';
 
@@ -21,19 +23,21 @@ const App: React.FC = () => {
 
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName='LoginPage' screenOptions={{ headerShown: false }}>
-                <Stack.Screen name='LoginPage' component={LoginPage} />
-                <Stack.Screen name='UITab' component={UITab} />
-                <Stack.Screen name='GenderPage' component={GenderPage} />
-                <Stack.Screen name='Birthday' component={Birthday} />
-                <Stack.Screen name='OriginPage' component={OriginPage} />
-                <Stack.Screen name='FromForm' component={FromPage} />
-                <Stack.Screen name='CountryFrom' component={CountryFrom} />
-                <Stack.Screen name='RegionFrom' component={RegionFrom} />
-                <Stack.Screen name='CityFrom' component={CityFrom} />
-                <Stack.Screen name='ZipcodeFrom' component={ZipcodeFrom} />
-                <Stack.Screen name='SignUpFrom' component={SignUpFrom} />
-            </Stack.Navigator>
+            <Provider store={store}>
+                <Stack.Navigator initialRouteName='LoginPage' screenOptions={{ headerShown: false }}>
+                    <Stack.Screen name='LoginPage' component={LoginPage} />
+                    <Stack.Screen name='UITab' component={UITab} />
+                    <Stack.Screen name='GenderPage' component={GenderPage} />
+                    <Stack.Screen name='Birthday' component={Birthday} />
+                    <Stack.Screen name='OriginPage' component={OriginPage} />
+                    <Stack.Screen name='FromForm' component={FromPage} />
+                    <Stack.Screen name='CountryFrom' component={CountryFrom} />
+                    <Stack.Screen name='RegionFrom' component={RegionFrom} />
+                    <Stack.Screen name='CityFrom' component={CityFrom} />
+                    <Stack.Screen name='ZipcodeFrom' component={ZipcodeFrom} />
+                    <Stack.Screen name='SignUpFrom' component={SignUpFrom} />
+                </Stack.Navigator>
+            </Provider>
         </NavigationContainer>
     );
 };

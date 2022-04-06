@@ -9,6 +9,7 @@ export interface All {
 export interface Content {
     ALL: All,
     regions: [],
+    USERS: [],
 }
 
 export interface ListCountries {

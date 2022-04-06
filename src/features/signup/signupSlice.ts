@@ -4,18 +4,14 @@ import { Username } from "../../models/username";
 export interface SignUpState {
     isSignUp: boolean;
     logging?: boolean;
-    isLoggedIn: boolean;
     currentUser?: Username;
-    signupFailed: boolean;
     message: any;
 }
 
 const initialState: SignUpState = {
     isSignUp: false,
     logging: false,
-    isLoggedIn: false,
     currentUser: undefined,
-    signupFailed: true,
     message: '',
 }
 
@@ -30,7 +26,6 @@ const userSlice = createSlice({
             state.isSignUp = true;
             state.logging = false;
             state.currentUser = action.payload;
-            console.log(action.payload)
         },
         signupFailed(state, action: PayloadAction<string>) {
             state.logging = false;
@@ -45,9 +40,10 @@ const userSlice = createSlice({
 export const userActions = userSlice.actions;
 
 // Selectors
-export const seclectIsSignUp = (state: any) =>   state.signup.isSignUp;
-export const seclectIsLogging = (state: any) =>   state.signup.isLogging;
-export const selectErrorMessage = (state: any) => state.signup.message;
+export const seclectIsSignUp = (state: any) =>   state.signUp.isSignUp;
+export const seclectIsLogging = (state: any) =>   state.signUp.isLogging;
+export const selectErrorMessage = (state: any) => state.signUp.message;
+export const selectUser = (state: any) => state.signUp.currentUser;
 
 // Reducer
 const signUpReducer = userSlice.reducer;

@@ -18,8 +18,8 @@ const countryApi = {
         const url = `/atlas/${idCountry}/${idRegion}/cities`;
         return axiosClient.get(url);
     },
-    getUser() {
-        const url = '/users/pool';
+    getUser(start: number): Promise<ListCountries> {
+        const url = `/users/pool/?order=DEFAULT&size=20&start=${start}`;
         return axiosClient.get(url);
     }
 }

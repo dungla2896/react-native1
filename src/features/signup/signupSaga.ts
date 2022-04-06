@@ -7,16 +7,17 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 
-function* handleSignUp(padload: Username) {
+function* handleSignUp(payload: Username) {
     let errorMessage: string = '';
     let dataToken = {
         token: '',
         puk: '',
     }
     try {
-        const data: Username = yield userApi.signUp(padload).catch(e => {
-            errorMessage = e.response.statusText;
-        })
+        const data: Username = yield userApi.signUp(payload).catch(e => {
+            console.log('e:', e);
+        });
+        console.log(data)
         yield put(userActions.signupSuccess(data));
         dataToken.token = data.CONTENT.AUTH.token;
         dataToken.puk = data.CONTENT.AUTH.puk;
@@ -26,30 +27,25 @@ function* handleSignUp(padload: Username) {
             yield put(userActions.signupFailed(errorMessage));
         }
     }
-    // redirect to main page
-    //const token = AsyncStorage.getItem('access_token');
-    // if(token !== null) {
-    //     yield put(push('/home'));
-    // }
 }
 
 function* handleLogout() {
-    // redirect to login page
-    // if(localStorage.getItem('access_token') !== null) {
-    //     localStorage.removeItem('access_token')
-    //     yield put(push('/'))
-    // }
+    //redirect to login page
+    if(AsyncStorage.getItem('access_token') !== null) {
+        AsyncStorage.removeItem('access_token')
+    }
 }
 
 function* watchSignUpFlow() {
     while(true) {
-        const isLoggedIn = Boolean(true)
+        // const isLoggedIn = Boolean(true)
         
-        if(!isLoggedIn) {
-            const action: PayloadAction<Username> = yield take(userActions.signup.type);
-            yield fork(handleSignUp, action.payload)
-        }
-
+        // if(!isLoggedIn) {
+        //     const action: PayloadAction<Username> = yield take(userActions.signup.type);
+        //     yield fork(handleSignUp, action.payload)
+        // }
+        const action: PayloadAction<Username> = yield take(userActions.signup.type);
+        yield fork(handleSignUp, action.payload)
         yield take([userActions.logout.type, userActions.signupFailed.type])
         yield call(handleLogout)
     }

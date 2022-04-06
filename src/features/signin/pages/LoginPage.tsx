@@ -13,6 +13,7 @@ import {
 import BgImage from '../../../assets/intro-home.jpeg';
 import Logo from '../../../assets/logo-large.png';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginPage = (props: any) => {
     const [showModal, setShowModal] = useState(false);
@@ -21,6 +22,13 @@ const LoginPage = (props: any) => {
 
     const { navigation } = props;
     const { push } = navigation;
+
+    const onSubmit = async () => {
+        //push('UITab');
+        setShowModal(!showModal)
+        const data: any = await AsyncStorage.getItem('access_token');
+        console.log(Boolean(data))
+    }
 
     return (
         <View style={styles.body}>
@@ -81,10 +89,7 @@ const LoginPage = (props: any) => {
                                     <Text style={styles.titleHelp}>Nous contacter ou Aide</Text>
                                 </View>
                             </View>
-                            <TouchableOpacity style={styles.btnSubmit} onPress={() => {
-                                push('UITab');
-                                setShowModal(!showModal)
-                            }}>
+                            <TouchableOpacity style={styles.btnSubmit} onPress={onSubmit}>
                                 <Text style={styles.textBtn}>ME CONNECTER</Text>
                             </TouchableOpacity>
                             <View style={styles.signUp}>

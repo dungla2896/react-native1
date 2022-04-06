@@ -1,14 +1,18 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
-const getToken = () => {
+// const data: any = await AsyncStorage.getItem('access_token');
+// const token = JSON.parse(data)
+// console.log(token.puk);
+
+const getToken = async () => {
     try {
-        const data: any = '';
+        const data: any = await AsyncStorage.getItem('access_token');
         const token = JSON.parse(data);
         return token;
     }
     catch { return null }
 }
-
 // Api login :      https://apiv2.ltservices.ovh/gate/{{login}}.json (Fai)
 //       Web :      https://responsive-staging.ltservices2.ovh/api/gate/{{login}}.json
 //                  https://apiv2.ltservices2.ovh/gate/{{login}}.json (Suss)
@@ -27,8 +31,8 @@ const defaultAxios = axios.create({
 })
  
 // Add a request interceptor
-defaultAxios.interceptors.request.use(function (config: AxiosRequestConfig) {
-    const token = getToken();
+defaultAxios.interceptors.request.use(async function (config: AxiosRequestConfig) {
+    const token: any = await getToken();
     if(token) {
         config.headers!['x-asgard-puk'] = `${token.puk}`;
         config.headers!['x-asgard-token'] = `${token.token}`;
@@ -44,8 +48,8 @@ const uploadAxios = axios.create({
     baseURL: 'https://api.ltservices2.ovh/v4',
 });
 
-uploadAxios.interceptors.request.use(function (config: AxiosRequestConfig) {
-    const token = getToken();
+uploadAxios.interceptors.request.use(async function (config: AxiosRequestConfig) {
+    const token: any = await getToken();
     if(token) {
         config.headers!['x-asgard-puk'] = `${token.puk}`;
         config.headers!['x-asgard-token'] = `${token.token}`;
