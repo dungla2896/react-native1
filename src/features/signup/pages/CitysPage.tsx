@@ -71,7 +71,10 @@ const CityFrom = (props: any) => {
                     <View style={styles.check}>
                         <TouchableOpacity 
                             style={styles.checkView}
-                            onPress={() => push('ZipcodeFrom')}
+                            onPress={() => {
+                                context.setIdCity(2507480)
+                                push('ZipcodeFrom')
+                            }}
                         >
                             <View style={styles.btncheck}>
                                 <IconFontAwesome name='check' size={18} color='#fff' />
@@ -163,6 +166,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-end',
         alignItems: 'center',
+        marginBottom: 20,
     },
     checkView: {
         position: 'relative',

@@ -29,6 +29,7 @@ const userSlice = createSlice({
         },
         signupFailed(state, action: PayloadAction<string>) {
             state.logging = false;
+            state.isSignUp = false;
         },
         logout(state) {
             state.currentUser = undefined;

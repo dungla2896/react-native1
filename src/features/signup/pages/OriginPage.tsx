@@ -69,7 +69,10 @@ const OriginPage = (props: any) => {
                     <View style={styles.check}>
                         <TouchableOpacity 
                             style={styles.checkView}
-                            onPress={() => push('FromForm')}
+                            onPress={() => {
+                                context.setOrigin(6)
+                                push('FromForm')
+                            }}
                         >
                             <View style={styles.btncheck}>
                                 <IconFontAwesome name='check' size={18} color='#fff' />
@@ -160,7 +163,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-end',
         alignItems: 'center',
-        marginBottom: 15,
+        marginBottom: 30,
     },
     checkView: {
         position: 'relative',

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     View,
     SafeAreaView,
@@ -9,26 +9,55 @@ import {
     TouchableOpacity,
     Modal,
     TextInput,
+    ActivityIndicator,
 } from 'react-native';
 import BgImage from '../../../assets/intro-home.jpeg';
 import Logo from '../../../assets/logo-large.png';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useAppDispatch, useAppSelector } from '../../../app/hook';
+import { signInActions } from '../signinSlice';
 
 const LoginPage = (props: any) => {
     const [showModal, setShowModal] = useState(false);
     const [showMessage, setShowMessage] = useState(false);
     const [showPass, setShowPass] = useState(true);
 
+    const [userName, setUserName] = useState('');
+    const [password, setPassword] = useState('');
+
     const { navigation } = props;
     const { push } = navigation;
 
+    const isLoggedIn = useAppSelector((state) => state.signIn.isLoggedIn);
+    const loginFailed = useAppSelector((state) => state.signIn.loginFailed);
+
+    useEffect(() => {
+        if(loginFailed === false) {
+            setShowMessage(true)
+        }
+    },[loginFailed])
+
+    console.log(isLoggedIn)
+
+    useEffect(() => {
+        if(isLoggedIn === true){
+            setShowModal(false);
+            setShowMessage(false);
+            push('UITab');
+        }
+    },[isLoggedIn])
+
+    const dispatch = useAppDispatch();
+
     const onSubmit = async () => {
-        //push('UITab');
-        setShowModal(!showModal)
-        const data: any = await AsyncStorage.getItem('access_token');
-        console.log(Boolean(data))
+        const data = {
+            login: userName,
+            validitySeconds: 7776000,
+            password: password,
+        }
+        dispatch(signInActions.login(data))
     }
+    const isLoading = useAppSelector((state) => state.signIn.logging)
 
     return (
         <View style={styles.body}>
@@ -69,6 +98,8 @@ const LoginPage = (props: any) => {
                                 placeholder='Email'
                                 placeholderTextColor='#000'
                                 keyboardType='email-address'
+                                onChangeText={(val) => setUserName(val)}
+                                value={userName}
                             />
                             <View style={styles.inputPass} >
                                 <TextInput 
@@ -76,6 +107,8 @@ const LoginPage = (props: any) => {
                                     placeholder='Mot de Passe'
                                     placeholderTextColor='#000'
                                     secureTextEntry={showPass}
+                                    onChangeText={(val) => setPassword(val)}
+                                    value={password}
                                 />
                                 <TouchableOpacity style={styles.iconShow} onPress={() => setShowPass(!showPass)} >
                                     <IconAntDesign name='eyeo' size={25} color='#7f7f7f' />
@@ -89,9 +122,14 @@ const LoginPage = (props: any) => {
                                     <Text style={styles.titleHelp}>Nous contacter ou Aide</Text>
                                 </View>
                             </View>
-                            <TouchableOpacity style={styles.btnSubmit} onPress={onSubmit}>
-                                <Text style={styles.textBtn}>ME CONNECTER</Text>
-                            </TouchableOpacity>
+                            {
+                                isLoading === false ? <TouchableOpacity style={styles.btnSubmit} onPress={onSubmit}>
+                                    <Text style={styles.textBtn}>ME CONNECTER</Text>
+                                </TouchableOpacity> :
+                                <View style={styles.btnLoading}>
+                                    <ActivityIndicator size="large" color="#000" />
+                                </View>
+                            }
                             <View style={styles.signUp}>
                                 <Text style={styles.textSignUp}>Vous n'avez pas de compte?</Text>
                                 <TouchableOpacity onPress={() => {
@@ -237,6 +275,17 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 20,
+        borderRadius: 10,
+    },
+    btnLoading: {
+        marginTop: 30,
+        backgroundColor: '#939eaa',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingRight: 20,
+        paddingLeft: 20,
+        paddingBottom: 15,
+        paddingTop: 15,
         borderRadius: 10,
     },
     textBtn: {

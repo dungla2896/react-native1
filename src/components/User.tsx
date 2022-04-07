@@ -1,12 +1,19 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { useAppDispatch } from '../app/hook';
+import { signInActions } from '../features/signin/signinSlice';
+import { userActions } from '../features/signup/signupSlice';
 
 const User = (props: any) => {
     const { navigation } = props;
     const { push } = navigation;
 
+    const dispatch = useAppDispatch();
+
     const onSubmit = async () => {
+        dispatch(signInActions.logout())
+        dispatch(userActions.logout())
         await AsyncStorage.removeItem('access_token')
         push('LoginPage')
     }

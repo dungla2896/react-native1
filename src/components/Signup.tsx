@@ -1,6 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 
-import { View, StyleSheet, Text, TouchableOpacity, TextInput, SafeAreaView, Alert, } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, TextInput, SafeAreaView, Alert, ActivityIndicator, } from 'react-native';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconsOcticons from 'react-native-vector-icons/Octicons';
 import LinearGradient from 'react-native-linear-gradient';
@@ -34,6 +34,15 @@ const SignUpFrom = (props: any) => {
     const { navigation } = props;
     const { push, goBack } = navigation;
 
+    const isLoading = useAppSelector((state) => state.signUp.logging);
+    const isSignUp = useAppSelector((state) => state.signUp.isSignUp);
+
+    useEffect(() => {
+        if(isSignUp === true){
+            push('UITab')
+        }
+    },[isSignUp])
+
     const [checkInput1, setCheckInput1] = useState(false);
     const [checkInput2, setCheckInput2] = useState(false);
 
@@ -44,7 +53,6 @@ const SignUpFrom = (props: any) => {
     const dispatch = useAppDispatch();
 
     const onSubmit = async (values: User) => {
-        const token: any = await AsyncStorage.getItem('access_token');
         const data: Username = {
             gender: context.gender,
             birthday: context.birthday,
@@ -61,9 +69,6 @@ const SignUpFrom = (props: any) => {
         }else {
             setMessageCheck(true)
             dispatch(userActions.signup(data))
-            if(Boolean(token) === true) {
-                push('UITab')
-            }
         }
     }
 
@@ -168,20 +173,25 @@ const SignUpFrom = (props: any) => {
                                 </View>
                             </View>
                             <View style={styles.btnSubmit}>
-                                <TouchableOpacity 
-                                    style={styles.checkView}
-                                    onPress={() => {
-                                        // if(messageCheck === true){
-                                        //     push('UITab')
-                                        // }
-                                        handleSubmit()
-                                    }}
-                                >
-                                    <View style={styles.btncheck}>
-                                        <IconsOcticons name='check' size={18} color='#fff' />
-                                        <Text style={styles.textBtn}>CRÉER MON COMPTE</Text>
+                                {
+                                    isLoading === false ?<TouchableOpacity 
+                                        style={styles.checkView}
+                                        onPress={() => {
+                                            // if(messageCheck === true){
+                                            //     push('UITab')
+                                            // }
+                                            handleSubmit()
+                                        }}
+                                    >
+                                        <View style={styles.btncheck}>
+                                            <IconsOcticons name='check' size={18} color='#fff' />
+                                            <Text style={styles.textBtn}>CRÉER MON COMPTE</Text>
+                                        </View>
+                                    </TouchableOpacity> :
+                                    <View style={styles.btnLoading}>
+                                        <ActivityIndicator size="large" color="#000" />
                                     </View>
-                                </TouchableOpacity>
+                                }
                             </View>
                         </View>
                     )}
@@ -295,6 +305,17 @@ const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: '#ffffff33',
         paddingTop: 10,
+        paddingBottom: 18,
+        borderWidth: 1,
+        borderColor: 'transparent',
+        borderTopColor: '#fff',
+    },
+    btnLoading: {
+        position: 'relative',
+        bottom: -4,
+        width: '100%',
+        backgroundColor: '#999',
+        paddingTop: 20,
         paddingBottom: 18,
         borderWidth: 1,
         borderColor: 'transparent',

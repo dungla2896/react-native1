@@ -11,3 +11,10 @@ export interface Username {
 	origin: number,
 	geoname_id: number,
 }
+
+export interface UserLogin {
+    [x: string]: any;
+    login: string;
+	validitySeconds: number;
+	password: string;
+}

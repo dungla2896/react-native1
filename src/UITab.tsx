@@ -32,6 +32,7 @@ const UITab = () => {
             paddingBottom: 20,
             paddingLeft: 10,
             paddingRight: 10,
+            height: 80
         }
     }
     return (

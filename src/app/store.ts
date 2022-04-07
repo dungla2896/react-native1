@@ -2,10 +2,11 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './rootSaga';
 import signUpSlice from '../features/signup/signupSlice';
-//import authReducer from 'features/auth/authSlice';
+import signInSlice from '../features/signin/signinSlice';
 
 const rootReducer = combineReducers({
     signUp: signUpSlice,
+    signIn: signInSlice,
 })
 
 const sagaMiddleware = createSagaMiddleware();

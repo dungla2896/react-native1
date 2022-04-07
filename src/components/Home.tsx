@@ -7,12 +7,13 @@ import {
     Image,
     TouchableOpacity,
     FlatList,
-    ScrollView,
-    ActivityIndicator
+    Animated,
+    SafeAreaView
 } from 'react-native';
 import ImageHeader from '../assets/imageHeader.jpg';
 import IconsIonicons from 'react-native-vector-icons/Ionicons';
 import IconsFeather from 'react-native-vector-icons/Feather';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import countryApi from '../api/getAllApi';
 import Avatar from '../assets/avatar6.png';
 
@@ -21,6 +22,18 @@ const Home = () => {
     const [user, setUser] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
+    const [toggleHeader, setToggleHeader] = useState(false);
+    const [offsetY, setOffsetY]= useState(0);
+
+    useEffect(() => {
+        if(offsetY > 276) {
+            setToggleHeader(true)
+        }else if(offsetY < 276){
+            setToggleHeader(false)
+        }
+    }, [offsetY])
+
+    //console.log(offsetY)
 
     useEffect(() => {
         setIsLoading(true)
@@ -55,74 +68,82 @@ const Home = () => {
         )
     }
 
+    const FlatList_Header = () => {
+        return (
+            <>
+                <ImageBackground source={ImageHeader} style={styles.header} resizeMode='cover'>
+                    <View style={styles.container}>
+                        <Text style={styles.titleHeader}>Rencontres</Text>
+                        <Text style={styles.pld}>Découvrez les profils et faites une rencontre !</Text>
+                    </View>
+                    <View style={styles.border1}></View>
+                    <View style={styles.border2}></View>
+                </ImageBackground>
+                <View style={styles.conentBtn}>
+                    <Text style={styles.textBtn1}>Votre Recherche</Text>
+                    <TouchableOpacity style={styles.btn2}>
+                        <IconsIonicons name='options-outline' size={18} color='#fff' />
+                        <Text style={styles.textBtn2}>Critères</Text>
+                        <View style={styles.numberBtn}>
+                            <Text style={styles.number}>0</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+            </>
+        );
+      }
+
     const renderLoader = () => {
         return (
           isLoading ?
-            <View style={styles.loaderStyle}>
-              <ActivityIndicator size="large" color="#aaa" />
-            </View> : null
+            <View>
+                <View style={styles.loaderStyle}>
+                    <View style={styles.loading}></View>
+                    <View style={styles.loading}></View>
+                </View> 
+                <View style={styles.loaderStyle}>
+                    <View style={styles.loading}></View>
+                    <View style={styles.loading}></View>
+                </View>  
+                <View style={styles.loaderStyle}>
+                    <View style={styles.loading}></View>
+                    <View style={styles.loading}></View>
+                </View>  
+            </View>: null
         );
     };
-
-    console.log(user)
     const loadMoreItem = () => {
-        //setCurrentPage(currentPage + 1);
+        setCurrentPage(currentPage + 1);
     };
     return (
         <View style={styles.body}>
-            {/* <ScrollView style={{ marginBottom: 10 }}> */}
-            <ImageBackground source={ImageHeader} style={styles.header} resizeMode='cover'>
-                <View style={styles.container}>
-                    <Text style={styles.titleHeader}>Rencontres</Text>
-                    <Text style={styles.pld}>Découvrez les profils et faites une rencontre !</Text>
-                </View>
-                <View style={styles.border1}></View>
-                <View style={styles.border2}></View>
-            </ImageBackground>
-            <View style={styles.conentBtn}>
-                <Text style={styles.textBtn1}>Votre Recherche</Text>
-                <TouchableOpacity style={styles.btn2}>
-                    <IconsIonicons name='options-outline' size={18} color='#fff' />
-                    <Text style={styles.textBtn2}>Critères</Text>
-                    <View style={styles.numberBtn}>
-                        <Text style={styles.number}>0</Text>
+            {
+                toggleHeader && <View style={{ height: 90, zIndex: 10 }}>
+                    <View style={styles.showHeader}>
+                        <TouchableOpacity style={styles.reset}>
+                            <MaterialIcons name='refresh' size={20} />
+                            <Text style={{fontSize: 15, fontWeight: '600'}}>Reset</Text>
+                        </TouchableOpacity>
+                        <Text style={styles.headerTitle}>Découvrir</Text>
+                        <TouchableOpacity style={styles.iconHeader}>
+                            <View style={styles.iconsave}>
+                                <IconsIonicons name='save-sharp' size={13} color='#24cf5f' />
+                            </View>
+                            <IconsIonicons name='options-outline' size={18} color='#24cf5f' />
+                        </TouchableOpacity>
                     </View>
-                </TouchableOpacity>
-            </View>
+                </View>
+            }
             <FlatList
                 data={user}
                 renderItem={renderItem}
+                ListHeaderComponent={FlatList_Header}
                 ListFooterComponent={renderLoader}
                 onEndReached={loadMoreItem}
                 onEndReachedThreshold={0}
                 numColumns={2}
+                onScroll={(e) => setOffsetY(e.nativeEvent.contentOffset.y)}
             />
-            {/* <View style={styles.rowUser}>
-                    <View style={styles.user}>
-                        <Image source={Avatar} style={styles.avatar} />
-                        <Text style={styles.name}>Sonia20</Text>
-                        <View style={styles.oldCity}>
-                            <Text style={styles.old}>39 ans</Text>
-                            <Text style={styles.gach}>|</Text>
-                            <View style={styles.map}>
-                                <IconsFeather name='map-pin' size={15} color='#989ca0' />
-                                <Text style={styles.citys}>Dijon</Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={styles.user}>
-                        <Image source={Avatar} style={styles.avatar} />
-                        <Text style={styles.name}>Sonia20</Text>
-                        <View style={styles.oldCity}>
-                            <Text style={styles.old}>39 ans</Text>
-                            <Text style={styles.gach}>|</Text>
-                            <View style={styles.map}>
-                                <IconsFeather name='map-pin' size={15} color='#989ca0' />
-                                <Text style={styles.citys}>Dijon</Text>
-                            </View>
-                        </View>
-                    </View>
-                </View> */}
         </View>
     )
 }
@@ -130,12 +151,52 @@ const Home = () => {
 const styles = StyleSheet.create({
     body: {
         flex: 1,
+        backgroundColor: '#fff',
+    },
+    showHeader: {
+        top: 0, 
+        backgroundColor: '#fff', 
+        position: 'relative',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingLeft: 20,
+        paddingRight: 20,
+        paddingTop: 10,
+        height: 90,
+        shadowColor: '#000',
+        shadowOffset: { width: 1, height: 1 },
+        shadowOpacity:  0.2,
+        shadowRadius: 3,
+        elevation: 5,
+    },
+    reset: {
+        flexDirection: 'row',
+        fontSize: 15,
+        alignItems: 'center'
+    },
+    headerTitle: {
+        fontSize: 18,
+        fontWeight: '700',
+    },
+    iconHeader: {
+        flexDirection: 'row',
+        alignItems: 'center',
+
+    },
+    iconsave: {
+        borderColor: '#24cf5f',
+        borderWidth: 1,
+        padding: 5,
+        borderRadius: 7,
+        marginRight: 10,
     },
     header: {
         width: '100%',
         height: 220,
         justifyContent: 'center',
-        backgroundColor: '#0000002e'
+        backgroundColor: '#0000002e',
+        zIndex: -1,
     },
     container: {
         backgroundColor: '#0000002e',
@@ -187,6 +248,7 @@ const styles = StyleSheet.create({
         paddingLeft: 30,
         paddingRight: 30,
         marginTop: 20,
+        zIndex: -1,
     },
     textBtn1: {
         color: '#000',
@@ -220,12 +282,9 @@ const styles = StyleSheet.create({
         fontSize: 11,
     },
     rowUser: {
-        // marginTop: 20,
-        // flexDirection: 'row',
-        // justifyContent: 'space-evenly',
         flex: 1,
         alignItems: 'center',
-        marginTop: 20
+        marginTop: 20,
     },
     user: {
         backgroundColor: '#fff',
@@ -286,9 +345,18 @@ const styles = StyleSheet.create({
         marginLeft: 3,
     },
     loaderStyle: {
-        marginVertical: 16,
-        alignItems: "center",
+        flex: 1,
+        marginTop: 20,
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
     },
+    loading: {
+        backgroundColor: '#dce0e4', 
+        width: 170, 
+        height: 190, 
+        borderRadius: 15
+    }
 })
 
 export default Home;
