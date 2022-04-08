@@ -45,6 +45,7 @@ const signInSlice = createSlice({
 
         logout(state) {
             state.isLoggedIn = false;
+            state.loginFailed = true;
             state.currentUser = undefined;
         },
     },

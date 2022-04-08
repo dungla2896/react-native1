@@ -8,7 +8,6 @@ import {
     TouchableOpacity,
     FlatList,
     Animated,
-    SafeAreaView
 } from 'react-native';
 import ImageHeader from '../assets/imageHeader.jpg';
 import IconsIonicons from 'react-native-vector-icons/Ionicons';
@@ -23,17 +22,6 @@ const Home = () => {
     const [currentPage, setCurrentPage] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [toggleHeader, setToggleHeader] = useState(false);
-    const [offsetY, setOffsetY]= useState(0);
-
-    useEffect(() => {
-        if(offsetY > 276) {
-            setToggleHeader(true)
-        }else if(offsetY < 276){
-            setToggleHeader(false)
-        }
-    }, [offsetY])
-
-    //console.log(offsetY)
 
     useEffect(() => {
         setIsLoading(true)
@@ -47,7 +35,7 @@ const Home = () => {
         const { item, index } = props;
         return (
             <>
-                <View style={styles.rowUser}>
+                <View style={styles.rowUser} key={index}>
                     <View style={styles.user}>
                         {
                             item.thumbnail === null ? <Image source={Avatar} style={styles.avatar} /> :
@@ -105,10 +93,6 @@ const Home = () => {
                     <View style={styles.loading}></View>
                     <View style={styles.loading}></View>
                 </View>  
-                <View style={styles.loaderStyle}>
-                    <View style={styles.loading}></View>
-                    <View style={styles.loading}></View>
-                </View>  
             </View>: null
         );
     };
@@ -142,7 +126,9 @@ const Home = () => {
                 onEndReached={loadMoreItem}
                 onEndReachedThreshold={0}
                 numColumns={2}
-                onScroll={(e) => setOffsetY(e.nativeEvent.contentOffset.y)}
+                onScroll={(e) => {
+                    setToggleHeader(e.nativeEvent.contentOffset.y > 290 ? true : false);
+                }}
             />
         </View>
     )
@@ -304,10 +290,9 @@ const styles = StyleSheet.create({
     avatar: {
         height: 130,
         width: 130,
-        resizeMode: 'contain',
-        borderRadius: 10,
-        marginLeft: 7,
         backgroundColor: '#f3f2f3',
+        borderRadius: 12,
+        marginLeft: 7,
     },
     name: {
         color: '#000',

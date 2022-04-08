@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, TextInput, SafeAreaView } from 'react-native';
+import {
+    View, 
+    StyleSheet, 
+    Text, 
+    TouchableOpacity, 
+    TextInput, 
+    SafeAreaView,
+    TouchableWithoutFeedback, 
+    Keyboard,
+} from 'react-native';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import LinearGradient from 'react-native-linear-gradient';
@@ -13,40 +22,42 @@ const ZipcodeFrom = (props: any) => {
     return (
         <LinearGradient colors={backgroundColor} style={styles.body} >
             <SafeAreaView>
-                <View style={styles.content}>
-                    <View >
-                        <TouchableOpacity 
-                            style={styles.leftPage}
-                            onPress={() => goBack()}
-                        >
-                            <IconFontAwesome name='chevron-left' size={15} color='white' style={styles.iconPage} />
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.header}>
-                        <View style={styles.logo}>
-                            <FontAwesome5 name='city' size={20} color='white' />
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                    <View style={styles.content}>
+                        <View >
+                            <TouchableOpacity 
+                                style={styles.leftPage}
+                                onPress={() => goBack()}
+                            >
+                                <IconFontAwesome name='chevron-left' size={15} color='white' style={styles.iconPage} />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.header}>
+                            <View style={styles.logo}>
+                                <FontAwesome5 name='city' size={20} color='white' />
+                            </View>
+                        </View>
+                        <Text style={styles.title}>Quel est votre code postal ?</Text>
+                        <View>
+                            <TextInput
+                                style={styles.textInput}
+                                placeholder='Code postal ?'
+                                placeholderTextColor='#ffffff78'
+                                keyboardType="numeric"
+                            />
+                        </View>
+                        <View style={styles.check}>
+                            <TouchableOpacity 
+                                style={styles.checkView}
+                                onPress={() => push('SignUpFrom')}
+                            >
+                                <View style={styles.btncheck}>
+                                    <IconFontAwesome name='check' size={18} color='#fff' />
+                                </View>
+                            </TouchableOpacity>
                         </View>
                     </View>
-                    <Text style={styles.title}>Quel est votre code postal ?</Text>
-                    <View>
-                        <TextInput
-                            style={styles.textInput}
-                            placeholder='Code postal ?'
-                            placeholderTextColor='#ffffff78'
-                            keyboardType="numeric"
-                        />
-                    </View>
-                    <View style={styles.check}>
-                        <TouchableOpacity 
-                            style={styles.checkView}
-                            onPress={() => push('SignUpFrom')}
-                        >
-                            <View style={styles.btncheck}>
-                                <IconFontAwesome name='check' size={18} color='#fff' />
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                </View>
+                </TouchableWithoutFeedback>
             </SafeAreaView>
         </LinearGradient>
     )

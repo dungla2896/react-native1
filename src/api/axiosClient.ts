@@ -13,7 +13,6 @@ const getToken = async () => {
     }
     catch { return null }
 }
-
 // Api Oringin:     https://api.ltservices2.ovh/v4/geonames/origins
 // Api Country :    https://api.ltservices2.ovh/v4/atlas/countries
 // Api Region :     https://api.ltservices2.ovh/v4/atlas/{{country}}/regions

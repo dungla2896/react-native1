@@ -1,5 +1,15 @@
 import React, { useEffect, useRef, useState, useContext } from 'react';
-import { View, StyleSheet, Text, TextInput, TouchableOpacity, Modal, SafeAreaView } from 'react-native';
+import {
+    View, 
+    StyleSheet, 
+    Text, 
+    TextInput, 
+    TouchableOpacity, 
+    Modal, 
+    SafeAreaView, 
+    TouchableWithoutFeedback, 
+    Keyboard,
+} from 'react-native';
 import IconsFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import LinearGradient from 'react-native-linear-gradient';
@@ -127,94 +137,96 @@ const Birthday = (props: any) => {
                         <Text style={styles.textMessage}>{messageError}</Text>
                     </View>
                 }
-                <View style={styles.content}>
-                <View style={{ height: '100%'}}>
-                    <TouchableOpacity onPress={() => goBack()}>
-                        <View>
-                            <IconFontAwesome name='chevron-left' size={15} color='white' style={styles.iconPage} />
-                        </View>
-                    </TouchableOpacity>
-                    <View style={styles.header}>
-                        <View style={styles.logo}>
-                            <IconsFontAwesome5 name='birthday-cake' size={20} color='#fff' />
-                        </View>
-                    </View>
-                    <Text style={styles.title}>Quelle est votre date de naissance ?</Text>
-                    <View style={styles.birthday}>
-                        <TextInput 
-                            style={styles.input}
-                            autoFocus={true}
-                            onChangeText={onChangeValDay}
-                            value={day}
-                            placeholder="JJ"
-                            placeholderTextColor={'#ccc'}
-                            maxLength={2}
-                            keyboardType="numeric"
-                        />
-                        <Text style={styles.socj}>/</Text>
-                        <TextInput 
-                            style={styles.input}
-                            ref={monthRef}
-                            onChangeText={onChangeValMonth}
-                            value={month}
-                            placeholder="MM"
-                            placeholderTextColor={'#ccc'}
-                            maxLength={2}
-                            keyboardType="numeric"
-                        />
-                        <Text style={styles.socj}>/</Text>
-                        <TextInput 
-                            style={styles.inputYear}
-                            ref={yearRef}
-                            onChangeText={(val) => onChangeYaer(val)}
-                            value={year}
-                            placeholder="AAAA"
-                            placeholderTextColor={'#ccc'}
-                            maxLength={4}
-                            keyboardType="numeric"
-                        />
-                    </View>
-                    {
-                        birthdays.length === 10 ? <Text style={styles.messageOld}>{old}</Text> : <Text></Text> 
-                    }
-                    <View style={styles.check}>
-                        <TouchableOpacity 
-                            style={styles.checkbtn} 
-                            onPress={onClickBirthday}
-                        >
-                            <View style={styles.btncheck}>
-                                <IconFontAwesome name='check' size={18} color='#fff' />
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                    <View style={styles.content}>
+                        <View style={{ height: '100%'}}>
+                            <TouchableOpacity onPress={() => goBack()}>
+                                <View>
+                                    <IconFontAwesome name='chevron-left' size={15} color='white' style={styles.iconPage} />
+                                </View>
+                            </TouchableOpacity>
+                            <View style={styles.header}>
+                                <View style={styles.logo}>
+                                    <IconsFontAwesome5 name='birthday-cake' size={20} color='#fff' />
+                                </View>
                             </View>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-                <Modal transparent visible={showModal} >
-                    <View style={styles.modalBackground}>
-                        <View style={styles.modalContainer}>
-                            <IconsFontAwesome5 name='birthday-cake' size={28} color='black' style={styles.icon} />
-                            <Text style={styles.old}>{oldModal}</Text>
-                            <Text style={styles.def}>Vous ne pourrez pas le modifier par la suite</Text>
-                            <View style={styles.rowBtn}>
-                                <TouchableOpacity onPress={() => setShowModal(false)}>
-                                    <View style={styles.btnAnnuler}>
-                                        <Text style={styles.btn1}>ANNULER</Text>
-                                    </View>
-                                </TouchableOpacity>
+                            <Text style={styles.title}>Quelle est votre date de naissance ?</Text>
+                            <View style={styles.birthday}>
+                                <TextInput 
+                                    style={styles.input}
+                                    autoFocus={true}
+                                    onChangeText={onChangeValDay}
+                                    value={day}
+                                    placeholder="JJ"
+                                    placeholderTextColor={'#ccc'}
+                                    maxLength={2}
+                                    keyboardType="numeric"
+                                />
+                                <Text style={styles.socj}>/</Text>
+                                <TextInput 
+                                    style={styles.input}
+                                    ref={monthRef}
+                                    onChangeText={onChangeValMonth}
+                                    value={month}
+                                    placeholder="MM"
+                                    placeholderTextColor={'#ccc'}
+                                    maxLength={2}
+                                    keyboardType="numeric"
+                                />
+                                <Text style={styles.socj}>/</Text>
+                                <TextInput 
+                                    style={styles.inputYear}
+                                    ref={yearRef}
+                                    onChangeText={(val) => onChangeYaer(val)}
+                                    value={year}
+                                    placeholder="AAAA"
+                                    placeholderTextColor={'#ccc'}
+                                    maxLength={4}
+                                    keyboardType="numeric"
+                                />
+                            </View>
+                            {
+                                birthdays.length === 10 ? <Text style={styles.messageOld}>{old}</Text> : <Text></Text> 
+                            }
+                            <View style={styles.check}>
                                 <TouchableOpacity 
-                                    onPress={() => {
-                                        push('OriginPage');
-                                        setShowModal(false);
-                                    }}
+                                    style={styles.checkbtn} 
+                                    onPress={onClickBirthday}
                                 >
-                                    <View style={styles.btnConfirmer}>
-                                        <Text style={styles.btn2}>CONFIRMER</Text>
+                                    <View style={styles.btncheck}>
+                                        <IconFontAwesome name='check' size={18} color='#fff' />
                                     </View>
                                 </TouchableOpacity>
                             </View>
                         </View>
+                        <Modal transparent visible={showModal} >
+                            <View style={styles.modalBackground}>
+                                <View style={styles.modalContainer}>
+                                    <IconsFontAwesome5 name='birthday-cake' size={28} color='black' style={styles.icon} />
+                                    <Text style={styles.old}>{oldModal}</Text>
+                                    <Text style={styles.def}>Vous ne pourrez pas le modifier par la suite</Text>
+                                    <View style={styles.rowBtn}>
+                                        <TouchableOpacity onPress={() => setShowModal(false)}>
+                                            <View style={styles.btnAnnuler}>
+                                                <Text style={styles.btn1}>ANNULER</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => {
+                                                push('OriginPage');
+                                                setShowModal(false);
+                                            }}
+                                        >
+                                            <View style={styles.btnConfirmer}>
+                                                <Text style={styles.btn2}>CONFIRMER</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                            </View>
+                        </Modal>
                     </View>
-                </Modal>
-                </View>
+                </TouchableWithoutFeedback>
             </SafeAreaView>
         </LinearGradient>
     )
@@ -320,7 +332,7 @@ const styles = StyleSheet.create({
     },
     checkbtn: {
         position: 'relative',
-        bottom: 0
+        bottom: 15
     },
     btncheck: {
         borderRadius: 50,
@@ -356,6 +368,7 @@ const styles = StyleSheet.create({
     def: {
         color: '#3e3e3e',
         marginTop: 10,
+        textAlign: 'center'
     },
     rowBtn: {
         flexDirection: 'row',

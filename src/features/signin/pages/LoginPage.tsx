@@ -10,6 +10,8 @@ import {
     Modal,
     TextInput,
     ActivityIndicator,
+    TouchableWithoutFeedback, 
+    Keyboard,
 } from 'react-native';
 import BgImage from '../../../assets/intro-home.jpeg';
 import Logo from '../../../assets/logo-large.png';
@@ -36,8 +38,6 @@ const LoginPage = (props: any) => {
             setShowMessage(true)
         }
     },[loginFailed])
-
-    console.log(isLoggedIn)
 
     useEffect(() => {
         if(isLoggedIn === true){
@@ -80,67 +80,72 @@ const LoginPage = (props: any) => {
                     </View>
                 </SafeAreaView>
                 <Modal transparent visible={showModal}>
-                    <View style={styles.modalBackground}>
-                        <View style={styles.modalContainer}>
-                            <View style={styles.headerLogin}>
-                                <Text style={styles.titleLogin}>Connexion</Text>
-                                <TouchableOpacity style={styles.close} onPress={() => setShowModal(!showModal)}>
-                                    <IconAntDesign name='close' size={24} color='#000' />
-                                </TouchableOpacity>
-                            </View>
-                            {
-                                showMessage && <View style={styles.message}>
-                                    <Text style={{color: 'red'}}>Identifiant ou mot de passe incorrect</Text>
+                    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                        <View style={styles.modalBackground}>
+                            <View style={styles.modalContainer}>
+                                <View style={styles.headerLogin}>
+                                    <Text style={styles.titleLogin}>Connexion</Text>
+                                    <TouchableOpacity style={styles.close} onPress={() => {
+                                        setShowModal(!showModal)
+                                        setShowMessage(false)
+                                    }}>
+                                        <IconAntDesign name='close' size={24} color='#000' />
+                                    </TouchableOpacity>
                                 </View>
-                            }
-                            <TextInput 
-                                style={styles.inputLogin}
-                                placeholder='Email'
-                                placeholderTextColor='#000'
-                                keyboardType='email-address'
-                                onChangeText={(val) => setUserName(val)}
-                                value={userName}
-                            />
-                            <View style={styles.inputPass} >
+                                {
+                                    showMessage && <View style={styles.message}>
+                                        <Text style={{color: 'red'}}>Identifiant ou mot de passe incorrect</Text>
+                                    </View>
+                                }
                                 <TextInput 
                                     style={styles.inputLogin}
-                                    placeholder='Mot de Passe'
+                                    placeholder='Email'
                                     placeholderTextColor='#000'
-                                    secureTextEntry={showPass}
-                                    onChangeText={(val) => setPassword(val)}
-                                    value={password}
+                                    keyboardType='email-address'
+                                    onChangeText={(val) => setUserName(val)}
+                                    value={userName}
                                 />
-                                <TouchableOpacity style={styles.iconShow} onPress={() => setShowPass(!showPass)} >
-                                    <IconAntDesign name='eyeo' size={25} color='#7f7f7f' />
-                                </TouchableOpacity>
-                            </View>
-                            <View style={styles.titleLink}>
-                                <TouchableOpacity>
-                                    <Text style={styles.titlePass}>Mot de passe oublié ?</Text>
-                                </TouchableOpacity>
-                                <View style={styles.titleLinkHelp}>
-                                    <Text style={styles.titleHelp}>Nous contacter ou Aide</Text>
+                                <View style={styles.inputPass} >
+                                    <TextInput 
+                                        style={styles.inputLogin}
+                                        placeholder='Mot de Passe'
+                                        placeholderTextColor='#000'
+                                        secureTextEntry={showPass}
+                                        onChangeText={(val) => setPassword(val)}
+                                        value={password}
+                                    />
+                                    <TouchableOpacity style={styles.iconShow} onPress={() => setShowPass(!showPass)} >
+                                        <IconAntDesign name='eyeo' size={25} color='#7f7f7f' />
+                                    </TouchableOpacity>
                                 </View>
-                            </View>
-                            {
-                                isLoading === false ? <TouchableOpacity style={styles.btnSubmit} onPress={onSubmit}>
-                                    <Text style={styles.textBtn}>ME CONNECTER</Text>
-                                </TouchableOpacity> :
-                                <View style={styles.btnLoading}>
-                                    <ActivityIndicator size="large" color="#000" />
+                                <View style={styles.titleLink}>
+                                    <TouchableOpacity>
+                                        <Text style={styles.titlePass}>Mot de passe oublié ?</Text>
+                                    </TouchableOpacity>
+                                    <View style={styles.titleLinkHelp}>
+                                        <Text style={styles.titleHelp}>Nous contacter ou Aide</Text>
+                                    </View>
                                 </View>
-                            }
-                            <View style={styles.signUp}>
-                                <Text style={styles.textSignUp}>Vous n'avez pas de compte?</Text>
-                                <TouchableOpacity onPress={() => {
-                                    setShowModal(!showModal)
-                                    push('GenderPage');
-                                }}>
-                                    <Text style={styles.linkSignUp}>Inscrivez-vous gratuitement</Text>
-                                </TouchableOpacity>
+                                {
+                                    isLoading === false ? <TouchableOpacity style={styles.btnSubmit} onPress={onSubmit}>
+                                        <Text style={styles.textBtn}>ME CONNECTER</Text>
+                                    </TouchableOpacity> :
+                                    <View style={styles.btnLoading}>
+                                        <ActivityIndicator size="large" color="#000" />
+                                    </View>
+                                }
+                                <View style={styles.signUp}>
+                                    <Text style={styles.textSignUp}>Vous n'avez pas de compte?</Text>
+                                    <TouchableOpacity onPress={() => {
+                                        setShowModal(!showModal)
+                                        push('GenderPage');
+                                    }}>
+                                        <Text style={styles.linkSignUp}>Inscrivez-vous gratuitement</Text>
+                                    </TouchableOpacity>
+                                </View>
                             </View>
                         </View>
-                    </View>
+                    </TouchableWithoutFeedback>
                 </Modal>
             </ImageBackground>
         </View>

@@ -33,6 +33,7 @@ const userSlice = createSlice({
         },
         logout(state) {
             state.currentUser = undefined;
+            state.isSignUp = false;
         },
     },
 });

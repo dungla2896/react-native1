@@ -9,7 +9,7 @@ import countryApi from '../../../api/getAllApi';
 import { Regions } from '../../../models';
 
 const RegionFrom = (props: any) => {
-    const [select, setSelect] = useState(0);
+    const [select, setSelect] = useState(-1);
     const [regions, setRegions] = useState<Regions[]>([])
 
     const backgroundColor = ['#FF59F4', '#FF5978'];
@@ -47,6 +47,7 @@ const RegionFrom = (props: any) => {
                     <ScrollView
                         showsVerticalScrollIndicator={false}
                         showsHorizontalScrollIndicator={false}
+                        style={{ zIndex: -1}}
                     >
                         {
                             regions.map((item: Regions, index: number) => (
@@ -70,17 +71,23 @@ const RegionFrom = (props: any) => {
                         }
                     </ScrollView>
                     <View style={styles.check}>
-                        <TouchableOpacity 
-                            style={styles.checkView}
-                            onPress={() => {
-                                push('CityFrom')
-                                context.setIdRegion('01')
-                            }}
-                        >
-                            <View style={styles.btncheck}>
-                                <IconFontAwesome name='check' size={18} color='#fff' />
+                        {
+                            select !== -1 ? <TouchableOpacity 
+                                style={styles.checkView}
+                                onPress={() => {
+                                    push('CityFrom')
+                                }}
+                            >
+                                <View style={styles.btncheck}>
+                                    <IconFontAwesome name='check' size={18} color='#fff' />
+                                </View>
+                            </TouchableOpacity> :
+                            <View style={styles.checkView}>
+                                <View style={styles.btncheck}>
+                                    <IconFontAwesome name='check' size={18} color='#fff' />
+                                </View>
                             </View>
-                        </TouchableOpacity>
+                        }
                     </View>
                 </View>
             </SafeAreaView>
@@ -166,7 +173,8 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-end',
         alignItems: 'center',
-        marginBottom: 30,
+        marginBottom: 15,
+        zIndex: 10,
     },
     checkView: {
         position: 'relative',

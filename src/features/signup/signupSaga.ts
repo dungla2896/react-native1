@@ -14,9 +14,7 @@ function* handleSignUp(payload: Username) {
         puk: '',
     }
     try {
-        const data: Username = yield userApi.signUp(payload).catch(e => {
-            console.log('e:', e);
-        });
+        const data: Username = yield userApi.signUp(payload)
         console.log(data)
         yield put(userActions.signupSuccess(data));
         dataToken.token = data.CONTENT.AUTH.token;
@@ -24,9 +22,11 @@ function* handleSignUp(payload: Username) {
         AsyncStorage.setItem('access_token', JSON.stringify(dataToken))
     } catch (error) {
         if(error instanceof Error) {
+            errorMessage = error.message;
             yield put(userActions.signupFailed(errorMessage));
         }
     }
+    console.log(errorMessage)
 }
 
 function* handleLogout() {
@@ -38,12 +38,6 @@ function* handleLogout() {
 
 function* watchSignUpFlow() {
     while(true) {
-        // const isLoggedIn = Boolean(true)
-        
-        // if(!isLoggedIn) {
-        //     const action: PayloadAction<Username> = yield take(userActions.signup.type);
-        //     yield fork(handleSignUp, action.payload)
-        // }
         const action: PayloadAction<Username> = yield take(userActions.signup.type);
         yield fork(handleSignUp, action.payload)
         yield take([userActions.logout.type, userActions.signupFailed.type])

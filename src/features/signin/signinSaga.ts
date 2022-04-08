@@ -6,7 +6,7 @@ import { UserLogin } from "../../models/username";
 import { signInActions, LogginPayload } from "./signinSlice"
 
 function* handleLogin(padload: LogginPayload){
-    let message: string = '';
+    let messages = '';
     let dataToken = {
         token: '',
         puk: '',
@@ -25,7 +25,9 @@ function* handleLogin(padload: LogginPayload){
         AsyncStorage.setItem('access_token', JSON.stringify(dataToken));
     } catch (error) {
         if(error instanceof Error) {
-            yield put(signInActions.loginFailed(message));
+            messages = error.message
+            yield put(signInActions.loginFailed(messages));
+            console.log(messages)
         }
     }
 }

@@ -9,7 +9,7 @@ import { Countries } from '../../../models';
 import { UserContext } from '../../../../UserContext';
 
 const CountryFrom = (props: any) => {
-    const [select, setSelect] = useState(0);
+    const [select, setSelect] = useState(-1);
     const backgroundColor = ['#FF59F4', '#FF5978'];
 
     const { navigation } = props;
@@ -67,17 +67,23 @@ const CountryFrom = (props: any) => {
                         }
                     </ScrollView>
                     <View style={styles.check}>
-                        <TouchableOpacity 
-                            style={styles.checkView}
-                            onPress={() => {
-                                push('RegionFrom')
-                                context.setIdCountry('DZ')
-                            }}
-                        >
-                            <View style={styles.btncheck}>
-                                <IconFontAwesome name='check' size={18} color='#fff' />
+                        {
+                            select !== -1 ? <TouchableOpacity 
+                                style={styles.checkView}
+                                onPress={() => {
+                                    push('RegionFrom')
+                                }}
+                            >
+                                <View style={styles.btncheck}>
+                                    <IconFontAwesome name='check' size={18} color='#fff' />
+                                </View>
+                            </TouchableOpacity> :
+                            <View style={styles.checkView}>
+                                <View style={styles.btncheck}>
+                                    <IconFontAwesome name='check' size={18} color='#fff' />
+                                </View>
                             </View>
-                        </TouchableOpacity>
+                        }
                     </View>
                 </View>
             </SafeAreaView>

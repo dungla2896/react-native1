@@ -1,20 +1,27 @@
 import React, { useState, useContext, useEffect } from 'react';
 
-import { View, StyleSheet, Text, TouchableOpacity, TextInput, SafeAreaView, Alert, ActivityIndicator, } from 'react-native';
+import {
+    View, 
+    StyleSheet, 
+    Text, 
+    TouchableOpacity, 
+    TextInput, 
+    SafeAreaView, 
+    ActivityIndicator, 
+    TouchableWithoutFeedback, 
+    Keyboard,
+    ScrollView,
+} from 'react-native';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconsOcticons from 'react-native-vector-icons/Octicons';
 import LinearGradient from 'react-native-linear-gradient';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-import PasswordStrength from './PasswordStrength';
-
 import { UserContext } from '../../UserContext';
 import { useAppDispatch, useAppSelector } from '../app/hook';
 import { userActions } from '../features/signup/signupSlice';
 import { Username } from '../models/username';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import userApi from '../api/postApi';
 
 interface User {
     email: string;
@@ -81,119 +88,121 @@ const SignUpFrom = (props: any) => {
                     validationSchema={SignupSchema}
                 >
                     {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
-                        <View style={styles.content}>
-                            <View style={styles.row}>
-                                <View style={styles.header}>
-                                    <TouchableOpacity 
-                                        style={styles.leftPage}
-                                        onPress={() => goBack()}
-                                    >
-                                        <IconFontAwesome name='chevron-left' size={15} color='white' style={styles.iconPage} />
-                                    </TouchableOpacity>
-                                    <Text style={styles.title}>Inscription</Text>
-                                    <View style={styles.textLink}>
-                                        <Text style={styles.text}>Déjà un compte ?</Text>
+                        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                            <View style={styles.content}>
+                                <View style={styles.row}>
+                                    <View style={styles.header}>
+                                        <TouchableOpacity 
+                                            style={styles.leftPage}
+                                            onPress={() => goBack()}
+                                        >
+                                            <IconFontAwesome name='chevron-left' size={15} color='white' style={styles.iconPage} />
+                                        </TouchableOpacity>
+                                        <Text style={styles.title}>Inscription</Text>
+                                        <View style={styles.textLink}>
+                                            <Text style={styles.text}>Déjà un compte ?</Text>
+                                        </View>
+                                    </View>
+                                    <View>
+                                        <TextInput
+                                            style={styles.textInput}
+                                            placeholder='Email'
+                                            placeholderTextColor='#ffffff78'
+                                            keyboardType="email-address"
+                                            onChangeText={handleChange('email')}
+                                            onBlur={handleBlur('email')}
+                                            value={values.email}
+                                        />
+                                        {errors.email && touched.email ? (
+                                            <Text style={{color: 'red'}}>{errors.email}</Text>
+                                        ) : null}
+                                        <TextInput
+                                            style={styles.textInput}
+                                            placeholder='Prénom'
+                                            placeholderTextColor='#ffffff78'
+                                            keyboardType="default"
+                                            onChangeText={handleChange('firstname')}
+                                            onBlur={handleBlur('firstname')}
+                                            value={values.firstname}
+                                        />
+                                        {errors.firstname && touched.firstname ? (
+                                            <Text style={{color: 'red'}}>{errors.firstname}</Text>
+                                        ) : null}
+                                        <TextInput
+                                            style={styles.textInput}
+                                            placeholder='Mot de Passe'
+                                            placeholderTextColor='#ffffff78'
+                                            keyboardType="default"
+                                            secureTextEntry={true}
+                                            onChangeText={handleChange('password')}
+                                            onBlur={handleBlur('password')}
+                                            value={values.password}
+                                        />
+                                        {errors.password && touched.password ? (
+                                            <Text style={{color: 'red'}}>{errors.password}</Text>
+                                        ) : null}
+                                    </View>
+                                    <View>
+                                        <TouchableOpacity 
+                                            onPress={() => {
+                                                setCheckInput1(!checkInput1)
+                                            }}
+                                        >
+                                            <View style={styles.radios}>
+                                                <View style={styles.outline}>
+                                                    {
+                                                        checkInput1 && <IconsOcticons name='check' size={28} color='#fff' />
+                                                    }
+                                                </View>
+                                                <Text style={styles.text}>
+                                                    Je certifie être majeur(e) et j’accepte les Conditions générales d’utilisations
+                                                    {/* <View style={styles.linkBank}>Conditions générales d’utilisations</View> */}
+                                                </Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity onPress={() => setCheckInput2(!checkInput2)}>
+                                            <View style={styles.radios}>
+                                                <View style={styles.outline}>
+                                                    {
+                                                        checkInput2 && <IconsOcticons name='check' size={28} color='#fff' />
+                                                    }
+                                                </View>
+                                                <Text style={styles.text}>J'accepte que mes données renseignées, 
+                                                    y compris celles facultatives relatives à mon origine, à ses prestataires 
+                                                    et aux autres membres situés dans et hors l’UE afin de favoriser des rencontres
+                                                </Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                        {
+                                            messageCheck === false ? (
+                                                <Text style={{color: 'red'}}>Ce champ est requis</Text>
+                                            ): null
+                                        }
                                     </View>
                                 </View>
-                                <View>
-                                    <TextInput
-                                        style={styles.textInput}
-                                        placeholder='Email'
-                                        placeholderTextColor='#ffffff78'
-                                        keyboardType="email-address"
-                                        onChangeText={handleChange('email')}
-                                        onBlur={handleBlur('email')}
-                                        value={values.email}
-                                    />
-                                    {errors.email && touched.email ? (
-                                        <Text style={{color: 'red'}}>{errors.email}</Text>
-                                    ) : null}
-                                    <TextInput
-                                        style={styles.textInput}
-                                        placeholder='Prénom'
-                                        placeholderTextColor='#ffffff78'
-                                        keyboardType="default"
-                                        onChangeText={handleChange('firstname')}
-                                        onBlur={handleBlur('firstname')}
-                                        value={values.firstname}
-                                    />
-                                    {errors.firstname && touched.firstname ? (
-                                        <Text style={{color: 'red'}}>{errors.firstname}</Text>
-                                    ) : null}
-                                    <TextInput
-                                        style={styles.textInput}
-                                        placeholder='Mot de Passe'
-                                        placeholderTextColor='#ffffff78'
-                                        keyboardType="default"
-                                        secureTextEntry={true}
-                                        onChangeText={handleChange('password')}
-                                        onBlur={handleBlur('password')}
-                                        value={values.password}
-                                    />
-                                    {errors.password && touched.password ? (
-                                        <Text style={{color: 'red'}}>{errors.password}</Text>
-                                    ) : null}
-                                </View>
-                                <View>
-                                    <TouchableOpacity 
-                                        onPress={() => {
-                                            setCheckInput1(!checkInput1)
-                                        }}
-                                    >
-                                        <View style={styles.radios}>
-                                            <View style={styles.outline}>
-                                                {
-                                                    checkInput1 && <IconsOcticons name='check' size={28} color='#fff' />
-                                                }
-                                            </View>
-                                            <Text style={styles.text}>
-                                                Je certifie être majeur(e) et j’accepte les Conditions générales d’utilisations
-                                                {/* <View style={styles.linkBank}>Conditions générales d’utilisations</View> */}
-                                            </Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity onPress={() => setCheckInput2(!checkInput2)}>
-                                        <View style={styles.radios}>
-                                            <View style={styles.outline}>
-                                                {
-                                                    checkInput2 && <IconsOcticons name='check' size={28} color='#fff' />
-                                                }
-                                            </View>
-                                            <Text style={styles.text}>J'accepte que mes données renseignées, 
-                                                y compris celles facultatives relatives à mon origine, à ses prestataires 
-                                                et aux autres membres situés dans et hors l’UE afin de favoriser des rencontres
-                                            </Text>
-                                        </View>
-                                    </TouchableOpacity>
+                                <View style={styles.btnSubmit}>
                                     {
-                                        messageCheck === false ? (
-                                            <Text style={{color: 'red'}}>Ce champ est requis</Text>
-                                        ): null
+                                        isLoading === false ?<TouchableOpacity 
+                                            style={styles.checkView}
+                                            onPress={() => {
+                                                // if(messageCheck === true){
+                                                //     push('UITab')
+                                                // }
+                                                handleSubmit()
+                                            }}
+                                        >
+                                            <View style={styles.btncheck}>
+                                                <IconsOcticons name='check' size={18} color='#fff' />
+                                                <Text style={styles.textBtn}>CRÉER MON COMPTE</Text>
+                                            </View>
+                                        </TouchableOpacity> :
+                                        <View style={styles.btnLoading}>
+                                            <ActivityIndicator size="large" color="#000" />
+                                        </View>
                                     }
                                 </View>
                             </View>
-                            <View style={styles.btnSubmit}>
-                                {
-                                    isLoading === false ?<TouchableOpacity 
-                                        style={styles.checkView}
-                                        onPress={() => {
-                                            // if(messageCheck === true){
-                                            //     push('UITab')
-                                            // }
-                                            handleSubmit()
-                                        }}
-                                    >
-                                        <View style={styles.btncheck}>
-                                            <IconsOcticons name='check' size={18} color='#fff' />
-                                            <Text style={styles.textBtn}>CRÉER MON COMPTE</Text>
-                                        </View>
-                                    </TouchableOpacity> :
-                                    <View style={styles.btnLoading}>
-                                        <ActivityIndicator size="large" color="#000" />
-                                    </View>
-                                }
-                            </View>
-                        </View>
+                        </TouchableWithoutFeedback>
                     )}
                 </Formik>
             </SafeAreaView>
@@ -203,14 +212,9 @@ const SignUpFrom = (props: any) => {
 }
 
 const styles = StyleSheet.create({
-
-    streng: {
-        width: '14%', 
-        backgroundColor: 'red', 
-        height: 5,
-    },
     body: {
-        flex: 1
+        width: '100%',
+        height: '100%',
     },
     content: {
         marginTop: 15,
@@ -296,16 +300,14 @@ const styles = StyleSheet.create({
     },
     btnSubmit: {
         flex: 1,
-        justifyContent: 'flex-end',
-        alignItems: 'center',
     },
     checkView: {
-        position: 'relative',
+        position: 'absolute',
         bottom: 0,
         width: '100%',
         backgroundColor: '#ffffff33',
         paddingTop: 10,
-        paddingBottom: 18,
+        paddingBottom: 10,
         borderWidth: 1,
         borderColor: 'transparent',
         borderTopColor: '#fff',

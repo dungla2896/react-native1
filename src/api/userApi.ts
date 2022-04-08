@@ -1,8 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
-//                  https://apiv2.ltservices2.ovh/gate/{{login}}.json (Suss)
-
-// Api login :      https://apiv2.ltservices.ovh/gate/{{login}}.json (Fai)
+// Api login :      https://apiv2.ltservices2.ovh/gate/{{login}}.json
 // Api signUp:      https://apiv2.ltservices2.ovh/pool/.json?new_key_signup=true
 
 const axiosClient = axios.create({

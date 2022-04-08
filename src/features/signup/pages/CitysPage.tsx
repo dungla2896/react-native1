@@ -9,7 +9,7 @@ import countryApi from '../../../api/getAllApi';
 import { City } from '../../../models';
 
 const CityFrom = (props: any) => {
-    const [select, setSelect] = useState(0);
+    const [select, setSelect] = useState(-1);
     const [city, setCity] = useState<City[]>([]);
 
     const backgroundColor = ['#FF59F4', '#FF5978'];
@@ -69,17 +69,23 @@ const CityFrom = (props: any) => {
                         }
                     </ScrollView>
                     <View style={styles.check}>
-                        <TouchableOpacity 
-                            style={styles.checkView}
-                            onPress={() => {
-                                context.setIdCity(2507480)
-                                push('ZipcodeFrom')
-                            }}
-                        >
-                            <View style={styles.btncheck}>
-                                <IconFontAwesome name='check' size={18} color='#fff' />
+                        {
+                            select !== -1 ? <TouchableOpacity 
+                                style={styles.checkView}
+                                onPress={() => {
+                                    push('ZipcodeFrom')
+                                }}
+                            >
+                                <View style={styles.btncheck}>
+                                    <IconFontAwesome name='check' size={18} color='#fff' />
+                                </View>
+                            </TouchableOpacity> :
+                            <View style={styles.checkView}>
+                                <View style={styles.btncheck}>
+                                    <IconFontAwesome name='check' size={18} color='#fff' />
+                                </View>
                             </View>
-                        </TouchableOpacity>
+                        }
                     </View>
                 </View>
             </SafeAreaView>
