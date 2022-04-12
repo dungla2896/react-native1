@@ -21,30 +21,30 @@ const ZipcodeFrom = (props: any) => {
 
     return (
         <LinearGradient colors={backgroundColor} style={styles.body} >
-            <SafeAreaView>
+            <SafeAreaView style={styles.container}>
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                    <View style={styles.content}>
-                        <View >
-                            <TouchableOpacity 
-                                style={styles.leftPage}
-                                onPress={() => goBack()}
-                            >
-                                <IconFontAwesome name='chevron-left' size={15} color='white' style={styles.iconPage} />
-                            </TouchableOpacity>
-                        </View>
+                    <View style={{ flex: 1 }}>
+                        <TouchableOpacity 
+                            style={styles.leftPage}
+                            onPress={() => goBack()}
+                        >
+                            <IconFontAwesome name='chevron-left' size={15} color='white' style={styles.iconPage} />
+                        </TouchableOpacity>
                         <View style={styles.header}>
                             <View style={styles.logo}>
                                 <FontAwesome5 name='city' size={20} color='white' />
                             </View>
                         </View>
-                        <Text style={styles.title}>Quel est votre code postal ?</Text>
-                        <View>
-                            <TextInput
-                                style={styles.textInput}
-                                placeholder='Code postal ?'
-                                placeholderTextColor='#ffffff78'
-                                keyboardType="numeric"
-                            />
+                        <View style={{ flex: 8 }}>
+                            <Text style={styles.title}>Quel est votre code postal ?</Text>
+                            <View>
+                                <TextInput
+                                    style={styles.textInput}
+                                    placeholder='Code postal ?'
+                                    placeholderTextColor='#ffffff78'
+                                    keyboardType="numeric"
+                                />
+                            </View>
                         </View>
                         <View style={styles.check}>
                             <TouchableOpacity 
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
         height: 40,
         width: '15%',
         position: 'absolute',
-        top: 0,
+        top: '5%',
         zIndex: 10,
     },
     iconPage: {
@@ -79,16 +79,16 @@ const styles = StyleSheet.create({
         top: 15,
     },
     header: {
+        flex: 1,
         marginBottom: 35,
+        marginTop: 20,
         alignItems: 'center',
         zIndex: -1,
     },
-    content: {
-        marginTop: 15,
-        height: '96%',
-        position: 'relative',
-        paddingLeft: 30,
-        paddingRight: 30,
+    container: {
+        flex: 1,
+        marginLeft: 30,
+        marginRight: 30,
     },
     logo: {
         backgroundColor: '#f97aec',
@@ -124,8 +124,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     checkView: {
-        position: 'relative',
-        bottom: 0
+        flex: 1,
     },
     btncheck: {
         borderRadius: 50,

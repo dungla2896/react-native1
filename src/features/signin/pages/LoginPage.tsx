@@ -13,11 +13,23 @@ import {
     TouchableWithoutFeedback, 
     Keyboard,
 } from 'react-native';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 import BgImage from '../../../assets/intro-home.jpeg';
 import Logo from '../../../assets/logo-large.png';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import { useAppDispatch, useAppSelector } from '../../../app/hook';
 import { signInActions } from '../signinSlice';
+
+const SignupSchema = Yup.object().shape({
+    email: Yup.string().email('L\'adresse email n\'est pas valide').required('Ce champ est requis'),
+    password: Yup.string().required('Ce champ est requis'),
+});
+
+interface UserLogin {
+    email: string,
+    password: string,
+}
 
 const LoginPage = (props: any) => {
     const [showModal, setShowModal] = useState(false);
@@ -49,11 +61,11 @@ const LoginPage = (props: any) => {
 
     const dispatch = useAppDispatch();
 
-    const onSubmit = async () => {
+    const onSubmit = async (value: UserLogin) => {
         const data = {
-            login: userName,
+            login: value.email,
             validitySeconds: 7776000,
-            password: password,
+            password: value.password,
         }
         dispatch(signInActions.login(data))
     }
@@ -64,10 +76,12 @@ const LoginPage = (props: any) => {
             <ImageBackground source={BgImage} style={styles.container}  >
                 <SafeAreaView>
                     <View style={styles.content}>
-                        <Image source={Logo} style={styles.logo} />
-                        <Text style={styles.title}>
-                            L'application numéro 1 de la rencontre Musulmane et Maghrébine
-                        </Text>
+                        <View style={styles.header}>
+                            <Image source={Logo} style={styles.logo} />
+                            <Text style={styles.title}>
+                                L'application numéro 1 de la rencontre Musulmane et Maghrébine
+                            </Text>
+                        </View>
                         <View style={styles.btn}>
                             <TouchableOpacity style={styles.btnConnecter} onPress={() => setShowModal(!showModal)}>
                                 <Text style={styles.btnText}>SE CONNECTER</Text>
@@ -81,70 +95,86 @@ const LoginPage = (props: any) => {
                 </SafeAreaView>
                 <Modal transparent visible={showModal}>
                     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                        <View style={styles.modalBackground}>
-                            <View style={styles.modalContainer}>
-                                <View style={styles.headerLogin}>
-                                    <Text style={styles.titleLogin}>Connexion</Text>
-                                    <TouchableOpacity style={styles.close} onPress={() => {
-                                        setShowModal(!showModal)
-                                        setShowMessage(false)
-                                    }}>
-                                        <IconAntDesign name='close' size={24} color='#000' />
-                                    </TouchableOpacity>
-                                </View>
-                                {
-                                    showMessage && <View style={styles.message}>
-                                        <Text style={{color: 'red'}}>Identifiant ou mot de passe incorrect</Text>
+                    <Formik
+                        initialValues={{ email: '', password: '' }}
+                        onSubmit={(values) => onSubmit(values)}
+                        validationSchema={SignupSchema}
+                    >
+                        {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+                            <View style={styles.modalBackground}>
+                                <View style={styles.modalContainer}>
+                                    <View style={styles.headerLogin}>
+                                        <Text style={styles.titleLogin}>Connexion</Text>
+                                        <TouchableOpacity style={styles.close} onPress={() => {
+                                            setShowModal(!showModal)
+                                            setShowMessage(false)
+                                        }}>
+                                            <IconAntDesign name='close' size={24} color='#000' />
+                                        </TouchableOpacity>
                                     </View>
-                                }
-                                <TextInput 
-                                    style={styles.inputLogin}
-                                    placeholder='Email'
-                                    placeholderTextColor='#000'
-                                    keyboardType='email-address'
-                                    onChangeText={(val) => setUserName(val)}
-                                    value={userName}
-                                />
-                                <View style={styles.inputPass} >
+                                    {
+                                        showMessage && <View style={styles.message}>
+                                            <Text style={{color: 'red'}}>Identifiant ou mot de passe incorrect</Text>
+                                        </View>
+                                    }
                                     <TextInput 
                                         style={styles.inputLogin}
-                                        placeholder='Mot de Passe'
+                                        placeholder='Email'
                                         placeholderTextColor='#000'
-                                        secureTextEntry={showPass}
-                                        onChangeText={(val) => setPassword(val)}
-                                        value={password}
+                                        keyboardType='email-address'
+                                        onChangeText={handleChange('email')}
+                                        onBlur={handleBlur('email')}
+                                        value={values.email}
                                     />
-                                    <TouchableOpacity style={styles.iconShow} onPress={() => setShowPass(!showPass)} >
-                                        <IconAntDesign name='eyeo' size={25} color='#7f7f7f' />
-                                    </TouchableOpacity>
-                                </View>
-                                <View style={styles.titleLink}>
-                                    <TouchableOpacity>
-                                        <Text style={styles.titlePass}>Mot de passe oublié ?</Text>
-                                    </TouchableOpacity>
-                                    <View style={styles.titleLinkHelp}>
-                                        <Text style={styles.titleHelp}>Nous contacter ou Aide</Text>
+                                    {errors.email && touched.email ? (
+                                        <Text style={{color: 'red'}}>{errors.email}</Text>
+                                    ) : null}
+                                    <View style={styles.inputPass} >
+                                        <TextInput 
+                                            style={styles.inputLogin}
+                                            placeholder='Mot de Passe'
+                                            placeholderTextColor='#000'
+                                            secureTextEntry={showPass}
+                                            onChangeText={handleChange('password')}
+                                            onBlur={handleBlur('password')}
+                                            value={values.password}
+                                        />
+                                        <TouchableOpacity style={styles.iconShow} onPress={() => setShowPass(!showPass)} >
+                                            <IconAntDesign name='eyeo' size={25} color='#7f7f7f' />
+                                        </TouchableOpacity>
                                     </View>
-                                </View>
-                                {
-                                    isLoading === false ? <TouchableOpacity style={styles.btnSubmit} onPress={onSubmit}>
-                                        <Text style={styles.textBtn}>ME CONNECTER</Text>
-                                    </TouchableOpacity> :
-                                    <View style={styles.btnLoading}>
-                                        <ActivityIndicator size="large" color="#000" />
+                                    {errors.password && touched.password ? (
+                                        <Text style={{color: 'red'}}>{errors.password}</Text>
+                                    ) : null}
+                                    <View style={styles.titleLink}>
+                                        <TouchableOpacity>
+                                            <Text style={styles.titlePass}>Mot de passe oublié ?</Text>
+                                        </TouchableOpacity>
+                                        <View style={styles.titleLinkHelp}>
+                                            <Text style={styles.titleHelp}>Nous contacter ou Aide</Text>
+                                        </View>
                                     </View>
-                                }
-                                <View style={styles.signUp}>
-                                    <Text style={styles.textSignUp}>Vous n'avez pas de compte?</Text>
-                                    <TouchableOpacity onPress={() => {
-                                        setShowModal(!showModal)
-                                        push('GenderPage');
-                                    }}>
-                                        <Text style={styles.linkSignUp}>Inscrivez-vous gratuitement</Text>
-                                    </TouchableOpacity>
+                                    {
+                                        isLoading === false ? <TouchableOpacity style={styles.btnSubmit} onPress={handleSubmit}>
+                                            <Text style={styles.textBtn}>ME CONNECTER</Text>
+                                        </TouchableOpacity> :
+                                        <View style={styles.btnLoading}>
+                                            <ActivityIndicator size="large" color="#000" />
+                                        </View>
+                                    }
+                                    <View style={styles.signUp}>
+                                        <Text style={styles.textSignUp}>Vous n'avez pas de compte?</Text>
+                                        <TouchableOpacity onPress={() => {
+                                            setShowModal(!showModal)
+                                            push('GenderPage');
+                                        }}>
+                                            <Text style={styles.linkSignUp}>Inscrivez-vous gratuitement</Text>
+                                        </TouchableOpacity>
+                                    </View>
                                 </View>
                             </View>
-                        </View>
+                        )}
+                    </Formik>
                     </TouchableWithoutFeedback>
                 </Modal>
             </ImageBackground>
@@ -163,7 +193,11 @@ const styles = StyleSheet.create({
     content: {
         alignItems: 'center',
         justifyContent: 'center',
-        height: '100%',
+        flex: 1
+    },
+    header: {
+        flex: 9,
+        justifyContent: 'center',
     },
     logo: {
         height: 40,
@@ -178,11 +212,11 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     btn: {
-        position: 'absolute',
-        bottom: 0,
+        flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-around',
         width: '100%',
+        marginBottom: 8
     },
     btnConnecter: {
         borderBottomWidth: 1,
@@ -192,8 +226,10 @@ const styles = StyleSheet.create({
     },
     btnInscription: {
         backgroundColor: '#24cf5f',
-        padding: 10,
+        width: 185,
+        height: 60,
         borderRadius: 10,
+        justifyContent: 'center'
     },
     btnText: {
         color: '#fff',

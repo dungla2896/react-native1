@@ -81,103 +81,105 @@ const SignUpFrom = (props: any) => {
 
     return (
         <LinearGradient colors={backgroundColor} style={styles.body} >
-            <SafeAreaView>
+            <View style={styles.container}>
                 <Formik
-                    initialValues={{ email: '', firstname: '', password: '', check: true }}
+                    initialValues={{ email: '', firstname: '', password: '', }}
                     onSubmit={values => onSubmit(values)}
                     validationSchema={SignupSchema}
                 >
                     {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
                         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                            <View style={styles.content}>
+                            <View style={{ flex: 1}}>
                                 <View style={styles.row}>
                                     <View style={styles.header}>
                                         <TouchableOpacity 
                                             style={styles.leftPage}
                                             onPress={() => goBack()}
                                         >
-                                            <IconFontAwesome name='chevron-left' size={15} color='white' style={styles.iconPage} />
+                                            <IconFontAwesome name='chevron-left' size={15} color='white' />
                                         </TouchableOpacity>
                                         <Text style={styles.title}>Inscription</Text>
                                         <View style={styles.textLink}>
                                             <Text style={styles.text}>Déjà un compte ?</Text>
                                         </View>
                                     </View>
-                                    <View>
-                                        <TextInput
-                                            style={styles.textInput}
-                                            placeholder='Email'
-                                            placeholderTextColor='#ffffff78'
-                                            keyboardType="email-address"
-                                            onChangeText={handleChange('email')}
-                                            onBlur={handleBlur('email')}
-                                            value={values.email}
-                                        />
-                                        {errors.email && touched.email ? (
-                                            <Text style={{color: 'red'}}>{errors.email}</Text>
-                                        ) : null}
-                                        <TextInput
-                                            style={styles.textInput}
-                                            placeholder='Prénom'
-                                            placeholderTextColor='#ffffff78'
-                                            keyboardType="default"
-                                            onChangeText={handleChange('firstname')}
-                                            onBlur={handleBlur('firstname')}
-                                            value={values.firstname}
-                                        />
-                                        {errors.firstname && touched.firstname ? (
-                                            <Text style={{color: 'red'}}>{errors.firstname}</Text>
-                                        ) : null}
-                                        <TextInput
-                                            style={styles.textInput}
-                                            placeholder='Mot de Passe'
-                                            placeholderTextColor='#ffffff78'
-                                            keyboardType="default"
-                                            secureTextEntry={true}
-                                            onChangeText={handleChange('password')}
-                                            onBlur={handleBlur('password')}
-                                            value={values.password}
-                                        />
-                                        {errors.password && touched.password ? (
-                                            <Text style={{color: 'red'}}>{errors.password}</Text>
-                                        ) : null}
-                                    </View>
-                                    <View>
-                                        <TouchableOpacity 
-                                            onPress={() => {
-                                                setCheckInput1(!checkInput1)
-                                            }}
-                                        >
-                                            <View style={styles.radios}>
-                                                <View style={styles.outline}>
-                                                    {
-                                                        checkInput1 && <IconsOcticons name='check' size={28} color='#fff' />
-                                                    }
+                                    <View style={{ flex: 9 }}>
+                                        <View>
+                                            <TextInput
+                                                style={styles.textInput}
+                                                placeholder='Email'
+                                                placeholderTextColor='#ffffff78'
+                                                keyboardType="email-address"
+                                                onChangeText={handleChange('email')}
+                                                onBlur={handleBlur('email')}
+                                                value={values.email}
+                                            />
+                                            {errors.email && touched.email ? (
+                                                <Text style={{color: 'red'}}>{errors.email}</Text>
+                                            ) : null}
+                                            <TextInput
+                                                style={styles.textInput}
+                                                placeholder='Prénom'
+                                                placeholderTextColor='#ffffff78'
+                                                keyboardType="default"
+                                                onChangeText={handleChange('firstname')}
+                                                onBlur={handleBlur('firstname')}
+                                                value={values.firstname}
+                                            />
+                                            {errors.firstname && touched.firstname ? (
+                                                <Text style={{color: 'red'}}>{errors.firstname}</Text>
+                                            ) : null}
+                                            <TextInput
+                                                style={styles.textInput}
+                                                placeholder='Mot de Passe'
+                                                placeholderTextColor='#ffffff78'
+                                                keyboardType="default"
+                                                secureTextEntry={true}
+                                                onChangeText={handleChange('password')}
+                                                onBlur={handleBlur('password')}
+                                                value={values.password}
+                                            />
+                                            {errors.password && touched.password ? (
+                                                <Text style={{color: 'red'}}>{errors.password}</Text>
+                                            ) : null}
+                                        </View>
+                                        <View>
+                                            <TouchableOpacity 
+                                                onPress={() => {
+                                                    setCheckInput1(!checkInput1)
+                                                }}
+                                            >
+                                                <View style={styles.radios}>
+                                                    <View style={styles.outline}>
+                                                        {
+                                                            checkInput1 && <IconsOcticons name='check' size={28} color='#fff' />
+                                                        }
+                                                    </View>
+                                                    <Text style={styles.text}>
+                                                        Je certifie être majeur(e) et j’accepte les Conditions générales d’utilisations
+                                                        {/* <View style={styles.linkBank}>Conditions générales d’utilisations</View> */}
+                                                    </Text>
                                                 </View>
-                                                <Text style={styles.text}>
-                                                    Je certifie être majeur(e) et j’accepte les Conditions générales d’utilisations
-                                                    {/* <View style={styles.linkBank}>Conditions générales d’utilisations</View> */}
-                                                </Text>
-                                            </View>
-                                        </TouchableOpacity>
-                                        <TouchableOpacity onPress={() => setCheckInput2(!checkInput2)}>
-                                            <View style={styles.radios}>
-                                                <View style={styles.outline}>
-                                                    {
-                                                        checkInput2 && <IconsOcticons name='check' size={28} color='#fff' />
-                                                    }
+                                            </TouchableOpacity>
+                                            <TouchableOpacity onPress={() => setCheckInput2(!checkInput2)}>
+                                                <View style={styles.radios}>
+                                                    <View style={styles.outline}>
+                                                        {
+                                                            checkInput2 && <IconsOcticons name='check' size={28} color='#fff' />
+                                                        }
+                                                    </View>
+                                                    <Text style={styles.text}>J'accepte que mes données renseignées, 
+                                                        y compris celles facultatives relatives à mon origine, à ses prestataires 
+                                                        et aux autres membres situés dans et hors l’UE afin de favoriser des rencontres
+                                                    </Text>
                                                 </View>
-                                                <Text style={styles.text}>J'accepte que mes données renseignées, 
-                                                    y compris celles facultatives relatives à mon origine, à ses prestataires 
-                                                    et aux autres membres situés dans et hors l’UE afin de favoriser des rencontres
-                                                </Text>
-                                            </View>
-                                        </TouchableOpacity>
-                                        {
-                                            messageCheck === false ? (
-                                                <Text style={{color: 'red'}}>Ce champ est requis</Text>
-                                            ): null
-                                        }
+                                            </TouchableOpacity>
+                                            {
+                                                messageCheck === false ? (
+                                                    <Text style={{color: 'red'}}>Ce champ est requis</Text>
+                                                ): null
+                                            }
+                                        </View>
                                     </View>
                                 </View>
                                 <View style={styles.btnSubmit}>
@@ -205,7 +207,7 @@ const SignUpFrom = (props: any) => {
                         </TouchableWithoutFeedback>
                     )}
                 </Formik>
-            </SafeAreaView>
+            </View>
         </LinearGradient>
         
     )
@@ -216,12 +218,11 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
     },
-    content: {
-        marginTop: 15,
-        height: '100%',
-        position: 'relative',
+    container: {
+        flex: 1,
     },
     row: {
+        flex: 9,
         paddingLeft: 30,
         paddingRight: 30,
     },
@@ -230,9 +231,9 @@ const styles = StyleSheet.create({
         paddingBottom: 5,
         paddingTop: 5,
     },
-    iconPage: {
-    },
     header: {
+        flex: 1,
+        marginTop: 30,
         marginBottom: 35,
         flexDirection: 'row',
         alignItems: 'center',
@@ -254,7 +255,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: '700',
         textAlign: 'center',
-        marginLeft: 75,
+        paddingLeft: 60,
     },
     textLink:{
         borderWidth: 1,
@@ -300,31 +301,25 @@ const styles = StyleSheet.create({
     },
     btnSubmit: {
         flex: 1,
+        justifyContent: 'flex-end',
     },
     checkView: {
-        position: 'absolute',
-        bottom: 0,
-        width: '100%',
+        flex: 1,
         backgroundColor: '#ffffff33',
-        paddingTop: 10,
-        paddingBottom: 10,
         borderWidth: 1,
         borderColor: 'transparent',
         borderTopColor: '#fff',
     },
     btnLoading: {
-        position: 'relative',
-        bottom: -4,
-        width: '100%',
-        backgroundColor: '#999',
-        paddingTop: 20,
-        paddingBottom: 18,
+        flex: 1,
+        backgroundColor: '#ffffff33',
         borderWidth: 1,
         borderColor: 'transparent',
         borderTopColor: '#fff',
+        justifyContent: 'center',
     },
     btncheck: {
-        width: '100%',
+        flex: 1,
         height: 50,
         alignItems: 'center',
         justifyContent: 'center',

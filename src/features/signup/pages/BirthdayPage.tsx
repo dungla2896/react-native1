@@ -131,19 +131,20 @@ const Birthday = (props: any) => {
 
     return (
         <LinearGradient colors={backgroundColor} style={styles.body} >
-            <SafeAreaView>
+            <SafeAreaView style={styles.container}>
                 {
                     showError && <View style={styles.message}>
                         <Text style={styles.textMessage}>{messageError}</Text>
                     </View>
                 }
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                    <View style={styles.content}>
-                        <View style={{ height: '100%'}}>
-                            <TouchableOpacity onPress={() => goBack()}>
-                                <View>
-                                    <IconFontAwesome name='chevron-left' size={15} color='white' style={styles.iconPage} />
-                                </View>
+                    <View style={styles.row}>
+                        <View style={{ flex: 1, }}>
+                            <TouchableOpacity 
+                                style={styles.leftPage}
+                                onPress={() => goBack()}
+                            >
+                                <IconFontAwesome name='chevron-left' size={15} color='white' style={styles.iconPage} />
                             </TouchableOpacity>
                             <View style={styles.header}>
                                 <View style={styles.logo}>
@@ -184,10 +185,10 @@ const Birthday = (props: any) => {
                                     maxLength={4}
                                     keyboardType="numeric"
                                 />
+                                {
+                                    birthdays.length === 10 ? <Text style={styles.messageOld}>{old}</Text> : <Text></Text> 
+                                }
                             </View>
-                            {
-                                birthdays.length === 10 ? <Text style={styles.messageOld}>{old}</Text> : <Text></Text> 
-                            }
                             <View style={styles.check}>
                                 <TouchableOpacity 
                                     style={styles.checkbtn} 
@@ -237,9 +238,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     iconPage: {
-        width: '15%',
-        position: 'relative',
-        top: 15,
+        width: '100%',
     },
     message: {
         backgroundColor: 'red',
@@ -258,16 +257,25 @@ const styles = StyleSheet.create({
         marginBottom: 22
     },
     header: {
-        marginBottom: 50,
+        flex: 1,
         alignItems: 'center',
+        marginTop: 20,
         zIndex: -1,
     },
-    content: {
-        marginTop: 30,
-        height: '96%',
-        position: 'relative',
-        paddingLeft: 30,
-        paddingRight: 30,
+    leftPage: {
+        height: 40,
+        width: '15%',
+        position: 'absolute',
+        top: '5%',
+        zIndex: 10,
+    },
+    container: {
+        flex: 1,
+    },
+    row: {
+        flex: 1,
+        marginLeft: 30,
+        marginRight: 30,
     },
     logo: {
         backgroundColor: '#f97aec',
@@ -284,12 +292,13 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: '700',
         textAlign: 'center',
+        marginTop: 24,
     },
     birthday: {
+        flex: 8,
         flexDirection: 'row',
-        marginTop: 60,
         justifyContent: 'center',
-        alignItems: 'center',
+        paddingTop:45,
     },
     input: {
         height: 45,
@@ -316,23 +325,28 @@ const styles = StyleSheet.create({
         borderColor: 'transparent'
     },
     socj: {
+        marginTop: 9,
         marginLeft: 15,
         marginRight: 15,
         color: '#fff',
         fontSize: 18
     },
     messageOld: {
+        width: '100%',
         color: '#fff',
-        marginTop: 20,
+        textAlign: 'center',
+        position: 'absolute',
+        top: '25%',
+        marginLeft: 15,
     },
     check: {
         flex: 1,
         justifyContent: 'flex-end',
         alignItems: 'center',
+        marginBottom: 10,
     },
     checkbtn: {
-        position: 'relative',
-        bottom: 15
+        flex: 1,
     },
     btncheck: {
         borderRadius: 50,

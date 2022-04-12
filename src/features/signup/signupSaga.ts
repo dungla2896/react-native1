@@ -22,6 +22,7 @@ function* handleSignUp(payload: Username) {
         AsyncStorage.setItem('access_token', JSON.stringify(dataToken))
     } catch (error) {
         if(error instanceof Error) {
+            console.log(error)
             errorMessage = error.message;
             yield put(userActions.signupFailed(errorMessage));
         }

@@ -12,21 +12,19 @@ const FromPage = (props: any) => {
 
     return (
         <LinearGradient colors={backgroundColor} style={styles.body} >
-            <SafeAreaView>
-                <View style={styles.content}>
-                    <View >
-                        <TouchableOpacity 
-                            style={styles.leftPage}
-                            onPress={() => goBack()}
-                        >
-                            <IconFontAwesome name='chevron-left' size={15} color='white' style={styles.iconPage} />
-                        </TouchableOpacity>
+            <SafeAreaView style={styles.container}>
+                <TouchableOpacity 
+                    style={styles.leftPage}
+                    onPress={() => goBack()}
+                >
+                    <IconFontAwesome name='chevron-left' size={15} color='white' style={styles.iconPage} />
+                </TouchableOpacity>
+                <View style={styles.header}>
+                    <View style={styles.logo}>
+                        <IconsFeather name='map-pin' size={20} color='white' />
                     </View>
-                    <View style={styles.header}>
-                        <View style={styles.logo}>
-                            <IconsFeather name='map-pin' size={20} color='white' />
-                        </View>
-                    </View>
+                </View>
+                <View style={{ flex: 8 }}>
                     <Text style={styles.title}>Où habitez-vous ?</Text>
                     <TouchableOpacity 
                         style={styles.btnFrom}
@@ -38,16 +36,16 @@ const FromPage = (props: any) => {
                         <IconsFeather name='map-pin' size={15} color='white' />
                         <Text style={styles.textGeolocation}>Me géolocaliser ?</Text>
                     </View>
-                    <View style={styles.check}>
-                        <TouchableOpacity 
-                            style={styles.checkView}
-                            onPress={() => push('CountryFrom')}
-                        >
-                            <View style={styles.btncheck}>
-                                <IconFontAwesome name='check' size={18} color='#fff' />
-                            </View>
-                        </TouchableOpacity>
-                    </View>
+                </View>
+                <View style={styles.check}>
+                    <TouchableOpacity 
+                        style={styles.checkView}
+                        onPress={() => push('CountryFrom')}
+                    >
+                        <View style={styles.btncheck}>
+                            <IconFontAwesome name='check' size={18} color='#fff' />
+                        </View>
+                    </TouchableOpacity>
                 </View>
             </SafeAreaView>
         </LinearGradient>
@@ -62,24 +60,24 @@ const styles = StyleSheet.create({
         height: 40,
         width: '15%',
         position: 'absolute',
-        top: 0,
+        top: '5%',
         zIndex: 10,
     },
     iconPage: {
         width: '100%',
         top: 15,
     },
+    container: {
+        flex: 1,
+        marginLeft: 30,
+        marginRight: 30,
+    },
     header: {
+        flex: 1,
+        marginTop: 20,
         marginBottom: 35,
         alignItems: 'center',
         zIndex: -1,
-    },
-    content: {
-        marginTop: 15,
-        height: '96%',
-        position: 'relative',
-        paddingLeft: 30,
-        paddingRight: 30,
     },
     logo: {
         backgroundColor: '#f97aec',
@@ -153,12 +151,10 @@ const styles = StyleSheet.create({
     },
     check: {
         flex: 1,
-        justifyContent: 'flex-end',
         alignItems: 'center',
     },
     checkView: {
-        position: 'relative',
-        bottom: 0
+        flex: 1,
     },
     btncheck: {
         borderRadius: 50,

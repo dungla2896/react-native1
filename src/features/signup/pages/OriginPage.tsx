@@ -24,66 +24,64 @@ const OriginPage = (props: any) => {
 
     return (
         <LinearGradient colors={backgroundColor} style={styles.body} >
-            <SafeAreaView>
-                <View style={styles.content}>
-                    <View >
-                        <TouchableOpacity 
-                            style={styles.leftPage}
-                            onPress={() => goBack()}
-                        >
-                            <IconFontAwesome name='chevron-left' size={15} color='white' style={styles.iconPage} />
-                        </TouchableOpacity>
+            <SafeAreaView style={styles.container}>
+                <TouchableOpacity 
+                    style={styles.leftPage}
+                    onPress={() => goBack()}
+                >
+                    <IconFontAwesome name='chevron-left' size={15} color='white' style={styles.iconPage} />
+                </TouchableOpacity>
+                <View style={styles.header}>
+                    <View style={styles.logo}>
+                        <IconEntypo name='map' size={20} color='white' />
                     </View>
-                    <View style={styles.header}>
-                        <View style={styles.logo}>
-                            <IconEntypo name='map' size={20} color='white' />
-                        </View>
-                    </View>
-                    <Text style={styles.title}>Quel est mon pays d'origine ?</Text>
-                    <ScrollView
-                        showsVerticalScrollIndicator={false}
-                        showsHorizontalScrollIndicator={false}
-                    >
-                        {
-                            origin.map((item: Origin, index: number) => (
-                                <TouchableOpacity
-                                    key={index}
-                                    onPress={() => {
-                                        setSelect(index);
-                                        context.setOrigin(item.id)
-                                    }}
-                                >
-                                    <View style={styles.radios}>
-                                        <Text style={styles.text}>{item.code}</Text>
-                                        <View style={styles.outline}>
-                                            {
-                                                select === index && <View style={styles.innerCircle} />
-                                            }
-                                        </View>
-                                    </View>
-                                </TouchableOpacity>
-                            ))
-                        }
-                    </ScrollView>
-                    <View style={styles.check}>
-                        {
-                            select !== -1 ? <TouchableOpacity 
-                                style={styles.checkView}
+                </View>
+                <Text style={styles.title}>Quel est mon pays d'origine ?</Text>
+                <View style={{flex: 9}}>
+                <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    showsHorizontalScrollIndicator={false}
+                >
+                    {
+                        origin.map((item: Origin, index: number) => (
+                            <TouchableOpacity
+                                key={index}
                                 onPress={() => {
-                                    push('FromForm')
+                                    setSelect(index);
+                                    context.setOrigin(item.id)
                                 }}
                             >
-                                <View style={styles.btncheck}>
-                                    <IconFontAwesome name='check' size={18} color='#fff' />
+                                <View style={styles.radios}>
+                                    <Text style={styles.text}>{item.code}</Text>
+                                    <View style={styles.outline}>
+                                        {
+                                            select === index && <View style={styles.innerCircle} />
+                                        }
+                                    </View>
                                 </View>
-                            </TouchableOpacity> :
-                            <View style={styles.checkView}>
-                                <View style={styles.btncheck}>
-                                    <IconFontAwesome name='check' size={18} color='#fff' />
-                                </View>
+                            </TouchableOpacity>
+                        ))
+                    }
+                </ScrollView>
+                </View>
+                <View style={styles.check}>
+                    {
+                        select !== -1 ? <TouchableOpacity 
+                            style={styles.checkView}
+                            onPress={() => {
+                                push('FromForm')
+                            }}
+                        >
+                            <View style={styles.btncheck}>
+                                <IconFontAwesome name='check' size={18} color='#fff' />
                             </View>
-                        }
-                    </View>
+                        </TouchableOpacity> :
+                        <View style={styles.checkView}>
+                            <View style={styles.btncheck}>
+                                <IconFontAwesome name='check' size={18} color='#fff' />
+                            </View>
+                        </View>
+                    }
                 </View>
             </SafeAreaView>
         </LinearGradient>
@@ -98,7 +96,7 @@ const styles = StyleSheet.create({
         height: 40,
         width: '15%',
         position: 'absolute',
-        top: 0,
+        top: '5%',
         zIndex: 10,
     },
     iconPage: {
@@ -106,16 +104,16 @@ const styles = StyleSheet.create({
         top: 15,
     },
     header: {
+        flex: 1,
         marginBottom: 35,
         alignItems: 'center',
         zIndex: -1,
-    },
-    content: {
         marginTop: 15,
-        height: '96%',
-        position: 'relative',
-        paddingLeft: 30,
-        paddingRight: 30,
+    },
+    container: {
+        flex: 1,
+        marginLeft: 30,
+        marginRight: 30,
     },
     logo: {
         backgroundColor: '#f97aec',
@@ -132,7 +130,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: '700',
         textAlign: 'center',
-        marginBottom: 40,
+        paddingBottom: 10,
     },
     radios: {
         flexDirection: 'row',
@@ -168,7 +166,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-end',
         alignItems: 'center',
-        marginBottom: 30,
+        marginBottom: 10,
     },
     checkView: {
         position: 'relative',

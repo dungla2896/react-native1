@@ -19,8 +19,7 @@ const GenderPage = (props: any) => {
 
     return (
         <LinearGradient colors={backgroundColor} style={styles.body} >
-            <SafeAreaView>
-                <View style={styles.content}>
+            <SafeAreaView style={styles.container}>
                     <TouchableOpacity onPress={() => goBack()}>
                         <View>
                             <IconsFontAwesome name='chevron-left' size={15} color='white' style={styles.iconPage} />
@@ -31,8 +30,8 @@ const GenderPage = (props: any) => {
                             <IconsFontAwesome name='venus-mars' size={20} color='white' />
                         </View>
                     </View>
-                    <Text style={styles.title}>Vous êtes :</Text>
-                    <View>
+                    <View style={styles.content}>
+                        <Text style={styles.title}>Vous êtes :</Text>
                         <TouchableOpacity
                             onPress={() => {
                                 setHomme(1);
@@ -76,7 +75,6 @@ const GenderPage = (props: any) => {
                             </View>
                         </TouchableOpacity>
                     </View>
-                </View>
             </SafeAreaView>
         </LinearGradient>
     )
@@ -91,17 +89,15 @@ const styles = StyleSheet.create({
         position: 'relative',
         top: 15,
     },
+    container: {
+        flex: 1,
+        marginLeft: 30,
+        marginRight: 30,
+    },
     header: {
-        marginBottom: 35,
+        flex: 1,
         alignItems: 'center',
         zIndex: -1,
-    },
-    content: {
-        marginTop: 15,
-        height: '96%',
-        position: 'relative',
-        paddingLeft: 30,
-        paddingRight: 30,
     },
     logo: {
         backgroundColor: '#f97aec',
@@ -113,12 +109,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    content: {
+        flex: 8,
+    },
     title: {
         color: '#fff',
         fontSize: 20,
         fontWeight: '700',
         textAlign: 'center',
-        marginBottom: 40,
+        marginTop: 10,
     },
     radios: {
         flexDirection: 'row',
@@ -154,6 +153,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-end',
         alignItems: 'center',
+        marginBottom: 10,
     },
     checkbtn: {
         position: 'relative',

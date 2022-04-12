@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
     View,
     StyleSheet,
@@ -29,7 +29,26 @@ const Home = () => {
             setUser([...user, ...res.CONTENT.USERS])
             setIsLoading(false)
         })
-    },[currentPage])
+    },[currentPage]);
+
+    const faceAnim = useRef(new Animated.Value(0)).current;
+
+    useEffect(() => {
+        Animated.timing(
+            faceAnim, {
+                toValue: 1,
+                duration: 1000,
+                useNativeDriver: true,
+            }
+        ).start()
+    },[faceAnim, toggleHeader]);
+    // Animated.timing(
+    //     faceAnim, {
+    //         toValue: 1,
+    //         duration: 500,
+    //         useNativeDriver: true,
+    //     }
+    // ).start()
 
     const renderItem = (props: any) => {
         const { item, index } = props;
@@ -102,7 +121,13 @@ const Home = () => {
     return (
         <View style={styles.body}>
             {
-                toggleHeader && <View style={{ height: 90, zIndex: 10 }}>
+                toggleHeader && <Animated.View style={{
+                    width: '100%', 
+                    height: 70, 
+                    zIndex: 10, 
+                    position: 'absolute', 
+                    opacity: faceAnim
+                }}>
                     <View style={styles.showHeader}>
                         <TouchableOpacity style={styles.reset}>
                             <MaterialIcons name='refresh' size={20} />
@@ -116,7 +141,7 @@ const Home = () => {
                             <IconsIonicons name='options-outline' size={18} color='#24cf5f' />
                         </TouchableOpacity>
                     </View>
-                </View>
+                </Animated.View>
             }
             <FlatList
                 data={user}
@@ -149,7 +174,7 @@ const styles = StyleSheet.create({
         paddingLeft: 20,
         paddingRight: 20,
         paddingTop: 10,
-        height: 90,
+        height: 70,
         shadowColor: '#000',
         shadowOffset: { width: 1, height: 1 },
         shadowOpacity:  0.2,
@@ -181,11 +206,13 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 220,
         justifyContent: 'center',
+        alignItems: 'center',
         backgroundColor: '#0000002e',
         zIndex: -1,
     },
     container: {
         backgroundColor: '#0000002e',
+        width: '100%',
         height: '100%',
         justifyContent: 'center',
     },
@@ -212,6 +239,7 @@ const styles = StyleSheet.create({
         borderRightColor: '#fff',
         borderBottomColor: '#fff',
         opacity: 0.8,
+        textAlign: 'center',
     },
     border2: {
         position: 'absolute',
@@ -226,6 +254,7 @@ const styles = StyleSheet.create({
         borderRightColor: 'transparent',
         borderBottomColor: '#fff',
         opacity: 0.8,
+        textAlign: 'center',
     },
     conentBtn: {
         flexDirection: 'row',

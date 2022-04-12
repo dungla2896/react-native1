@@ -28,22 +28,20 @@ const RegionFrom = (props: any) => {
 
     return (
         <LinearGradient colors={backgroundColor} style={styles.body} >
-            <SafeAreaView>
-                <View style={styles.content}>
-                    <View >
-                        <TouchableOpacity 
-                            style={styles.leftPage}
-                            onPress={() => goBack()}
-                        >
-                            <IconFontAwesome name='chevron-left' size={15} color='white' style={styles.iconPage} />
-                        </TouchableOpacity>
+            <SafeAreaView style={styles.container}>
+                <TouchableOpacity 
+                    style={styles.leftPage}
+                    onPress={() => goBack()}
+                >
+                    <IconFontAwesome name='chevron-left' size={15} color='white' style={styles.iconPage} />
+                </TouchableOpacity>
+                <View style={styles.header}>
+                    <View style={styles.logo}>
+                        <IconOcticons name='moon' size={20} color='white' />
                     </View>
-                    <View style={styles.header}>
-                        <View style={styles.logo}>
-                            <IconOcticons name='moon' size={20} color='white' />
-                        </View>
-                    </View>
-                    <Text style={styles.title}>Quelle est votre région ?</Text>
+                </View>
+                <Text style={styles.title}>Quelle est votre région ?</Text>
+                <View style={{ flex: 8 }}>
                     <ScrollView
                         showsVerticalScrollIndicator={false}
                         showsHorizontalScrollIndicator={false}
@@ -70,25 +68,25 @@ const RegionFrom = (props: any) => {
                             ))
                         }
                     </ScrollView>
-                    <View style={styles.check}>
-                        {
-                            select !== -1 ? <TouchableOpacity 
-                                style={styles.checkView}
-                                onPress={() => {
-                                    push('CityFrom')
-                                }}
-                            >
-                                <View style={styles.btncheck}>
-                                    <IconFontAwesome name='check' size={18} color='#fff' />
-                                </View>
-                            </TouchableOpacity> :
-                            <View style={styles.checkView}>
-                                <View style={styles.btncheck}>
-                                    <IconFontAwesome name='check' size={18} color='#fff' />
-                                </View>
+                </View>
+                <View style={styles.check}>
+                    {
+                        select !== -1 ? <TouchableOpacity 
+                            style={styles.checkView}
+                            onPress={() => {
+                                push('CityFrom')
+                            }}
+                        >
+                            <View style={styles.btncheck}>
+                                <IconFontAwesome name='check' size={18} color='#fff' />
                             </View>
-                        }
-                    </View>
+                        </TouchableOpacity> :
+                        <View style={styles.checkView}>
+                            <View style={styles.btncheck}>
+                                <IconFontAwesome name='check' size={18} color='#fff' />
+                            </View>
+                        </View>
+                    }
                 </View>
             </SafeAreaView>
         </LinearGradient>
@@ -103,24 +101,24 @@ const styles = StyleSheet.create({
         height: 40,
         width: '15%',
         position: 'absolute',
-        top: 0,
+        top: '5%',
         zIndex: 10,
     },
     iconPage: {
         width: '100%',
         top: 15,
     },
+    container: {
+        flex: 1,
+        marginLeft: 30,
+        marginRight: 30,
+    },
     header: {
+        flex: 1,
         marginBottom: 35,
+        marginTop: 20,
         alignItems: 'center',
         zIndex: -1,
-    },
-    content: {
-        marginTop: 15,
-        height: '96%',
-        position: 'relative',
-        paddingLeft: 30,
-        paddingRight: 30,
     },
     logo: {
         backgroundColor: '#f97aec',
@@ -173,12 +171,10 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-end',
         alignItems: 'center',
-        marginBottom: 15,
         zIndex: 10,
     },
     checkView: {
-        position: 'relative',
-        bottom: 0
+        flex: 1,
     },
     btncheck: {
         borderRadius: 50,
