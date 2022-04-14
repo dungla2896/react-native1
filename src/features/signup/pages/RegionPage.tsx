@@ -24,10 +24,35 @@ const RegionFrom = (props: any) => {
         if(idCountry !== undefined){
             countryApi.getRegions(idCountry).then((res) => setRegions(res.CONTENT.regions))
         }
-    },[idCountry])
+    },[idCountry]);
+
+    const [showError, setShowError] = useState(false);
+    const [nextPage, setNextPage] = useState(true);
+
+    let messageError = 'Le champ est vide'
+
+    const onSubmit = () => {
+        if(select === -1){
+            setShowError(true)
+            setTimeout(function() {
+                setShowError(false);
+            }, 3000);
+        }else {
+            push('CityFrom');
+            setNextPage(false);
+            setTimeout(function() {
+                setNextPage(true);
+            }, 2000);
+        }
+    }
 
     return (
         <LinearGradient colors={backgroundColor} style={styles.body} >
+            {
+                showError && <View style={styles.message}>
+                    <Text style={styles.textMessage}>{messageError}</Text>
+                </View>
+            }
             <SafeAreaView style={styles.container}>
                 <TouchableOpacity 
                     style={styles.leftPage}
@@ -71,21 +96,22 @@ const RegionFrom = (props: any) => {
                 </View>
                 <View style={styles.check}>
                     {
-                        select !== -1 ? <TouchableOpacity 
+                        nextPage === true ? <TouchableOpacity 
                             style={styles.checkView}
-                            onPress={() => {
-                                push('CityFrom')
-                            }}
+                            onPress={onSubmit}
                         >
                             <View style={styles.btncheck}>
                                 <IconFontAwesome name='check' size={18} color='#fff' />
                             </View>
-                        </TouchableOpacity> :
-                        <View style={styles.checkView}>
+                        </TouchableOpacity>:
+                        <TouchableOpacity 
+                            style={styles.checkView}
+                            onPress={onSubmit}
+                        >
                             <View style={styles.btncheck}>
                                 <IconFontAwesome name='check' size={18} color='#fff' />
                             </View>
-                        </View>
+                        </TouchableOpacity>
                     }
                 </View>
             </SafeAreaView>
@@ -94,6 +120,21 @@ const RegionFrom = (props: any) => {
 }
 
 const styles = StyleSheet.create({
+    message: {
+        backgroundColor: 'red',
+        width: '100%',
+        height: 90,
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        top: 0,
+        zIndex: 99,
+    },
+    textMessage: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: '600',
+    },
     body: {
         flex: 1
     },

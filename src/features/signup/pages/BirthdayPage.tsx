@@ -152,39 +152,41 @@ const Birthday = (props: any) => {
                                 </View>
                             </View>
                             <Text style={styles.title}>Quelle est votre date de naissance ?</Text>
-                            <View style={styles.birthday}>
-                                <TextInput 
-                                    style={styles.input}
-                                    autoFocus={true}
-                                    onChangeText={onChangeValDay}
-                                    value={day}
-                                    placeholder="JJ"
-                                    placeholderTextColor={'#ccc'}
-                                    maxLength={2}
-                                    keyboardType="numeric"
-                                />
-                                <Text style={styles.socj}>/</Text>
-                                <TextInput 
-                                    style={styles.input}
-                                    ref={monthRef}
-                                    onChangeText={onChangeValMonth}
-                                    value={month}
-                                    placeholder="MM"
-                                    placeholderTextColor={'#ccc'}
-                                    maxLength={2}
-                                    keyboardType="numeric"
-                                />
-                                <Text style={styles.socj}>/</Text>
-                                <TextInput 
-                                    style={styles.inputYear}
-                                    ref={yearRef}
-                                    onChangeText={(val) => onChangeYaer(val)}
-                                    value={year}
-                                    placeholder="AAAA"
-                                    placeholderTextColor={'#ccc'}
-                                    maxLength={4}
-                                    keyboardType="numeric"
-                                />
+                            <View style={{ flex: 8, justifyContent: 'center', }}>
+                                <View style={styles.birthday}>
+                                    <TextInput 
+                                        style={styles.input}
+                                        autoFocus={true}
+                                        onChangeText={onChangeValDay}
+                                        value={day}
+                                        placeholder="JJ"
+                                        placeholderTextColor={'#ccc'}
+                                        maxLength={2}
+                                        keyboardType="numeric"
+                                    />
+                                    <Text style={styles.socj}>/</Text>
+                                    <TextInput 
+                                        style={styles.input}
+                                        ref={monthRef}
+                                        onChangeText={onChangeValMonth}
+                                        value={month}
+                                        placeholder="MM"
+                                        placeholderTextColor={'#ccc'}
+                                        maxLength={2}
+                                        keyboardType="numeric"
+                                    />
+                                    <Text style={styles.socj}>/</Text>
+                                    <TextInput 
+                                        style={styles.inputYear}
+                                        ref={yearRef}
+                                        onChangeText={(val) => onChangeYaer(val)}
+                                        value={year}
+                                        placeholder="AAAA"
+                                        placeholderTextColor={'#ccc'}
+                                        maxLength={4}
+                                        keyboardType="numeric"
+                                    />
+                                </View>
                                 {
                                     birthdays.length === 10 ? <Text style={styles.messageOld}>{old}</Text> : <Text></Text> 
                                 }
@@ -295,10 +297,10 @@ const styles = StyleSheet.create({
         marginTop: 24,
     },
     birthday: {
-        flex: 8,
+        flex: 2,
         flexDirection: 'row',
         justifyContent: 'center',
-        paddingTop:45,
+        marginTop: 20,
     },
     input: {
         height: 45,
@@ -332,12 +334,10 @@ const styles = StyleSheet.create({
         fontSize: 18
     },
     messageOld: {
-        width: '100%',
         color: '#fff',
         textAlign: 'center',
-        position: 'absolute',
-        top: '25%',
-        marginLeft: 15,
+        flex: 8,
+        marginTop: 10,
     },
     check: {
         flex: 1,

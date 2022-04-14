@@ -9,6 +9,15 @@ const FromPage = (props: any) => {
     const backgroundColor = ['#FF59F4', '#FF5978'];
     const { navigation } = props;
     const { push, goBack } = navigation;
+    const [nextPage, setNextPage] = useState(true);
+
+    const onSubmit = () => {
+        setNextPage(false)
+        push('CountryFrom')
+        setTimeout(function() {
+            setNextPage(true)
+        }, 2000);
+    }
 
     return (
         <LinearGradient colors={backgroundColor} style={styles.body} >
@@ -28,7 +37,7 @@ const FromPage = (props: any) => {
                     <Text style={styles.title}>Où habitez-vous ?</Text>
                     <TouchableOpacity 
                         style={styles.btnFrom}
-                        onPress={() => push('CountryFrom')}
+                        onPress={onSubmit}
                     >
                         <Text style={styles.textBtn}>Ma localisation</Text>
                     </TouchableOpacity>
@@ -38,14 +47,21 @@ const FromPage = (props: any) => {
                     </View>
                 </View>
                 <View style={styles.check}>
-                    <TouchableOpacity 
-                        style={styles.checkView}
-                        onPress={() => push('CountryFrom')}
-                    >
-                        <View style={styles.btncheck}>
-                            <IconFontAwesome name='check' size={18} color='#fff' />
-                        </View>
-                    </TouchableOpacity>
+                    {
+                        nextPage === true ? <TouchableOpacity 
+                            style={styles.checkView}
+                            onPress={onSubmit}
+                        >
+                            <View style={styles.btncheck}>
+                                <IconFontAwesome name='check' size={18} color='#fff' />
+                            </View>
+                        </TouchableOpacity>:
+                            <TouchableOpacity style={styles.checkView}>
+                            <View style={styles.btncheck}>
+                                <IconFontAwesome name='check' size={18} color='#fff' />
+                            </View>
+                        </TouchableOpacity>
+                    }
                 </View>
             </SafeAreaView>
         </LinearGradient>

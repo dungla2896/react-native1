@@ -7,8 +7,9 @@ import LinearGradient from 'react-native-linear-gradient';
 import { UserContext } from '../../../../UserContext';
 
 const GenderPage = (props: any) => {
-    const [homme, setHomme] = useState(1);
-    const [femme, setFemme] = useState(0);
+    const [homme, setHomme] = useState(-1);
+    const [femme, setFemme] = useState(-1);
+    const [nextPage, setNextPage] = useState(true);
 
     const backgroundColor = ['#FF59F4', '#FF5978']
 
@@ -17,70 +18,116 @@ const GenderPage = (props: any) => {
 
     const context = useContext(UserContext);
 
+    const [showError, setShowError] = useState(false);
+
+    let messageError = 'Le champ est vide'
+
+    const onSubmit = () => {
+        if(homme === -1 || femme === -1){
+            setShowError(true)
+            setTimeout(function() {
+                setShowError(false);
+            }, 3000);
+        }else {
+            push('Birthday');
+            setNextPage(false);
+            setTimeout(function() {
+                setNextPage(true);
+            }, 2000);
+        }
+    }
+
     return (
         <LinearGradient colors={backgroundColor} style={styles.body} >
+            {
+                showError && <View style={styles.message}>
+                    <Text style={styles.textMessage}>{messageError}</Text>
+                </View>
+            }
             <SafeAreaView style={styles.container}>
-                    <TouchableOpacity onPress={() => goBack()}>
-                        <View>
-                            <IconsFontAwesome name='chevron-left' size={15} color='white' style={styles.iconPage} />
+                <TouchableOpacity onPress={() => goBack()}>
+                    <View>
+                        <IconsFontAwesome name='chevron-left' size={15} color='white' style={styles.iconPage} />
+                    </View>
+                </TouchableOpacity>
+                <View style={styles.header}>
+                    <View style={styles.logo}>
+                        <IconsFontAwesome name='venus-mars' size={20} color='white' />
+                    </View>
+                </View>
+                <View style={styles.content}>
+                    <Text style={styles.title}>Vous êtes :</Text>
+                    <TouchableOpacity
+                        onPress={() => {
+                            setHomme(1);
+                            setFemme(0);
+                            context.setGender(1);
+                        }}
+                    >
+                        <View style={styles.radios}>
+                            <Text style={styles.text}>Homme</Text>
+                            <View style={styles.outline}>
+                                {
+                                    homme === 1  && <View style={styles.innerCircle} />
+                                }
+                            </View>
                         </View>
                     </TouchableOpacity>
-                    <View style={styles.header}>
-                        <View style={styles.logo}>
-                            <IconsFontAwesome name='venus-mars' size={20} color='white' />
+                    <TouchableOpacity
+                        onPress={() => {
+                            setHomme(0);
+                            setFemme(1);
+                            context.setGender(2);
+                        }}
+                    >
+                        <View style={styles.radios}>
+                            <Text style={styles.text}>Femme</Text>
+                            <View style={styles.outline}>
+                                {
+                                    femme === 1  && <View style={styles.innerCircle} />
+                                }
+                            </View>
                         </View>
-                    </View>
-                    <View style={styles.content}>
-                        <Text style={styles.title}>Vous êtes :</Text>
-                        <TouchableOpacity
-                            onPress={() => {
-                                setHomme(1);
-                                setFemme(0);
-                                context.setGender(1);
-                            }}
-                        >
-                            <View style={styles.radios}>
-                                <Text style={styles.text}>Homme</Text>
-                                <View style={styles.outline}>
-                                    {
-                                        homme === 1  && <View style={styles.innerCircle} />
-                                    }
-                                </View>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => {
-                                setHomme(0);
-                                setFemme(1);
-                                context.setGender(2);
-                            }}
-                        >
-                            <View style={styles.radios}>
-                                <Text style={styles.text}>Femme</Text>
-                                <View style={styles.outline}>
-                                    {
-                                        femme === 1  && <View style={styles.innerCircle} />
-                                    }
-                                </View>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.check}>
-                        <TouchableOpacity 
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.check}>
+                    {
+                        nextPage === true ? <TouchableOpacity 
                             style={styles.checkbtn} 
-                            onPress={() => push('Birthday')}
+                            onPress={onSubmit}
                         >
                             <View style={styles.btncheck}>
                                 <IconFontAwesome name='check' size={18} color='#fff' />
                             </View>
+                        </TouchableOpacity>:
+                        <TouchableOpacity style={styles.checkbtn} >
+                            <View style={styles.btncheck}>
+                                <IconFontAwesome name='check' size={18} color='#fff' />
+                            </View>
                         </TouchableOpacity>
-                    </View>
+                    }
+                </View>
             </SafeAreaView>
         </LinearGradient>
     )
 }
 
 const styles = StyleSheet.create({
+    message: {
+        backgroundColor: 'red',
+        width: '100%',
+        height: 90,
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        top: 0,
+        zIndex: 99,
+    },
+    textMessage: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: '600',
+    },
     body: {
         flex: 1
     },

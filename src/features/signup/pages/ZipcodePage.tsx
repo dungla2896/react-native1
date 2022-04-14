@@ -18,6 +18,15 @@ const ZipcodeFrom = (props: any) => {
     const backgroundColor = ['#FF59F4', '#FF5978'];
     const { navigation } = props;
     const { push, goBack } = navigation;
+    const [nextPage, setNextPage] = useState(true);
+
+    const onSubmit = () => {
+        setNextPage(false)
+        push('SignUpFrom')
+        setTimeout(function() {
+            setNextPage(true)
+        }, 2000);
+    }
 
     return (
         <LinearGradient colors={backgroundColor} style={styles.body} >
@@ -49,7 +58,7 @@ const ZipcodeFrom = (props: any) => {
                         <View style={styles.check}>
                             <TouchableOpacity 
                                 style={styles.checkView}
-                                onPress={() => push('SignUpFrom')}
+                                onPress={onSubmit}
                             >
                                 <View style={styles.btncheck}>
                                     <IconFontAwesome name='check' size={18} color='#fff' />
