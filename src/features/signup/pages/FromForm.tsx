@@ -35,12 +35,17 @@ const FromPage = (props: any) => {
                 </View>
                 <View style={{ flex: 8 }}>
                     <Text style={styles.title}>Où habitez-vous ?</Text>
-                    <TouchableOpacity 
-                        style={styles.btnFrom}
-                        onPress={onSubmit}
-                    >
-                        <Text style={styles.textBtn}>Ma localisation</Text>
-                    </TouchableOpacity>
+                    {
+                        nextPage === true ? <TouchableOpacity 
+                            style={styles.btnFrom}
+                            onPress={onSubmit}
+                        >
+                            <Text style={styles.textBtn}>Ma localisation</Text>
+                        </TouchableOpacity>:
+                        <TouchableOpacity style={styles.btnFrom} >
+                            <Text style={styles.textBtn}>Ma localisation</Text>
+                        </TouchableOpacity>
+                    }
                     <View style={styles.Geolocation}>
                         <IconsFeather name='map-pin' size={15} color='white' />
                         <Text style={styles.textGeolocation}>Me géolocaliser ?</Text>

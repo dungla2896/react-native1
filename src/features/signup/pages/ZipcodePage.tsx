@@ -56,14 +56,21 @@ const ZipcodeFrom = (props: any) => {
                             </View>
                         </View>
                         <View style={styles.check}>
-                            <TouchableOpacity 
-                                style={styles.checkView}
-                                onPress={onSubmit}
-                            >
-                                <View style={styles.btncheck}>
-                                    <IconFontAwesome name='check' size={18} color='#fff' />
-                                </View>
-                            </TouchableOpacity>
+                            {
+                                nextPage === true ? <TouchableOpacity 
+                                    style={styles.checkView}
+                                    onPress={onSubmit}
+                                >
+                                    <View style={styles.btncheck}>
+                                        <IconFontAwesome name='check' size={18} color='#fff' />
+                                    </View>
+                                </TouchableOpacity>:
+                                <TouchableOpacity style={styles.checkView}>
+                                    <View style={styles.btncheck}>
+                                        <IconFontAwesome name='check' size={18} color='#fff' />
+                                    </View>
+                                </TouchableOpacity>
+                            }
                         </View>
                     </View>
                 </TouchableWithoutFeedback>

@@ -104,10 +104,7 @@ const RegionFrom = (props: any) => {
                                 <IconFontAwesome name='check' size={18} color='#fff' />
                             </View>
                         </TouchableOpacity>:
-                        <TouchableOpacity 
-                            style={styles.checkView}
-                            onPress={onSubmit}
-                        >
+                        <TouchableOpacity style={styles.checkView}>
                             <View style={styles.btncheck}>
                                 <IconFontAwesome name='check' size={18} color='#fff' />
                             </View>
