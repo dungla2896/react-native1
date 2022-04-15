@@ -30,52 +30,80 @@ const Birthday = (props: any) => {
 
     const backgroundColor = ['#FF59F4', '#FF5978'];
 
+    const birthdays = `${year}-${month}-${day}`;
+    let yearday = new Date().getFullYear();
+    const old = `Votre âge est ${yearday - Number(year)} ans. Vous ne pourrez pas modifier votre âge par la suite.`;
+
+    const oldModal = `Votre âge est ${yearday - Number(year)} ans.`
+
+    let messageError = ''
+
     const onChangeValDay = (e: string) => {
-        if(Number(e) > 31) {
-            return onChangeDay('3')
-        }
-        switch(e) {
-            case '4':
-                return onChangeDay('04')
-            case '5':
-                return onChangeDay('05')
-            case '6':
-                return onChangeDay('06')
-            case '7':
-                return onChangeDay('07')
-            case '8':
-                return onChangeDay('08')
-            case '9':
-                return onChangeDay('09')
-            default:
-                return onChangeDay(e)
-        }
+        if (/^\d+$/.test(e) || e === '') {
+            if(Number(e) > 31) {
+                return onChangeDay('3')
+            }
+            switch(e) {
+                case '4':
+                    return onChangeDay('04')
+                case '5':
+                    return onChangeDay('05')
+                case '6':
+                    return onChangeDay('06')
+                case '7':
+                    return onChangeDay('07')
+                case '8':
+                    return onChangeDay('08')
+                case '9':
+                    return onChangeDay('09')
+                default:
+                    return onChangeDay(e)
+            }
+          }
     }
 
     const onChangeValMonth = (e: string) => {
-        if(Number(e) > 12) {
-            return onChangeMonth('1')
+        if (/^\d+$/.test(e) || e === ''){
+            if(Number(e) > 12) {
+                return onChangeMonth('1')
+            }
+            switch(e) {
+                case '2':
+                    return onChangeMonth('02')
+                case '3':
+                    return onChangeMonth('03')
+                case '4':
+                    return onChangeMonth('04')
+                case '5':
+                    return onChangeMonth('05')
+                case '6':
+                    return onChangeMonth('06')
+                case '7':
+                    return onChangeMonth('07')
+                case '8':
+                    return onChangeMonth('08')
+                case '9':
+                    return onChangeMonth('09')
+                default:
+                    onChangeMonth(e)
+            }
         }
-        switch(e) {
-            case '2':
-                return onChangeMonth('02')
-            case '3':
-                return onChangeMonth('03')
-            case '4':
-                return onChangeMonth('04')
-            case '5':
-                return onChangeMonth('05')
-            case '6':
-                return onChangeMonth('06')
-            case '7':
-                return onChangeMonth('07')
-            case '8':
-                return onChangeMonth('08')
-            case '9':
-                return onChangeMonth('09')
-            default:
-                onChangeMonth(e)
+    }
+
+    const onChangeValYear = (e: string) => {
+        if (/^\d+$/.test(e) || e === ''){
+            if((yearday - Number(e)) >= 18) {
+                onChangeYaer(e);
+            }
         }
+    }
+
+    if(day === '' || month === '' || year === ''){
+        messageError = 'Le champ est vide'
+    }else if(day === '0' || month === '0' || year.length < 4) {
+        messageError = 'Vous devez mettre une date valide';
+    }else if((yearday - Number(year)) > 100) {
+        messageError = 'Vous devez mettre une date valide';
     }
 
     useEffect(() => {
@@ -91,23 +119,8 @@ const Birthday = (props: any) => {
         }
     },[day, month]);
 
-    const birthdays = `${year}-${month}-${day}`;
-    let yearday = new Date().getFullYear();
-    const old = `Votre âge est ${yearday - Number(year)} ans. Vous ne pourrez pas modifier votre âge par la suite.`;
-
-    const oldModal = `Votre âge est ${yearday - Number(year)} ans.`
-
-    let messageError = ''
-
-    if(day === '' || month === '' || year === ''){
-        messageError = 'Le champ est vide'
-    }else if(day === '0' || month === '0' || year.length < 4) {
-        messageError = 'Vous devez mettre une date valide';
-    }
-    
-
     const onClickBirthday = () => {
-        if(birthdays.length < 10) {
+        if(messageError !== '') {
             setShowError(true);
             setShowModal(false)
             setTimeout(() => {
@@ -179,7 +192,7 @@ const Birthday = (props: any) => {
                                     <TextInput 
                                         style={styles.inputYear}
                                         ref={yearRef}
-                                        onChangeText={(val) => onChangeYaer(val)}
+                                        onChangeText={onChangeValYear}
                                         value={year}
                                         placeholder="AAAA"
                                         placeholderTextColor={'#ccc'}
@@ -188,7 +201,7 @@ const Birthday = (props: any) => {
                                     />
                                 </View>
                                 {
-                                    birthdays.length === 10 ? <Text style={styles.messageOld}>{old}</Text> : <Text></Text> 
+                                    birthdays.length === 10 && messageError === '' ? <Text style={styles.messageOld}>{old}</Text> : <Text></Text> 
                                 }
                             </View>
                             <View style={styles.check}>

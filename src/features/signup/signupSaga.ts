@@ -15,19 +15,18 @@ function* handleSignUp(payload: Username) {
     }
     try {
         const data: Username = yield userApi.signUp(payload)
-        console.log(data)
+        console.log('data: ',data)
         yield put(userActions.signupSuccess(data));
         dataToken.token = data.CONTENT.AUTH.token;
         dataToken.puk = data.CONTENT.AUTH.puk;
         AsyncStorage.setItem('access_token', JSON.stringify(dataToken))
     } catch (error) {
+        //console.log(error)
         if(error instanceof Error) {
-            console.log(error)
             errorMessage = error.message;
             yield put(userActions.signupFailed(errorMessage));
         }
     }
-    console.log(errorMessage)
 }
 
 function* handleLogout() {

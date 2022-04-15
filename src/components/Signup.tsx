@@ -30,8 +30,14 @@ interface User {
 }
 
 const SignupSchema = Yup.object().shape({
-    email: Yup.string().email('L\'adresse email n\'est pas valide').required('Ce champ est requis'),
-    firstname: Yup.string().min(3, 'Prénom au moins 3 caractères').required('Ce champ est requis'),
+    email: Yup.string()
+        .matches(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+             'L\'adresse email n\'est pas valide')
+        .required('Ce champ est requis'),
+    firstname: Yup.string().min(3, 'Prénom au moins 3 caractères').matches(
+        /^[a-zA-Z0-9]+$/,
+        "Vous ne pouvez saisir que des chiffres ou des lettres"
+      ).required('Ce champ est requis'),
     password: Yup.string().min(8, 'Mot de passe au moins 8 caractères').required('Ce champ est requis'),
 });
 
@@ -43,6 +49,7 @@ const SignUpFrom = (props: any) => {
 
     const isLoading = useAppSelector((state) => state.signUp.logging);
     const isSignUp = useAppSelector((state) => state.signUp.isSignUp);
+    const messageError = useAppSelector((state) => state.signUp.message);
 
     useEffect(() => {
         if(isSignUp === true){
@@ -81,6 +88,11 @@ const SignUpFrom = (props: any) => {
 
     return (
         <LinearGradient colors={backgroundColor} style={styles.body} >
+            {
+                messageError !== '' ?<View style={styles.message}>
+                    <Text style={styles.textMessage}>{messageError}</Text>
+                </View> : null
+            }
             <View style={styles.container}>
                 <Formik
                     initialValues={{ email: '', firstname: '', password: '', }}
@@ -100,7 +112,7 @@ const SignUpFrom = (props: any) => {
                                         </TouchableOpacity>
                                         <Text style={styles.title}>Inscription</Text>
                                         <View style={styles.textLink}>
-                                            <Text style={styles.text}>Déjà un compte ?</Text>
+                                            <Text style={styles.textL}>Déjà un compte ?</Text>
                                         </View>
                                     </View>
                                     <View style={{ flex: 9 }}>
@@ -214,6 +226,24 @@ const SignUpFrom = (props: any) => {
 }
 
 const styles = StyleSheet.create({
+    message: {
+        backgroundColor: 'red',
+        width: '100%',
+        height: 100,
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        top: 0,
+        zIndex: 99,
+    },
+    textMessage: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: '600',
+        textAlign: 'center',
+        marginLeft: 20,
+        marginRight: 20,
+    },
     body: {
         width: '100%',
         height: '100%',
@@ -223,8 +253,8 @@ const styles = StyleSheet.create({
     },
     row: {
         flex: 9,
-        paddingLeft: 30,
-        paddingRight: 30,
+        paddingLeft: 25,
+        paddingRight: 25,
     },
     leftPage: {
         width: 40,
@@ -261,6 +291,10 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: 'transparent',
         borderBottomColor: '#fff',
+    },
+    textL: {
+        color: '#fff',
+        fontSize: 12,
     },
     text: {
         color: '#fff',
