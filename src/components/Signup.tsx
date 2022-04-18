@@ -6,14 +6,13 @@ import {
     Text, 
     TouchableOpacity, 
     TextInput, 
-    SafeAreaView, 
     ActivityIndicator, 
     TouchableWithoutFeedback, 
     Keyboard,
-    ScrollView,
 } from 'react-native';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconsOcticons from 'react-native-vector-icons/Octicons';
+import IconIonicons from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -22,6 +21,7 @@ import { UserContext } from '../../UserContext';
 import { useAppDispatch, useAppSelector } from '../app/hook';
 import { userActions } from '../features/signup/signupSlice';
 import { Username } from '../models/username';
+import { signInActions } from '../features/signin/signinSlice';
 
 interface User {
     email: string;
@@ -46,25 +46,34 @@ const SignUpFrom = (props: any) => {
     const backgroundColor = ['#FF59F4', '#FF5978'];
     const { navigation } = props;
     const { push, goBack } = navigation;
+    const context = useContext(UserContext);
+    const dispatch = useAppDispatch();
+
+    let messageError = ''
 
     const isLoading = useAppSelector((state) => state.signUp.logging);
     const isSignUp = useAppSelector((state) => state.signUp.isSignUp);
-    const messageError = useAppSelector((state) => state.signUp.message);
+    const message = useAppSelector((state) => state.signUp.message);
+
+    useEffect(() => {
+        messageError = message;
+        setTimeout(function() {
+            messageError = '';
+        }, 3000);
+    },[message])
 
     useEffect(() => {
         if(isSignUp === true){
-            push('UITab')
+            dispatch(signInActions.loginSignUp())
         }
-    },[isSignUp])
+    },[isSignUp]);
+
+    const [showPass, setShowPass] = useState(true);
 
     const [checkInput1, setCheckInput1] = useState(false);
     const [checkInput2, setCheckInput2] = useState(false);
 
     const [messageCheck, setMessageCheck] = useState(true);
-
-    const context = useContext(UserContext);
-    
-    const dispatch = useAppDispatch();
 
     const onSubmit = async (values: User) => {
         const data: Username = {
@@ -89,7 +98,7 @@ const SignUpFrom = (props: any) => {
     return (
         <LinearGradient colors={backgroundColor} style={styles.body} >
             {
-                messageError !== '' ?<View style={styles.message}>
+                messageError !== '' ? <View style={styles.message}>
                     <Text style={styles.textMessage}>{messageError}</Text>
                 </View> : null
             }
@@ -141,16 +150,25 @@ const SignUpFrom = (props: any) => {
                                             {errors.firstname && touched.firstname ? (
                                                 <Text style={{color: 'red'}}>{errors.firstname}</Text>
                                             ) : null}
-                                            <TextInput
-                                                style={styles.textInput}
-                                                placeholder='Mot de Passe'
-                                                placeholderTextColor='#ffffff78'
-                                                keyboardType="default"
-                                                secureTextEntry={true}
-                                                onChangeText={handleChange('password')}
-                                                onBlur={handleBlur('password')}
-                                                value={values.password}
-                                            />
+                                            <View>
+                                                <TextInput
+                                                    style={styles.textInput}
+                                                    placeholder='Mot de Passe'
+                                                    placeholderTextColor='#ffffff78'
+                                                    keyboardType="default"
+                                                    secureTextEntry={showPass}
+                                                    onChangeText={handleChange('password')}
+                                                    onBlur={handleBlur('password')}
+                                                    value={values.password}
+                                                />
+                                                <TouchableOpacity style={styles.iconShow} onPress={() => setShowPass(!showPass)} >
+                                                    <IconIonicons 
+                                                        name={showPass === true ? 'eye-outline' : 'eye-off-outline'}
+                                                        size={25} 
+                                                        color='#fff' 
+                                                    />
+                                                </TouchableOpacity>
+                                            </View>
                                             {errors.password && touched.password ? (
                                                 <Text style={{color: 'red'}}>{errors.password}</Text>
                                             ) : null}
@@ -310,6 +328,12 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         fontWeight: '500',
         fontSize: 16,
+    },
+    iconShow: {
+        position: 'absolute',
+        right: 5,
+        marginTop: 2,
+        padding: 3,
     },
     radios: {
         flexDirection: 'row',

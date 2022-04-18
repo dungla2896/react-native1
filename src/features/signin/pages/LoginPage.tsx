@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
     View,
     SafeAreaView,
@@ -18,6 +18,7 @@ import * as Yup from 'yup';
 import BgImage from '../../../assets/intro-home.jpeg';
 import Logo from '../../../assets/logo-large.png';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
+import IconIonicons from 'react-native-vector-icons/Ionicons';
 import { useAppDispatch, useAppSelector } from '../../../app/hook';
 import { signInActions } from '../signinSlice';
 
@@ -36,9 +37,6 @@ const LoginPage = (props: any) => {
     const [showMessage, setShowMessage] = useState(false);
     const [showPass, setShowPass] = useState(true);
 
-    const [userName, setUserName] = useState('');
-    const [password, setPassword] = useState('');
-
     const { navigation } = props;
     const { push } = navigation;
 
@@ -55,7 +53,6 @@ const LoginPage = (props: any) => {
         if(isLoggedIn === true){
             setShowModal(false);
             setShowMessage(false);
-            push('UITab');
         }
     },[isLoggedIn])
 
@@ -84,99 +81,105 @@ const LoginPage = (props: any) => {
                         </View>
                         <View style={styles.btn}>
                             <TouchableOpacity style={styles.btnConnecter} onPress={() => setShowModal(!showModal)}>
-                                <Text style={styles.btnText}>SE CONNECTER</Text>
+                                <Text style={styles.btnText1}>SE CONNECTER</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.btnInscription} onPress={() => push('GenderPage')}>
-                                <Text style={styles.btnText}>INSCRIPTION GRATUITE</Text>
-                                <Text style={styles.btnText}>EN 1MIN</Text>
+                                <Text style={styles.btnText2}>INSCRIPTION GRATUITE</Text>
+                                <Text style={styles.btnText2}>EN 1MIN</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
                 </SafeAreaView>
-                <Modal transparent visible={showModal}>
-                    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                    <Formik
-                        initialValues={{ email: '', password: '' }}
-                        onSubmit={(values) => onSubmit(values)}
-                        validationSchema={SignupSchema}
-                    >
-                        {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
-                            <View style={styles.modalBackground}>
-                                <View style={styles.modalContainer}>
-                                    <View style={styles.headerLogin}>
-                                        <Text style={styles.titleLogin}>Connexion</Text>
-                                        <TouchableOpacity style={styles.close} onPress={() => {
-                                            setShowModal(!showModal)
-                                            setShowMessage(false)
-                                        }}>
-                                            <IconAntDesign name='close' size={24} color='#000' />
-                                        </TouchableOpacity>
-                                    </View>
-                                    {
-                                        showMessage && <View style={styles.message}>
-                                            <Text style={{color: 'red'}}>Identifiant ou mot de passe incorrect</Text>
+                {
+                    showModal && <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                        <View style={{ flex: 1, position: 'absolute', bottom: 0}}>
+                            <Formik
+                                initialValues={{ email: '', password: '' }}
+                                onSubmit={(values) => onSubmit(values)}
+                                validationSchema={SignupSchema}
+                            >
+                                {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+                                    <View style={styles.modalBackground}>
+                                        <View style={styles.modalContainer}>
+                                            <View style={styles.headerLogin}>
+                                                <Text style={styles.titleLogin}>Connexion</Text>
+                                                <TouchableOpacity style={styles.close} onPress={() => {
+                                                    setShowModal(!showModal)
+                                                    setShowMessage(false)
+                                                }}>
+                                                    <IconAntDesign name='close' size={24} color='#000' />
+                                                </TouchableOpacity>
+                                            </View>
+                                            {
+                                                showMessage && <View style={styles.message}>
+                                                    <Text style={{color: 'red'}}>Identifiant ou mot de passe incorrect</Text>
+                                                </View>
+                                            }
+                                            <TextInput 
+                                                style={styles.inputLogin}
+                                                placeholder='Email'
+                                                placeholderTextColor='#000'
+                                                keyboardType='email-address'
+                                                onChangeText={handleChange('email')}
+                                                onBlur={handleBlur('email')}
+                                                value={values.email}
+                                            />
+                                            {errors.email && touched.email ? (
+                                                <Text style={{color: 'red'}}>{errors.email}</Text>
+                                            ) : null}
+                                            <View style={styles.inputPass} >
+                                                <TextInput 
+                                                    style={styles.inputLogin}
+                                                    placeholder='Mot de Passe'
+                                                    placeholderTextColor='#000'
+                                                    secureTextEntry={showPass}
+                                                    onChangeText={handleChange('password')}
+                                                    onBlur={handleBlur('password')}
+                                                    value={values.password}
+                                                />
+                                                <TouchableOpacity style={styles.iconShow} onPress={() => setShowPass(!showPass)} >
+                                                    <IconIonicons 
+                                                        name={showPass === true ? 'eye-outline' : 'eye-off-outline'}
+                                                        size={25} 
+                                                        color='#7f7f7f' 
+                                                    />
+                                                </TouchableOpacity>
+                                            </View>
+                                            {errors.password && touched.password ? (
+                                                <Text style={{color: 'red'}}>{errors.password}</Text>
+                                            ) : null}
+                                            <View style={styles.titleLink}>
+                                                <TouchableOpacity>
+                                                    <Text style={styles.titlePass}>Mot de passe oublié ?</Text>
+                                                </TouchableOpacity>
+                                                <View style={styles.titleLinkHelp}>
+                                                    <Text style={styles.titleHelp}>Nous contacter ou Aide</Text>
+                                                </View>
+                                            </View>
+                                            {
+                                                isLoading === false ? <TouchableOpacity style={styles.btnSubmit} onPress={handleSubmit}>
+                                                    <Text style={styles.textBtn}>ME CONNECTER</Text>
+                                                </TouchableOpacity> :
+                                                <View style={styles.btnLoading}>
+                                                    <ActivityIndicator size="large" color="#000" />
+                                                </View>
+                                            }
+                                            <View style={styles.signUp}>
+                                                <Text style={styles.textSignUp}>Vous n'avez pas de compte?</Text>
+                                                <TouchableOpacity onPress={() => {
+                                                    setShowModal(!showModal)
+                                                    push('GenderPage');
+                                                }}>
+                                                    <Text style={styles.linkSignUp}>Inscrivez-vous gratuitement</Text>
+                                                </TouchableOpacity>
+                                            </View>
                                         </View>
-                                    }
-                                    <TextInput 
-                                        style={styles.inputLogin}
-                                        placeholder='Email'
-                                        placeholderTextColor='#000'
-                                        keyboardType='email-address'
-                                        onChangeText={handleChange('email')}
-                                        onBlur={handleBlur('email')}
-                                        value={values.email}
-                                    />
-                                    {errors.email && touched.email ? (
-                                        <Text style={{color: 'red'}}>{errors.email}</Text>
-                                    ) : null}
-                                    <View style={styles.inputPass} >
-                                        <TextInput 
-                                            style={styles.inputLogin}
-                                            placeholder='Mot de Passe'
-                                            placeholderTextColor='#000'
-                                            secureTextEntry={showPass}
-                                            onChangeText={handleChange('password')}
-                                            onBlur={handleBlur('password')}
-                                            value={values.password}
-                                        />
-                                        <TouchableOpacity style={styles.iconShow} onPress={() => setShowPass(!showPass)} >
-                                            <IconAntDesign name='eyeo' size={25} color='#7f7f7f' />
-                                        </TouchableOpacity>
                                     </View>
-                                    {errors.password && touched.password ? (
-                                        <Text style={{color: 'red'}}>{errors.password}</Text>
-                                    ) : null}
-                                    <View style={styles.titleLink}>
-                                        <TouchableOpacity>
-                                            <Text style={styles.titlePass}>Mot de passe oublié ?</Text>
-                                        </TouchableOpacity>
-                                        <View style={styles.titleLinkHelp}>
-                                            <Text style={styles.titleHelp}>Nous contacter ou Aide</Text>
-                                        </View>
-                                    </View>
-                                    {
-                                        isLoading === false ? <TouchableOpacity style={styles.btnSubmit} onPress={handleSubmit}>
-                                            <Text style={styles.textBtn}>ME CONNECTER</Text>
-                                        </TouchableOpacity> :
-                                        <View style={styles.btnLoading}>
-                                            <ActivityIndicator size="large" color="#000" />
-                                        </View>
-                                    }
-                                    <View style={styles.signUp}>
-                                        <Text style={styles.textSignUp}>Vous n'avez pas de compte?</Text>
-                                        <TouchableOpacity onPress={() => {
-                                            setShowModal(!showModal)
-                                            push('GenderPage');
-                                        }}>
-                                            <Text style={styles.linkSignUp}>Inscrivez-vous gratuitement</Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                </View>
-                            </View>
-                        )}
-                    </Formik>
+                                )}
+                            </Formik>
+                        </View>
                     </TouchableWithoutFeedback>
-                </Modal>
+                }
             </ImageBackground>
         </View>
     )
@@ -231,7 +234,12 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         justifyContent: 'center'
     },
-    btnText: {
+    btnText1: {
+        color: '#fff',
+        textAlign: 'center',
+        fontWeight: '600',
+    },
+    btnText2: {
         color: '#fff',
         textAlign: 'center',
         fontWeight: '600',
@@ -289,7 +297,7 @@ const styles = StyleSheet.create({
     iconShow: {
         position: 'absolute',
         right: 10,
-        top: 55,
+        top: 52,
     },
     titleLink: {
         flexDirection: 'row',

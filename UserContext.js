@@ -10,7 +10,6 @@ function UserProvider({ children }) {
     const [idRegion, setIdRegion] = useState();
     const [idCity, setIdCity] = useState();
 
-
     const value = {
         setGender,
         gender,

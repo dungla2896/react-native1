@@ -42,7 +42,9 @@ const signInSlice = createSlice({
             state.loginFailed = false;
             state.message = action.payload;
         },
-
+        loginSignUp(state) {
+            state.isLoggedIn = true;
+        },
         logout(state) {
             state.isLoggedIn = false;
             state.loginFailed = true;

@@ -5,9 +5,7 @@ import { useAppDispatch } from '../app/hook';
 import { signInActions } from '../features/signin/signinSlice';
 import { userActions } from '../features/signup/signupSlice';
 
-const User = (props: any) => {
-    const { navigation } = props;
-    const { push } = navigation;
+const User = () => {
 
     const dispatch = useAppDispatch();
 
@@ -15,7 +13,6 @@ const User = (props: any) => {
         dispatch(signInActions.logout())
         dispatch(userActions.logout())
         await AsyncStorage.removeItem('access_token')
-        push('LoginPage')
     }
 
     return (

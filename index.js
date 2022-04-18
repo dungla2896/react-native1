@@ -11,7 +11,9 @@ export default function Main() {
 
     return (
         <UserProvider>
-            <App />
+            <Provider store={store}>
+                <App />
+            </Provider>
         </UserProvider>
     );
 }

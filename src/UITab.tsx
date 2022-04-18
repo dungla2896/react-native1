@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, StyleSheet, Text, TouchableOpacity, BackHandler } from 'react-native';
 import Home from './components/Home';
 import Gender from './components/Gender';
 import Chat from './components/Chat';
@@ -35,6 +35,7 @@ const UITab = () => {
             height: 80
         }
     }
+
     return (
         <Tab.Navigator 
             screenOptions={screenOptions}
