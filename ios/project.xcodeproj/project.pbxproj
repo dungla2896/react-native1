@@ -24,6 +24,8 @@
 		58C519176BDB458E941FD686 /* Mada-Black.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = B4AB7E8B08CC4CABAE1E77C1 /* Mada-Black.woff2 */; };
 		B64A9FDC02D44BD687B7C1FF /* Mada-Bold.woff in Resources */ = {isa = PBXBuildFile; fileRef = 737AADC7EDBB40E989ACB79E /* Mada-Bold.woff */; };
 		5CFF22524A0B4A9898DF3DD3 /* Mada-Bold.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = E5E2DC469AAF4FEEA34152A8 /* Mada-Bold.woff2 */; };
+		77C909CED1FA452B92BB00C3 /* AvenirNextCondensed-DemiBold.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = AA640B660F3C4599A9AB9EA3 /* AvenirNextCondensed-DemiBold.woff2 */; };
+		5A66D94B544446BD8BA5043A /* AvertaDemo-Regular.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = 869F4C233A2247968FD8C0B7 /* AvertaDemo-Regular.woff2 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +66,8 @@
 		B4AB7E8B08CC4CABAE1E77C1 /* Mada-Black.woff2 */ = {isa = PBXFileReference; name = "Mada-Black.woff2"; path = "../asset/fonts/Mada-Black.woff2"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		737AADC7EDBB40E989ACB79E /* Mada-Bold.woff */ = {isa = PBXFileReference; name = "Mada-Bold.woff"; path = "../asset/fonts/Mada-Bold.woff"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		E5E2DC469AAF4FEEA34152A8 /* Mada-Bold.woff2 */ = {isa = PBXFileReference; name = "Mada-Bold.woff2"; path = "../asset/fonts/Mada-Bold.woff2"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		AA640B660F3C4599A9AB9EA3 /* AvenirNextCondensed-DemiBold.woff2 */ = {isa = PBXFileReference; name = "AvenirNextCondensed-DemiBold.woff2"; path = "../asset/fonts/AvenirNextCondensed-DemiBold.woff2"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		869F4C233A2247968FD8C0B7 /* AvertaDemo-Regular.woff2 */ = {isa = PBXFileReference; name = "AvertaDemo-Regular.woff2"; path = "../asset/fonts/AvertaDemo-Regular.woff2"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +186,8 @@
 				B4AB7E8B08CC4CABAE1E77C1 /* Mada-Black.woff2 */,
 				737AADC7EDBB40E989ACB79E /* Mada-Bold.woff */,
 				E5E2DC469AAF4FEEA34152A8 /* Mada-Bold.woff2 */,
+				AA640B660F3C4599A9AB9EA3 /* AvenirNextCondensed-DemiBold.woff2 */,
+				869F4C233A2247968FD8C0B7 /* AvertaDemo-Regular.woff2 */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -293,6 +299,8 @@
 				58C519176BDB458E941FD686 /* Mada-Black.woff2 in Resources */,
 				B64A9FDC02D44BD687B7C1FF /* Mada-Bold.woff in Resources */,
 				5CFF22524A0B4A9898DF3DD3 /* Mada-Bold.woff2 in Resources */,
+				77C909CED1FA452B92BB00C3 /* AvenirNextCondensed-DemiBold.woff2 in Resources */,
+				5A66D94B544446BD8BA5043A /* AvertaDemo-Regular.woff2 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

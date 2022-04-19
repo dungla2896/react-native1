@@ -242,8 +242,8 @@ const styles = StyleSheet.create({
     btnText2: {
         color: '#fff',
         textAlign: 'center',
-        fontFamily: 'Avenir Next Condensed',
-        fontSize: 18,
+        fontFamily: 'AvenirNextCondensed-DemiBold',
+        fontSize: 17,
     },
     modalBackground: {
         flex: 1,
@@ -285,7 +285,7 @@ const styles = StyleSheet.create({
         paddingLeft: 15,
         paddingBottom: 25,
         marginTop: 30,
-        fontFamily: 'Avenir Next Condensed',
+        fontFamily: 'AvenirNextCondensed-DemiBold',
         fontSize: 16,
         borderRadius: 10,
         width: '100%',

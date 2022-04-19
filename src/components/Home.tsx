@@ -8,6 +8,7 @@ import {
     TouchableOpacity,
     FlatList,
     Animated,
+    ActivityIndicator,
 } from 'react-native';
 import ImageHeader from '../assets/imageHeader.jpg';
 import IconsIonicons from 'react-native-vector-icons/Ionicons';
@@ -103,15 +104,8 @@ const Home = () => {
     const renderLoader = () => {
         return (
           isLoading ?
-            <View>
-                <View style={styles.loaderStyle}>
-                    <View style={styles.loading}></View>
-                    <View style={styles.loading}></View>
-                </View> 
-                <View style={styles.loaderStyle}>
-                    <View style={styles.loading}></View>
-                    <View style={styles.loading}></View>
-                </View>  
+            <View style={{ marginTop: 20, marginBottom: 20 }}>
+                <ActivityIndicator size="large" color="#000" />
             </View>: null
         );
     };
@@ -149,7 +143,6 @@ const Home = () => {
                 ListHeaderComponent={FlatList_Header}
                 ListFooterComponent={renderLoader}
                 onEndReached={loadMoreItem}
-                onEndReachedThreshold={0}
                 numColumns={2}
                 onScroll={(e) => {
                     setToggleHeader(e.nativeEvent.contentOffset.y > 290 ? true : false);
@@ -260,14 +253,14 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingLeft: 30,
-        paddingRight: 30,
+        paddingLeft: 38,
+        paddingRight: 38,
         marginTop: 20,
         zIndex: -1,
     },
     textBtn1: {
         color: '#000',
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: '700',
     },
     btn2: {
@@ -279,7 +272,7 @@ const styles = StyleSheet.create({
     },
     textBtn2: {
         color: '#fff',
-        fontSize: 18,
+        fontSize: 17,
         fontWeight: '600',
         marginLeft: 5,
     },

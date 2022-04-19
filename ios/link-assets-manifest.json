@@ -6,6 +6,10 @@
       "sha1": "655c9725fe7a2e096dc57d3821a226f3ca48606e"
     },
     {
+      "path": "asset/fonts/AvenirNextCondensed-DemiBold.woff2",
+      "sha1": "f5ead228c8ed5680bb64a2e20d1e60e3909b0e81"
+    },
+    {
       "path": "asset/fonts/AvenirNextCondensed-Regular.woff",
       "sha1": "1da410e687ace171544dd69a9358c040ada8d2db"
     },
@@ -16,6 +20,10 @@
     {
       "path": "asset/fonts/AvenirNextCondensed.ttf",
       "sha1": "655c9725fe7a2e096dc57d3821a226f3ca48606e"
+    },
+    {
+      "path": "asset/fonts/AvertaDemo-Regular.woff2",
+      "sha1": "847f281aa3b8a084902f6893e8374cf154a39f02"
     },
     {
       "path": "asset/fonts/CooperHewitt-Light.ttf",
