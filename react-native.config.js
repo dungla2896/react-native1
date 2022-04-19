@@ -1,3 +1,3 @@
 module.exports = {
-    asserts: ['./src/assets/fonts']
-}
+    assets: ['./asset/fonts'],
+};

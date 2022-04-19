@@ -1,0 +1,41 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "asset/fonts/Avenir Next Condensed.ttf",
+      "sha1": "655c9725fe7a2e096dc57d3821a226f3ca48606e"
+    },
+    {
+      "path": "asset/fonts/AvenirNextCondensed-Regular.woff",
+      "sha1": "1da410e687ace171544dd69a9358c040ada8d2db"
+    },
+    {
+      "path": "asset/fonts/AvenirNextCondensed-Regular.woff2",
+      "sha1": "82f429082d3812f14fed3699f731cd21e05a7ce1"
+    },
+    {
+      "path": "asset/fonts/AvenirNextCondensed.ttf",
+      "sha1": "655c9725fe7a2e096dc57d3821a226f3ca48606e"
+    },
+    {
+      "path": "asset/fonts/CooperHewitt-Light.ttf",
+      "sha1": "75e1d48cea4103f8a2fe1dfc3bf6f041894dab0f"
+    },
+    {
+      "path": "asset/fonts/Mada-Black.woff",
+      "sha1": "0df43ba2e953556073a16fc3a420b1ccb190710d"
+    },
+    {
+      "path": "asset/fonts/Mada-Black.woff2",
+      "sha1": "2461157402c7d5973201ce34e70566561f1849bf"
+    },
+    {
+      "path": "asset/fonts/Mada-Bold.woff",
+      "sha1": "559ff121ca748c39947ae47100b2a7b0c06efd08"
+    },
+    {
+      "path": "asset/fonts/Mada-Bold.woff2",
+      "sha1": "4efa3201c003001078e2d4e8710ee42ea79ae399"
+    }
+  ]
+}

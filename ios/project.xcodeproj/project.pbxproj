@@ -15,6 +15,15 @@
 		7EF68E3733C33B6898317E18 /* libPods-project-projectTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ABFE59519B596E51CEFDCCC0 /* libPods-project-projectTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		D12B93F927F29425008B447C /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = D12B93F827F29425008B447C /* Fonts */; };
+		D8814DCF8ABA40D0B47FCD15 /* AvenirNextCondensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A1BD94F1FD014B9E8B052981 /* AvenirNextCondensed.ttf */; };
+		E4AFA278D5BE45128011A5C4 /* CooperHewitt-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 179AD7531FE8487BAB4F9697 /* CooperHewitt-Light.ttf */; };
+		BBEE749367CD4CF990EA0FD9 /* Avenir Next Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C4854868929D44F0A2F43950 /* Avenir Next Condensed.ttf */; };
+		45850ED22E4B46A89F9E4E11 /* AvenirNextCondensed-Regular.woff in Resources */ = {isa = PBXBuildFile; fileRef = B7484BD559C44659AF0310FD /* AvenirNextCondensed-Regular.woff */; };
+		13E277B680EB4819A8C72E77 /* AvenirNextCondensed-Regular.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = 9E989C4CCC6E40718AFF663D /* AvenirNextCondensed-Regular.woff2 */; };
+		218C4FE202EA4055903F8448 /* Mada-Black.woff in Resources */ = {isa = PBXBuildFile; fileRef = 892331CD35254129BC7432C9 /* Mada-Black.woff */; };
+		58C519176BDB458E941FD686 /* Mada-Black.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = B4AB7E8B08CC4CABAE1E77C1 /* Mada-Black.woff2 */; };
+		B64A9FDC02D44BD687B7C1FF /* Mada-Bold.woff in Resources */ = {isa = PBXBuildFile; fileRef = 737AADC7EDBB40E989ACB79E /* Mada-Bold.woff */; };
+		5CFF22524A0B4A9898DF3DD3 /* Mada-Bold.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = E5E2DC469AAF4FEEA34152A8 /* Mada-Bold.woff2 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +55,15 @@
 		D00AAFFCFCFDA5787532823F /* Pods-project.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-project.release.xcconfig"; path = "Target Support Files/Pods-project/Pods-project.release.xcconfig"; sourceTree = "<group>"; };
 		D12B93F827F29425008B447C /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		A1BD94F1FD014B9E8B052981 /* AvenirNextCondensed.ttf */ = {isa = PBXFileReference; name = "AvenirNextCondensed.ttf"; path = "../asset/fonts/AvenirNextCondensed.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		179AD7531FE8487BAB4F9697 /* CooperHewitt-Light.ttf */ = {isa = PBXFileReference; name = "CooperHewitt-Light.ttf"; path = "../asset/fonts/CooperHewitt-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C4854868929D44F0A2F43950 /* Avenir Next Condensed.ttf */ = {isa = PBXFileReference; name = "Avenir Next Condensed.ttf"; path = "../asset/fonts/Avenir Next Condensed.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B7484BD559C44659AF0310FD /* AvenirNextCondensed-Regular.woff */ = {isa = PBXFileReference; name = "AvenirNextCondensed-Regular.woff"; path = "../asset/fonts/AvenirNextCondensed-Regular.woff"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9E989C4CCC6E40718AFF663D /* AvenirNextCondensed-Regular.woff2 */ = {isa = PBXFileReference; name = "AvenirNextCondensed-Regular.woff2"; path = "../asset/fonts/AvenirNextCondensed-Regular.woff2"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		892331CD35254129BC7432C9 /* Mada-Black.woff */ = {isa = PBXFileReference; name = "Mada-Black.woff"; path = "../asset/fonts/Mada-Black.woff"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B4AB7E8B08CC4CABAE1E77C1 /* Mada-Black.woff2 */ = {isa = PBXFileReference; name = "Mada-Black.woff2"; path = "../asset/fonts/Mada-Black.woff2"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		737AADC7EDBB40E989ACB79E /* Mada-Bold.woff */ = {isa = PBXFileReference; name = "Mada-Bold.woff"; path = "../asset/fonts/Mada-Bold.woff"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E5E2DC469AAF4FEEA34152A8 /* Mada-Bold.woff2 */ = {isa = PBXFileReference; name = "Mada-Bold.woff2"; path = "../asset/fonts/Mada-Bold.woff2"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +143,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				E233CBF5F47BEE60B243DCF8 /* Pods */,
+				7C55C1080D1440B881C78437 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -150,6 +169,23 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		7C55C1080D1440B881C78437 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				A1BD94F1FD014B9E8B052981 /* AvenirNextCondensed.ttf */,
+				179AD7531FE8487BAB4F9697 /* CooperHewitt-Light.ttf */,
+				C4854868929D44F0A2F43950 /* Avenir Next Condensed.ttf */,
+				B7484BD559C44659AF0310FD /* AvenirNextCondensed-Regular.woff */,
+				9E989C4CCC6E40718AFF663D /* AvenirNextCondensed-Regular.woff2 */,
+				892331CD35254129BC7432C9 /* Mada-Black.woff */,
+				B4AB7E8B08CC4CABAE1E77C1 /* Mada-Black.woff2 */,
+				737AADC7EDBB40E989ACB79E /* Mada-Bold.woff */,
+				E5E2DC469AAF4FEEA34152A8 /* Mada-Bold.woff2 */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -248,6 +284,15 @@
 				D12B93F927F29425008B447C /* Fonts in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				D8814DCF8ABA40D0B47FCD15 /* AvenirNextCondensed.ttf in Resources */,
+				E4AFA278D5BE45128011A5C4 /* CooperHewitt-Light.ttf in Resources */,
+				BBEE749367CD4CF990EA0FD9 /* Avenir Next Condensed.ttf in Resources */,
+				45850ED22E4B46A89F9E4E11 /* AvenirNextCondensed-Regular.woff in Resources */,
+				13E277B680EB4819A8C72E77 /* AvenirNextCondensed-Regular.woff2 in Resources */,
+				218C4FE202EA4055903F8448 /* Mada-Black.woff in Resources */,
+				58C519176BDB458E941FD686 /* Mada-Black.woff2 in Resources */,
+				B64A9FDC02D44BD687B7C1FF /* Mada-Bold.woff in Resources */,
+				5CFF22524A0B4A9898DF3DD3 /* Mada-Bold.woff2 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

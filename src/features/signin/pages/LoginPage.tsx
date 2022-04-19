@@ -209,9 +209,9 @@ const styles = StyleSheet.create({
     title: {
         color: '#fff',
         textAlign: 'center',
-        marginTop: 10,
-        paddingLeft: 45,
-        paddingRight: 45,
+        marginTop: 15,
+        paddingLeft: 40,
+        paddingRight: 40,
         fontSize: 16,
     },
     btn: {
@@ -237,12 +237,13 @@ const styles = StyleSheet.create({
     btnText1: {
         color: '#fff',
         textAlign: 'center',
-        fontWeight: '600',
+        fontSize: 16,
     },
     btnText2: {
         color: '#fff',
         textAlign: 'center',
-        fontWeight: '600',
+        fontFamily: 'Avenir Next Condensed',
+        fontSize: 18,
     },
     modalBackground: {
         flex: 1,
@@ -284,8 +285,8 @@ const styles = StyleSheet.create({
         paddingLeft: 15,
         paddingBottom: 25,
         marginTop: 30,
-        fontWeight: '600',
-        fontSize: 15,
+        fontFamily: 'Avenir Next Condensed',
+        fontSize: 16,
         borderRadius: 10,
         width: '100%',
     },
